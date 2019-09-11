@@ -3,6 +3,7 @@ implicit none
 
      contains
 
+     ! Подинтегральное выражение
      function f(x)
      implicit none
           

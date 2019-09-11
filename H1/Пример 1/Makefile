@@ -13,7 +13,7 @@
      pattern := f95
      
      ## Режим отладки (при значении true использует флаги opt_debug, при другом значении — opt_production)
-     debugging := true
+     debugging := false
      
      ## Флаги для отладки
      opt_debug := -Og -g -Wall -Wextra -fcheck=all -fbacktrace -pedantic -std=f2008
