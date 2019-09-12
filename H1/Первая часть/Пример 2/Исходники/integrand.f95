@@ -3,17 +3,18 @@ implicit none
 
      contains
 
-     ! Подинтегральное выражение
+     ! Подынтегральное выражение
      function f(x)
      implicit none
           
-          real(8), intent(in), dimension(:) :: x
-          real(8), dimension(size(x)) :: f
+          real(8), intent(in), dimension(:) :: x ! Вектор узлов
+          real(8), dimension(size(x)) :: f       ! Вектор значений функции f в узлах
 
           integer(4) :: i ! Вспомогательная переменная
      
           do i = 1, size(x)
 
+               ! Пример подынтегральной функции, 2
                f(i) = dexp(x(i)) * dcos(x(i))
 
           enddo
