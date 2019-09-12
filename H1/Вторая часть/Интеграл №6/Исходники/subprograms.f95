@@ -17,6 +17,7 @@ implicit none
 
      end function gauss_quad_unit
 
+     ! Процедура для приближенного вычисления интеграла с особенностью с помощью формулы Гаусса
      subroutine gauss_quad_sp_init(n, a, b, t, w, c, eps, d1, d2, int)
      implicit none
           
@@ -85,7 +86,7 @@ implicit none
           else
 
                a_isCloseToMinusOne = ( a + 1d0 ) .lt. 1e-5
-               b_isCloseToPlusOne = ( b - 1d0 ) .lt. 1e-5
+               b_isCloseToPlusOne  = ( b - 1d0 ) .lt. 1e-5
 
                ! Если [a, b] == [-1, 1]
                if ( a_isCloseToMinusOne .and. b_isCloseToPlusOne ) then
