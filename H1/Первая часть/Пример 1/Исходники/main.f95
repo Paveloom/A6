@@ -8,6 +8,8 @@ implicit none
      ! Корни многочлена Лежандра степени n и соответствующие им веса
      real(8), allocatable, dimension(:) :: t, w
 
+     real(8) :: int  ! Результат интегрирования
+
      integer(4) :: ier, i ! Вспомогательные переменные
 
      ! Считывание числа узлов (степени полинома Лежандра)
@@ -28,7 +30,10 @@ implicit none
      read(*,'(//)'); read(*,*) (t(i), w(i), i = 1, n)
 
      ! Вызов процедуры для приближенного вычисления интеграла с помощью формулы Гаусса
-     call gauss_quad_init(n, a, b, t, w)
+     call gauss_quad_init(n, a, b, t, w, int)
+
+     write(*,'(/, 4x, a)') 'Результат:'
+     write(*,'(e26.16, /)') int
 
      deallocate(t, w)
      
