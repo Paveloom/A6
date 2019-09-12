@@ -14,7 +14,9 @@ implicit none
      
           do i = 1, size(x)
 
-               f(i) = (x(i) + 1d0) * dsin(x(i))
+               ! Интеграл с особенностью, №6
+               f(i) = ( dsin( x(i) + 1d0 / 2d0 ) * dsin( x(i) + 1d0 / 2d0 ) - dsin( 1d0 / 2d0 ) * dsin( 1d0 / 2d0 ) ) &
+               &/ ( dcos( x(i) + 1d0 / 2d0 ) * dcos( x(i) + 1d0 / 2d0 ) - dcos( 1d0 / 2d0 ) * dcos( 1d0 / 2d0 ) )
 
           enddo
           

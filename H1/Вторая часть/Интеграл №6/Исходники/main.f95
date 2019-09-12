@@ -46,7 +46,7 @@ implicit none
      call gauss_quad_sp_init(n, a, b, t, w, c, eps, d1, d2, int)
 
      write(*,'(/, 4x, a)') 'Результат:'
-     write(*,'(e26.16, /)')
+     write(*,'(e26.16, /)') int
 
      deallocate(t, w)
      
