@@ -1,4 +1,4 @@
-module rand ! Модуль для получения случайного сида
+module rand ! Модуль с процедурой для получения случайного сида
 implicit none
 
      private
@@ -6,17 +6,19 @@ implicit none
 
      contains
 
+     ! Процедура, обновляющая сид для генератора случайных чисел
      subroutine init_random_seed()
 
-          integer(4) :: i, n, clock
-          integer(4), dimension(:), allocatable :: seed
+          integer(4) :: n ! Размер сида
+          integer(4) :: clock ! Штамп времени
+          integer(4), dimension(:), allocatable :: seed ! Сид
 
           call random_seed( size = n )
           allocate(seed(n))
 
           call system_clock( count = clock )
 
-          seed = clock + 37 * (/ (i - 1, i = 1, n) /)
+          seed = clock
           call random_seed( put = seed )
 
           deallocate(seed)

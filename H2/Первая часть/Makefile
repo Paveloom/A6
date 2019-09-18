@@ -35,7 +35,7 @@
      
      ## Правила-зависимости (при необходимости)
      $(source_path)$(main_name).o : $(source_path)subroutines.mod
-     $(source_path)$(main_name).o : $(source_path)rand.mod
+     $(source_path)subroutines.mod : $(source_path)rand.mod
      $(source_path)subroutines.mod : $(source_path)checkin.mod
      $(source_path)checkin.mod : $(source_path)prec.mod
      
