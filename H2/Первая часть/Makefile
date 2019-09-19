@@ -13,7 +13,7 @@
      pattern := f95
      
      ## Режим отладки (при значении true использует флаги opt_debug, при другом значении — opt_production)
-     debugging := false
+     debugging := true
      
      ## Флаги для отладки
      opt_debug := -Og -g -Wall -Wextra -fcheck=all -fbacktrace -pedantic -std=f2008
@@ -34,8 +34,10 @@
      source_path := ./Исходники/
      
      ## Правила-зависимости (при необходимости)
-     $(source_path)$(main_name).o : $(source_path)subprograms.mod
-     $(source_path)subprograms.mod : $(source_path)integrand.mod
+     $(source_path)$(main_name).o : $(source_path)monte.mod
+     $(source_path)monte.mod : $(source_path)checkin.mod
+     $(source_path)monte.mod : $(source_path)rand.mod
+     $(source_path)checkin.mod : $(source_path)rtype.mod
      
      # Определение флагов компилятора
      
@@ -273,4 +275,4 @@
      
      git-clean : 
 		       rm -rf .git
-  
+
