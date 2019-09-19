@@ -34,10 +34,10 @@
      source_path := ./Исходники/
      
      ## Правила-зависимости (при необходимости)
-     $(source_path)$(main_name).o : $(source_path)subroutines.mod
-     $(source_path)subroutines.mod : $(source_path)rand.mod
-     $(source_path)subroutines.mod : $(source_path)checkin.mod
-     $(source_path)checkin.mod : $(source_path)prec.mod
+     $(source_path)$(main_name).o : $(source_path)monte.mod
+     $(source_path)monte.mod : $(source_path)checkin.mod
+     $(source_path)monte.mod : $(source_path)rand.mod
+     $(source_path)checkin.mod : $(source_path)rtype.mod
      
      # Определение флагов компилятора
      
@@ -275,3 +275,4 @@
      
      git-clean : 
 		       rm -rf .git
+

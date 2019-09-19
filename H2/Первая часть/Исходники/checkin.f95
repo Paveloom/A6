@@ -1,17 +1,17 @@
 module checkin ! Модуль с вспомогательной процедурой для определения числа точек, попавших в фигуру 
-use prec, only : rp ! Тип вещественных чисел, используемых в программе
+use rtype, only : rt ! Тип вещественных чисел, используемых в программе
 implicit none
 
      private
-     public :: rp, & ! Тип вещественных чисел, используемых в программе
+     public :: rt, & ! Тип вещественных чисел, используемых в программе
              & check ! Процедура, определяющая число точек, попавших в фигуру
      contains
 
      ! Процедура, определяющая число точек, попавших в фигуру
      subroutine check(x_sample, y_sample, k)
           
-          real(rp), dimension(:), intent(in) :: x_sample ! Выборка чисел, равномерно распределённых на [x_min, x_max)
-          real(rp), dimension(:), intent(in) :: y_sample ! Выборка чисел, равномерно распределённых на [y_min, y_max)
+          real(rt), dimension(:), intent(in) :: x_sample ! Выборка чисел, равномерно распределённых на [x_min, x_max)
+          real(rt), dimension(:), intent(in) :: y_sample ! Выборка чисел, равномерно распределённых на [y_min, y_max)
 
           integer(4), intent(out) :: k ! Число точек, попавших в фигуру
 
@@ -25,7 +25,7 @@ implicit none
           k = 0
 
           ! Проверка: расстояние точки (2,3) от точки из выборки не превышает шести
-          k = count( sqrt( ( x_sample - 2.0_rp ) ** 2 + ( y_sample - 3.0_rp ) ** 2 ) - 6.0_rp .le. 1e-8 )
+          k = count( sqrt( ( x_sample - 2 ) ** 2 + ( y_sample - 3 ) ** 2 ) - 6 .le. 1e-8 )
 
      end subroutine check
      

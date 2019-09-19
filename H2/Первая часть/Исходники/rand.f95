@@ -11,15 +11,15 @@ implicit none
 
           integer(4) :: n ! Размер сида
           integer(4) :: clock ! Штамп времени
-          integer(4), dimension(:), allocatable :: seed ! Сид
+          integer(4), dimension(:), allocatable :: seed ! Локальный сид
 
-          call random_seed( size = n )
+          call random_seed( size = n ) ! Указывается размер сида
           allocate(seed(n))
 
-          call system_clock( count = clock )
+          call system_clock( count = clock ) ! Записывается текущее время
 
           seed = clock
-          call random_seed( put = seed )
+          call random_seed( put = seed ) ! Помещается новый сид
 
           deallocate(seed)
 

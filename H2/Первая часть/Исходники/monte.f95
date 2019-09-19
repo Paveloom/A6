@@ -1,11 +1,11 @@
-module subroutines ! Модуль с процедурой для использования метода Монте-Карло
+module monte ! Модуль с процедурой для использования метода Монте-Карло
 use rand, only : init_random_seed ! Процедура, обновляющая сид для генератора случайных чисел
-use checkin, only : rp, & ! Тип вещественных чисел, используемых в программе
+use checkin, only : rt, & ! Тип вещественных чисел, используемых в программе
                   & check ! Процедура, определяющая число точек, попавших в фигуру
 implicit none
 
      private
-     public :: rp,    & ! Тип вещественных чисел, используемых в программе
+     public :: rt,    & ! Тип вещественных чисел, используемых в программе
              & monte_2d ! Процедура, выполняющая метод Монте-Карло на плоскости 
      
      contains
@@ -16,15 +16,15 @@ implicit none
           integer(4), intent(in) :: N ! Число псевдослучайных чисел, генерируемых программой
 
           ! Координаты вершин прямоугольника, ограничивающего данную фигуру 
-          real(rp), intent(in) :: x_min, x_max, y_min, y_max
+          real(rt), intent(in) :: x_min, x_max, y_min, y_max
 
-          real(rp), intent(out) :: res ! Результат (площадь фигуры)
+          real(rt), intent(out) :: res ! Результат (площадь фигуры)
 
-          real(rp) :: a, b ! Стороны прямоугольника, описывающего фигуру
+          real(rt) :: a, b ! Стороны прямоугольника, описывающего фигуру
 
-          real(rp), dimension(:), allocatable :: u_sample ! Выборка чисел, равномерно распределённых на [0, 1)
-          real(rp), dimension(:), allocatable :: x_sample ! Выборка чисел, равномерно распределённых на [x_min, x_max)
-          real(rp), dimension(:), allocatable :: y_sample ! Выборка чисел, равномерно распределённых на [y_min, y_max)
+          real(rt), dimension(:), allocatable :: u_sample ! Выборка чисел, равномерно распределённых на [0, 1)
+          real(rt), dimension(:), allocatable :: x_sample ! Выборка чисел, равномерно распределённых на [x_min, x_max)
+          real(rt), dimension(:), allocatable :: y_sample ! Выборка чисел, равномерно распределённых на [y_min, y_max)
 
           integer(4) :: k ! Число точек, попавших в фигуру
 
@@ -74,4 +74,4 @@ implicit none
 
      end subroutine monte_2d
 
-end module subroutines
+end module monte
