@@ -24,9 +24,36 @@ implicit none
 
           k = 0
 
-          ! Проверка: расстояние точки (2,3) от точки из выборки не превышает шести
-          k = count( sqrt( ( x_sample - 2 ) ** 2 + ( y_sample - 3 ) ** 2 ) - 6 .le. 1e-8 )
+          ! Проверка, внутри ли ограниченной фигуры:
+          
+          ! При x < 2 сверху и снизу ограничивает функция x = y ** 2 / 2, 
+          ! при x > 2 — функция x = ( 16 - y ** 2 ) / 6, при x = 2 значения y ∈ [-2, 2],
+          !
+          ! или,
+          !
+          ! при y ∈ [-2, 2] функция x = ( 16 - y ** 2 ) / 6 ограничивает сверху, а
+          ! функция x = y ** 2 / 2 — снизу.
+          
+          k = count( ( ( x_sample - f1(y_sample) ) .le. 1e-8) .and. ( ( f2(y_sample) - x_sample ) .le. 1e-8 ) )
 
      end subroutine check
+
+     ! Функция, ограничивающая сверху 
+     real(rt) elemental function f1(y)
+          
+          real(rt), intent(in) :: y ! Аргумент функции x = ( 16 - y ** 2 ) / 6
+
+          f1 = (16 - y ** 2) / 6
+
+     end function f1
+
+     ! Функция, ограничивающая снизу 
+     real(rt) elemental function f2(y)
+          
+          real(rt), intent(in) :: y ! Аргумент функции x = y ** 2 / 2
+
+          f2 = y ** 2 / 2
+
+     end function f2
      
 end module checkin
