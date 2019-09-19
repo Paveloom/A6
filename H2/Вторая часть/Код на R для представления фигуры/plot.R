@@ -22,3 +22,17 @@
   abline(h =  2, lty = 'dashed')
   abline(h = -2, lty = 'dashed')
   
+  # Или
+  
+  plot(y1, x1, type = 'l', col = 'black', ylim = c(0, 2.75), xlim = c(-4, 4), xlab = 'y', ylab = 'x')
+  lines(y2, x2, col = 'green')
+  lines(y3, x3, col = 'red')  
+  lines(y4, x4, col = 'blue')
+  
+  abline(v =  8 / 3, lty = 'dashed')  
+  abline(v =  0, lty = 'dashed')
+  abline(h =  2, lty = 'dashed')
+  abline(h = -2, lty = 'dashed')
+
+
+  

@@ -22,9 +22,9 @@ implicit none
 
           real(rt) :: a, b ! Стороны прямоугольника, описывающего фигуру
 
-          real(rt), dimension(:), allocatable :: u_sample ! Выборка чисел, равномерно распределённых на [0, 1)
-          real(rt), dimension(:), allocatable :: x_sample ! Выборка чисел, равномерно распределённых на [x_min, x_max)
-          real(rt), dimension(:), allocatable :: y_sample ! Выборка чисел, равномерно распределённых на [y_min, y_max)
+          real(rt), dimension(:), allocatable :: u_sample ! Выборка чисел, равномерно распределенных на [0, 1)
+          real(rt), dimension(:), allocatable :: x_sample ! Выборка чисел, равномерно распределенных на [x_min, x_max)
+          real(rt), dimension(:), allocatable :: y_sample ! Выборка чисел, равномерно распределенных на [y_min, y_max)
 
           integer(4) :: k ! Число точек, попавших в фигуру
 
