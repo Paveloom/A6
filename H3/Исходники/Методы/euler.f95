@@ -45,6 +45,7 @@ implicit none
 
                end do calc
 
+               ! Присвоение идентификатора результату
                id = 'euler'
 
           end associate

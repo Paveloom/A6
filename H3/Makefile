@@ -17,7 +17,7 @@
 		    git-dev-re, git-dev-ready-re, force_change, git-clean
 
      ## Правило, выполняющееся при вызове make без аргументов
-     ALL : result-r
+     ALL : result
 
      # Настройки компиляции программ
      
@@ -43,7 +43,7 @@
      use_input := true
 
 	## Использовать output файл?
-     use_output := true
+     use_output := false
      
      ## Сохранять собранную программу при очистке?
      save_main := false
@@ -52,13 +52,14 @@
      source_path := ./Исходники/
 
      ## Указание поддиректорий (всегда в окончании прямой слеш)
-     subs := Метод_Эйлера/
+     subs := Методы/
      
      ## Правила-зависимости (при необходимости)
-     $(source_path)$(main_name).o : $(source_path)input.o $(source_path)result.o $(source_path)euler.o
+     $(source_path)$(main_name).o : $(source_path)input.o $(source_path)result.o $(source_path)euler.o $(source_path)runge_kutta.o
      $(source_path)input.o : $(source_path)prec.o
      $(source_path)result.o : $(source_path)input.o
      $(source_path)euler.o : $(source_path)prec.o $(source_path)input.o $(source_path)result.o $(source_path)function.o
+     $(source_path)runge_kutta.o : $(source_path)prec.o $(source_path)input.o $(source_path)result.o $(source_path)function.o
      $(source_path)function.o : $(source_path)prec.o
      
      # Определение флагов компилятора

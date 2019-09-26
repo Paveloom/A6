@@ -15,9 +15,12 @@ implicit none
      type result_type
           
           real(rp), allocatable, dimension(:,:) :: result ! Результат (матрица)
-          character(5) :: id ! Идентификатор, указывающий, какой процедурой получен результат
+          character(11) :: id ! Идентификатор, указывающий, какой процедурой получен результат
           
      end type result_type
+
+     integer(1), parameter :: unit = 10  ! Номер дескриптора файла
+     integer(4) :: i, j ! Вспомогательные переменные
 
      contains
      
@@ -45,9 +48,8 @@ implicit none
           
           type ( result_type ), intent(in) :: result ! Результат (объект)
 
-          integer(ip) :: N   ! Держатель размера строчки матрицы результата
+          integer(ip) :: N ! Держатель размера строчки матрицы результата
 
-          integer(4) :: i, j  ! Вспомогательные переменные
           character(20) :: f1 ! Вспомогательная переменная для автоформатирования
 
           associate ( result => result%result, & ! Результат (матрица)
@@ -62,17 +64,40 @@ implicit none
                ! Вывод результата для метода Эйлера
                if ( id .eq. 'euler' ) then
 
-                    open(10, file = 'euler.dat', status = 'replace')
+                    open(unit, file = 'euler.dat', status = 'replace')
 
-                    write(10,'(/, 4x, '//f1//'x, a, /)') 'Результат, полученный методом Эйлера'
-                    write(10,'(5x, i'//f1//', '//rf//', '//rf//')') ( i, ( result(i, j), j = 1, 2 ), i = 0, N - 1 )
+                    write(unit,'(/, 4x, '//f1//'x, a, /)') 'Результат, полученный методом Эйлера'
+                    call write_result_matrix(result, N, f1)
 
-                    close(10)
+                    close(unit)
                
+               ! Вывод результата для классического метода Рунге-Кутты
+               else if (id .eq. 'runge_kutta') then
+
+                    open(unit, file = 'runge_kutta.dat', status = 'replace')
+
+                    write(unit,'(/, 4x, '//f1//'x, a, /)') 'Результат, полученный &
+                    &классическим методом Рунге-Кутты'
+                    call write_result_matrix(result, N, f1)
+
+                    close(unit)
+
                end if
 
           end associate
 
      end subroutine write
+
+     ! Процедура для вывода матрицы результата
+     subroutine write_result_matrix(result, N, f1)
+
+          real(rp), dimension(0:,:) :: result ! Результат (матрица)
+          integer(ip), intent(in) :: N ! Держатель размера строчки матрицы результата
+          character(*), intent(in) :: f1 ! Вспомогательная переменная для автоформатирования
+
+          write(unit,'(5x, i'//f1//', '//rf//', '//rf//')') ( i, ( result(i, j), j = 1, 2 ), i = 0, N - 1 )
+          write(unit,'()')
+          
+     end subroutine write_result_matrix
      
 end module result
