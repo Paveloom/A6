@@ -1,7 +1,7 @@
 module runge_kutta ! Модуль, содержащий процедуру для решения дифференциального уравнения
                    ! первого порядка классическим методом Рунге-Кутты
 use prec, only : rp ! Точность вещественных чисел, используемых в программе
-use input, only : input_type ! Тип, определяющий начальные данные
+use input, only : input_type ! Тип, определяющий входные данные
 use result, only : result_type ! Тип, определяющий результат
 use function, only : f ! Функция, описывающая правую часть дифференциального уравнения
 implicit none
@@ -15,7 +15,7 @@ implicit none
      ! Процедура, решающая дифференциальное уравнение первого порядка классическим методом Рунге-Кутты
      subroutine solve_runge_kutta(input, result)
           
-          type ( input_type ), intent(in) :: input      ! Входящие данные
+          type ( input_type ), intent(in) :: input      ! Входные данные
           type ( result_type ), intent(inout) :: result ! Результат (объект)
 
           real(rp) :: h ! Расчетный шаг

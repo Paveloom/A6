@@ -2,16 +2,16 @@ module result ! Модуль, отвечающий за хранение и вы
 use prec, only : rp, & ! Точность вещественных чисел, используемых в программе
                & ip, & ! Точность целых чисел, используемых в программе
                & rf    ! Формат вывода вещественных чисел
-use input, only : input_type ! Тип, определяющий начальные данные
+use input, only : input_type ! Тип, определяющий входные данные
 implicit none
      
      private
-     public :: result_type, & ! Тип, определяющий начальные данные
+     public :: result_type, & ! Тип, определяющий результат
              & allocate,    & ! Процедура, выделяющая память под результат
              & deallocate,  & ! Процедура, освобождающая память из-под результата
              & write          ! Процедура, выводящая результат
      
-     ! Тип, определяющий начальные данные
+     ! Тип, определяющий результат
      type result_type
           
           real(rp), allocatable, dimension(:,:) :: result ! Результат (матрица)
@@ -27,7 +27,7 @@ implicit none
      ! Процедура, выделяющая память под результат
      pure subroutine allocate(result, input)
           
-          type ( input_type ), intent(in) :: input ! Входящие данные
+          type ( input_type ), intent(in) :: input ! Входные данные
           type ( result_type ), intent(out) :: result ! Результат (объект)
 
           allocate( result%result(0:input%N, 2) )

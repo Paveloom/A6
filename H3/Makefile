@@ -323,7 +323,4 @@
      
      git-clean : 
 		       rm -rf .git
-
-     test : 
-	       echo $(obj_main)
-		  echo $(obj_mod)
+ 
