@@ -38,12 +38,12 @@ implicit none
 
                ! Вычисление остальных столбцов
 
-               calc : do i = 1, N
+               euler : do i = 1, N
 
                     result(i, 1) = x_0 + i * h
                     result(i, 2) = result(i-1, 2) + h * f( result(i-1, 1), result(i-1, 2) )
 
-               end do calc
+               end do euler
 
                ! Присвоение идентификатора результату
                id = 'euler'

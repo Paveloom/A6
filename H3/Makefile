@@ -28,7 +28,7 @@
      pattern := f95
      
      ## Режим отладки (при значении true использует флаги opt_debug, при другом значении — opt_production)
-     debugging := true
+     debugging := false
      
      ## Флаги для отладки
      opt_debug := -Og -g -Wall -Wextra -fcheck=all -fbacktrace -pedantic -std=f2008
@@ -55,11 +55,12 @@
      subs := Методы/
      
      ## Правила-зависимости (при необходимости)
-     $(source_path)$(main_name).o : $(source_path)input.o $(source_path)result.o $(source_path)euler.o $(source_path)runge_kutta.o
+     $(source_path)$(main_name).o : $(source_path)input.o $(source_path)result.o $(source_path)euler.o $(source_path)runge_kutta.o $(source_path)adams.o
      $(source_path)input.o : $(source_path)prec.o
      $(source_path)result.o : $(source_path)input.o
      $(source_path)euler.o : $(source_path)prec.o $(source_path)input.o $(source_path)result.o $(source_path)function.o
      $(source_path)runge_kutta.o : $(source_path)prec.o $(source_path)input.o $(source_path)result.o $(source_path)function.o
+     $(source_path)adams.o : $(source_path)prec.o $(source_path)input.o $(source_path)result.o $(source_path)function.o
      $(source_path)function.o : $(source_path)prec.o
      
      # Определение флагов компилятора

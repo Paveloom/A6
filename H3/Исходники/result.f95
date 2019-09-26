@@ -15,7 +15,7 @@ implicit none
      type result_type
           
           real(rp), allocatable, dimension(:,:) :: result ! Результат (матрица)
-          character(11) :: id ! Идентификатор, указывающий, какой процедурой получен результат
+          character(18) :: id ! Идентификатор, указывающий, какой процедурой получен результат
           
      end type result_type
 
@@ -62,9 +62,11 @@ implicit none
                write(f1, *) len(trim(adjustl(f1)))
 
                ! Вывод результата для метода Эйлера
-               if ( id .eq. 'euler' ) then
+               write : select case(id)
 
-                    open(unit, file = 'euler.dat', status = 'replace')
+               case ('euler')
+
+                    open(unit, file = 'Результат/euler.dat', status = 'replace')
 
                     write(unit,'(/, 4x, '//f1//'x, a, /)') 'Результат, полученный методом Эйлера'
                     call write_result_matrix(result, N, f1)
@@ -72,9 +74,9 @@ implicit none
                     close(unit)
                
                ! Вывод результата для классического метода Рунге-Кутты
-               else if (id .eq. 'runge_kutta') then
+               case ('runge_kutta')
 
-                    open(unit, file = 'runge_kutta.dat', status = 'replace')
+                    open(unit, file = 'Результат/runge_kutta.dat', status = 'replace')
 
                     write(unit,'(/, 4x, '//f1//'x, a, /)') 'Результат, полученный &
                     &классическим методом Рунге-Кутты'
@@ -82,7 +84,17 @@ implicit none
 
                     close(unit)
 
-               end if
+               case ('adams_bashforth_o4')
+
+                    open(unit, file = 'Результат/adams.dat', status = 'replace')
+
+                    write(unit,'(/, 4x, '//f1//'x, a, /)') 'Результат, полученный &
+                    &четырехшаговым методом Адамса-Башфорта'
+                    call write_result_matrix(result, N, f1)
+
+                    close(unit)
+
+               end select write
 
           end associate
 
