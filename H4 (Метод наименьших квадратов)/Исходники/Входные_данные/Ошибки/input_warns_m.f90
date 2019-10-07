@@ -1,0 +1,20 @@
+module input_warns_m ! Модуль, содержащий процедуру для вывода ошибок для модулей,
+                     ! связанных с входными данными
+implicit none
+     
+     private
+     public :: log_input_error ! Процедура для вывода ошибок для модулей,
+                               ! связанных с входными данными
+     
+     interface 
+          
+          ! Процедура для вывода ошибок для модулей, связанных с входными данными
+          module subroutine log_input_error(error_code)
+          
+               character(*), intent(in) :: error_code
+
+          end subroutine log_input_error
+     
+     end interface
+
+end module input_warns_m
