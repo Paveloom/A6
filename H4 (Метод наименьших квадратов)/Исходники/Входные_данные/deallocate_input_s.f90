@@ -8,11 +8,27 @@ implicit none
           
           integer(SP) :: stat ! Статусная переменная
 
-          deallocate( input%ls_ftype, stat = stat ) ! Освобождение памяти из-под типа функции
-          if ( stat .ne. 0_SP ) call log_input_error('WD_ls_ftype') ! Проверка на ошибку освобождения памяти
+          if ( allocated(input%ls_ftype) ) then ! Проверка, размещена ли переменная ls_ftype объекта
 
-          deallocate( input%matrix, stat = stat ) ! Освобождение памяти из-под матрицы входных данных
-          if ( stat .ne. 0_SP ) call log_input_error('WD_matrix') ! Проверка на ошибку освобождения памяти
+               deallocate( input%ls_ftype, stat = stat ) ! Освобождение памяти из-под типа функции
+               if ( stat .ne. 0_SP ) call log_input_error('WD_ls_ftype') ! Проверка на ошибку освобождения памяти
+          
+          else
+
+               call log_input_error('NA_ls_ftype') ! Вывод ошибки о неразмещенной переменной
+
+          endif
+
+          if ( allocated(input%matrix) ) then ! Проверка, размещена ли матрица объекта
+
+               deallocate( input%matrix, stat = stat ) ! Освобождение памяти из-под матрицы входных данных
+               if ( stat .ne. 0_SP ) call log_input_error('WD_matrix') ! Проверка на ошибку освобождения памяти
+
+          else
+
+               call log_input_error('NA_matrix') ! Вывод ошибки о неразмещенной матрице
+
+          endif
 
      end procedure deallocate_input
 
