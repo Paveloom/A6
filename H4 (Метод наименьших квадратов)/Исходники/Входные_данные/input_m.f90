@@ -20,6 +20,12 @@ implicit none
           character(:), allocatable :: ls_ftype ! Тип функции для использования МНК
           integer(IP) :: N ! Длина матрицы входных данных
           real(RP), allocatable, dimension(:,:) :: matrix ! Матрица входных данных
+          character(:), allocatable :: file ! Имя файла для считывания
+
+          contains
+
+          procedure :: get_ls_ftype ! Функция для получения типа функции для использования МНК
+          procedure :: get_file ! Функция для получения имени файла для считывания
           
      end type input_type
 
@@ -33,6 +39,24 @@ implicit none
                character(*), intent(in) :: file ! Имя файла для считывания
 
           end subroutine read
+
+          ! Функция для получения типа функции для использования МНК
+          module function get_ls_ftype(input) result(ls_ftype)
+          implicit none
+               
+               class ( input_type ), intent(in) :: input ! Входные данные
+               character(:), allocatable :: ls_ftype ! Тип функции для использования МНК
+               
+          end function get_ls_ftype
+
+          ! Функция для получения имени файла для считывания
+          module function get_file(input) result(file)
+          implicit none
+                    
+                    class ( input_type ), intent(in) :: input ! Входные данные
+                    character(:), allocatable :: file ! Имя файла для считывания
+                    
+          end function get_file
 
           ! Процедура для освобождения памяти из-под входных данных
           module impure elemental subroutine deallocate_input(input)

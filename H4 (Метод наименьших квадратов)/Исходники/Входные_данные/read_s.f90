@@ -7,6 +7,7 @@ implicit none
      module procedure read
           
           character(20) :: ls_ftype_temp ! Временная строка для хранения типа функции для использования МНК
+
           integer(SP) :: stat ! Статусная переменная
           integer(UP) :: unit ! Номер дескриптора файла
 
@@ -21,14 +22,16 @@ implicit none
 
           read( unit = unit, fmt = '(/)' )
           read( unit = unit, fmt = *, iostat = stat ) input%N ! Считывание длины матрицы входных данных
-          if ( stat .ne. 0_SP) call log_input_error('WR_N', file) ! Проверка на ошибку считывания
+          if ( stat .ne. 0_SP ) call log_input_error('WR_N', file) ! Проверка на ошибку считывания
 
           allocate( input%matrix(2, input%N), stat = stat ) ! Выделение памяти под матрицу входных данных
           if ( stat .ne. 0_SP ) call log_input_error('WA_matrix') ! Проверка на ошибку выделения памяти
 
           read( unit = unit, fmt = '(/)' )
           read( unit = unit, fmt = *, iostat = stat ) input%matrix ! Считывание матрицы входных данных
-          if ( stat .ne. 0_SP) call log_input_error('WR_matrix', file) ! Проверка на ошибку считывания
+          if ( stat .ne. 0_SP ) call log_input_error('WR_matrix', file) ! Проверка на ошибку считывания
+
+          input%file = file ! Запись имени файла для считывания
 
           close(unit)
 

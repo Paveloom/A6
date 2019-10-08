@@ -12,7 +12,7 @@ implicit none
      ! Тип, определяющий результат
      type result_type
 
-          ! private
+          private
 
           character(:), allocatable :: ls_ftype ! Тип функции для использования МНК
           real(RP), allocatable, dimension(:) :: coefs ! Массив коэффициентов

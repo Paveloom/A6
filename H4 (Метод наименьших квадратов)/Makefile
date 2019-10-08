@@ -62,19 +62,34 @@
      source_path := Исходники/
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
-     subs := Входные_данные/ Входные_данные/Ошибки/ Результат/ Результат/Ошибки/ Освобождение_памяти/ 
+     subs := Входные_данные/ Входные_данные/Ошибки/ \
+	        МНК/ МНК/Ошибки/ \
+		   МНК/Линейная_функция/ \
+		   Результат/ Результат/Ошибки/ \
+		   Освобождение_памяти/ 
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
      obj_path := Объектники/
      
      ## Правила-зависимости (при необходимости)
-     $(obj_path)$(main_name).o : $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)deallocate_m.o
+     $(obj_path)$(main_name).o : $(obj_path)input_m.o $(obj_path)lsm_m.o $(obj_path)result_m.o $(obj_path)deallocate_m.o
 
      $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)input_warns_m.o
      $(obj_path)read_s.o : $(obj_path)input_m.o
+     $(obj_path)get_ls_ftype_s.o : $(obj_path)input_m.o
+     $(obj_path)get_file_s.o : $(obj_path)input_m.o
      $(obj_path)deallocate_input_s.o : $(obj_path)input_m.o
 
      $(obj_path)log_input_error_s.o : $(obj_path)input_warns_m.o
+
+     $(obj_path)lsm_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)lsm_warns_m.o \
+	                     $(obj_path)lsm_linear_m.o
+     $(obj_path)lsm_s.o : $(obj_path)lsm_m.o
+
+     $(obj_path)log_lsm_error_s.o : $(obj_path)lsm_warns_m.o
+
+     $(obj_path)lsm_linear_m.o : $(obj_path)input_m.o $(obj_path)result_m.o
+     $(obj_path)lsm_linear_s.o : $(obj_path)lsm_linear_m.o
 
      $(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_warns_m.o
      $(obj_path)deallocate_result_s.o : $(obj_path)result_m.o

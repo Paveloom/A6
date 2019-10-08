@@ -30,6 +30,17 @@ implicit none
 
           endif
 
+          if ( allocated(input%file) ) then ! Проверка, размещена ли переменная file объекта
+
+               deallocate( input%file, stat = stat ) ! Освобождение памяти из-под имени файла
+               if ( stat .ne. 0_SP ) call log_input_error('WD_file') ! Проверка на ошибку освобождения памяти
+
+          else
+
+               call log_input_error('NA_file') ! Вывод ошибки о неразмещенной переменной file
+
+          endif
+
      end procedure deallocate_input
 
 end submodule deallocate_input_s
