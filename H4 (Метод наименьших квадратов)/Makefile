@@ -65,7 +65,7 @@
      subs := Входные_данные/ Входные_данные/Ошибки/ \
 	        МНК/ МНК/Ошибки/ \
 		   МНК/Линейная_функция/ \
-		   Результат/ Результат/Ошибки/ \
+		   Результат/ Результат/Ошибки/ Результат/Присваивание_значений/ Результат/Вывод/ \
 		   Освобождение_памяти/ 
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
@@ -95,6 +95,7 @@
      $(obj_path)put_ls_ftype_s.o : $(obj_path)result_m.o
      $(obj_path)put_coefs_s.o : $(obj_path)result_m.o
      $(obj_path)put_err_s.o : $(obj_path)result_m.o
+     $(obj_path)write_s.o : $(obj_path)result_m.o
      $(obj_path)deallocate_result_s.o : $(obj_path)result_m.o
 
      $(obj_path)log_result_error_s.o : $(obj_path)result_warns_m.o

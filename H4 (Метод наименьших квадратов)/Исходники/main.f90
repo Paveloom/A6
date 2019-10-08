@@ -2,7 +2,8 @@ program main ! Программа для использования метода
 use input_m, only : input_type, & ! Тип, определяющий входные данные
                   & read ! Процедура для выделения памяти / считывания начальных данных
 use lsm_m, only : lsm ! Процедура для общего вызова метода наименьших квадратов
-use result_m, only : result_type ! Тип, определяющий результат
+use result_m, only : result_type, & ! Тип, определяющий результат
+                   & write ! Процедура для вывода результата
 use deallocate_m, only : deallocate ! Процедура для освобождения памяти из-под данных объектов
 implicit none
      
@@ -12,6 +13,8 @@ implicit none
      call read(input, file = 'input') ! Выделение памяти / считывание входных данных
 
      call lsm(input, result) ! Вызов метода наименьших квадратов
+
+     call write(result) ! Вывод результата
 
      call deallocate(input, result) ! Освобождение памяти из-под данных объектов
 

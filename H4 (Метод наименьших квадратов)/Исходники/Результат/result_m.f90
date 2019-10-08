@@ -1,13 +1,15 @@
 module result_m ! Модуль, отвечающий за процедуры, связанные с результатом
 use prec_m, only : RP, & ! Точность вещественных чисел, используемых в программе
-                 & SP    ! Точность целого числа статусной переменной
+                 & SP, & ! Точность целого числа статусной переменной
+                 & RF    ! Формат вывода вещественных чисел
 use result_warns_m, only : log_result_error ! Процедура для вывода ошибок для модулей,
                                             ! связанных с результатом
 implicit none
      
      private
      public :: result_type, & ! Тип, определяющий результат
-             & deallocate_result ! Процедура для освобождения памяти из-под результата
+             & deallocate_result, & ! Процедура для освобождения памяти из-под результата
+             & write ! Процедура для вывода результата 
 
      ! Тип, определяющий результат
      type result_type
@@ -54,6 +56,14 @@ implicit none
                real(RP), intent(in) :: err ! Погрешность метода
      
           end subroutine put_err
+
+          ! Процедура для вывода результата
+          module impure elemental subroutine write(result)
+          implicit none
+               
+               type ( result_type ), intent(in) :: result ! Результат
+               
+          end subroutine write
 
           ! Процедура для освобождения памяти из-под результата
           module impure elemental subroutine deallocate_result(result)
