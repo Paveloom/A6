@@ -13,6 +13,6 @@ implicit none
 
      call lsm(input, result) ! Вызов метода наименьших квадратов
 
-     call deallocate(input) ! Освобождение памяти из-под данных объектов
+     call deallocate(input, result) ! Освобождение памяти из-под данных объектов
 
 end program main

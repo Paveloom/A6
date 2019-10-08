@@ -19,7 +19,7 @@ implicit none
 
           character(:), allocatable :: ls_ftype ! Тип функции для использования МНК
           integer(IP) :: N ! Длина матрицы входных данных
-          real(RP), allocatable, dimension(:,:) :: matrix ! Матрица входных данных
+          real(RP), allocatable, dimension(:,:), public :: matrix ! Матрица входных данных
           character(:), allocatable :: file ! Имя файла для считывания
 
           contains

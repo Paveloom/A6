@@ -24,7 +24,7 @@ implicit none
           read( unit = unit, fmt = *, iostat = stat ) input%N ! Считывание длины матрицы входных данных
           if ( stat .ne. 0_SP ) call log_input_error('WR_N', file) ! Проверка на ошибку считывания
 
-          allocate( input%matrix(2, input%N), stat = stat ) ! Выделение памяти под матрицу входных данных
+          allocate( input%matrix(input%N, 2), stat = stat ) ! Выделение памяти под матрицу входных данных
           if ( stat .ne. 0_SP ) call log_input_error('WA_matrix') ! Проверка на ошибку выделения памяти
 
           read( unit = unit, fmt = '(/)' )

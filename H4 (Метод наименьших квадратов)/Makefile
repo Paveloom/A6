@@ -88,10 +88,13 @@
 
      $(obj_path)log_lsm_error_s.o : $(obj_path)lsm_warns_m.o
 
-     $(obj_path)lsm_linear_m.o : $(obj_path)input_m.o $(obj_path)result_m.o
+     $(obj_path)lsm_linear_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o
      $(obj_path)lsm_linear_s.o : $(obj_path)lsm_linear_m.o
 
      $(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_warns_m.o
+     $(obj_path)put_ls_ftype_s.o : $(obj_path)result_m.o
+     $(obj_path)put_coefs_s.o : $(obj_path)result_m.o
+     $(obj_path)put_err_s.o : $(obj_path)result_m.o
      $(obj_path)deallocate_result_s.o : $(obj_path)result_m.o
 
      $(obj_path)log_result_error_s.o : $(obj_path)result_warns_m.o
