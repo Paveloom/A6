@@ -18,7 +18,7 @@ implicit none
           read( unit = unit, fmt = *, iostat = stat ) ls_ftype_temp ! Считывание типа функции для использования МНК
           if ( stat .ne. 0_SP ) call log_input_error('WR_ls_ftype_temp', file) ! Проверка на ошибку считывания
 
-          input%ls_ftype = trim(ls_ftype_temp) ! Запись типа функции для использования МНК
+          input%ls_ftype = trim(adjustl(ls_ftype_temp)) ! Запись типа функции для использования МНК
 
           read( unit = unit, fmt = '(/)' )
           read( unit = unit, fmt = *, iostat = stat ) input%N ! Считывание длины матрицы входных данных

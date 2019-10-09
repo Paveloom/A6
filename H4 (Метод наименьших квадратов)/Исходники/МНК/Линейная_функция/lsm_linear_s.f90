@@ -1,5 +1,5 @@
-submodule ( lsm_linear_m ) lsm_linear_s ! Подмодуль, содержащий процедуру для вызова метода
-                                        ! наименьших квадратов для линейной функции
+submodule ( lsm_m ) lsm_linear_s ! Подмодуль, содержащий процедуру для вызова метода
+                                 ! наименьших квадратов для линейной функции
 implicit none
      
      contains
@@ -41,6 +41,7 @@ implicit none
                ! Вычисление погрешности метода
                err = sum( (matrix(:, 2) - a * matrix(:, 1) - b) ** 2 )
 
+               ! Запись результата в объект
                call result%put_ls_ftype('linear')
                call result%put_coefs([a, b])
                call result%put_err(err)

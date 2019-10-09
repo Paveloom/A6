@@ -1,5 +1,5 @@
 Тип функции для использования МНК (all / linear / hyperbolic / logarithmic / exponential / quadratic)
-linear
+hyperbolic
 
 Длина матрицы входных данных
 10

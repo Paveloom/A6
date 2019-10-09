@@ -64,7 +64,7 @@
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := Входные_данные/ Входные_данные/Ошибки/ \
 	        МНК/ МНК/Ошибки/ \
-		   МНК/Линейная_функция/ \
+		   МНК/Линейная_функция/ МНК/Гиперболическая_функция/ \
 		   Результат/ Результат/Ошибки/ Результат/Присваивание_значений/ Результат/Вывод/ \
 		   Освобождение_памяти/ 
 
@@ -82,14 +82,12 @@
 
      $(obj_path)log_input_error_s.o : $(obj_path)input_warns_m.o
 
-     $(obj_path)lsm_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)lsm_warns_m.o \
-	                     $(obj_path)lsm_linear_m.o
+     $(obj_path)lsm_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)lsm_warns_m.o
      $(obj_path)lsm_s.o : $(obj_path)lsm_m.o
+     $(obj_path)lsm_linear_s.o : $(obj_path)lsm_m.o
+     $(obj_path)lsm_hyperbolic_s.o : $(obj_path)lsm_m.o
 
      $(obj_path)log_lsm_error_s.o : $(obj_path)lsm_warns_m.o
-
-     $(obj_path)lsm_linear_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o
-     $(obj_path)lsm_linear_s.o : $(obj_path)lsm_linear_m.o
 
      $(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_warns_m.o
      $(obj_path)put_ls_ftype_s.o : $(obj_path)result_m.o

@@ -21,6 +21,10 @@ implicit none
 
                     call lsm_linear(input, result) ! Вызов МНК для линейной функции
 
+               case ('hyperbolic') ! Гиперболическая функция
+
+                    call lsm_hyperbolic(input, result) ! Вызов МНК для гиперболической функции
+
                case default ! Неверно указано ключевое слово
 
                     call log_lsm_error('WT', file) ! Вывод списка доступных ключевых слов

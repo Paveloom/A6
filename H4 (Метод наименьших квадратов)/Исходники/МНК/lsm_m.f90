@@ -1,11 +1,12 @@
 module lsm_m ! Модуль, содержащий процедуру для общего вызова метода
              ! наименьших квадратов
-use prec_m, only : SP ! Точность целого числа статусной переменной
+use prec_m, only : RP, & ! Точность вещественных чисел, используемых в программе
+                 & IP, & ! Точность целых чисел, используемых в программе
+                 & SP    ! Точность целого числа статусной переменной
 use input_m, only : input_type ! Тип, определяющий входные данные
 use result_m, only : result_type ! Тип, определяющий результат
 use lsm_warns_m, only : log_lsm_error ! Процедура для вывода ошибок для модулей, 
                                       ! связанных с вызовами метода наименьших квадратов
-use lsm_linear_m, only : lsm_linear ! Процедура для вызова метода наименьших квадратов для линейной функции
 implicit none
      
      private
@@ -21,6 +22,24 @@ implicit none
           type ( result_type ), intent(inout) :: result
           
           end subroutine lsm
+
+          ! Процедура для вызова метода наименьших квадратов для линейной функции
+          module subroutine lsm_linear(input, result)
+          implicit none
+          
+          type ( input_type ), intent(in) :: input
+          type ( result_type ), intent(inout) :: result
+          
+          end subroutine lsm_linear
+
+          ! Процедура для вызова метода наименьших квадратов для гиперболической функции
+          module subroutine lsm_hyperbolic(input, result)
+          implicit none
+          
+          type ( input_type ), intent(in) :: input
+          type ( result_type ), intent(inout) :: result
+          
+          end subroutine lsm_hyperbolic
      
      end interface  
 

@@ -37,6 +37,20 @@ implicit none
 
                     stop
 
+               case ('WA_r_row') ! Встречается в lsm_hyperbolic
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_lsm_error: ', 'Не удалось выделить память для временной&
+                                                                         & размещаемой переменной r_row.'
+
+                    stop
+
+               case ('WD_r_row') ! Встречается в lsm_hyperbolic
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_lsm_error: ', 'Не удалось освободить память из-под временной&
+                                                                         & размещаемой переменной r_row.'
+
+                    stop
+
                case default
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_lsm_error:', 'Неизвестный код ошибки.'
