@@ -23,6 +23,13 @@ implicit none
                                                                            & типа result_type.'
                     stop
 
+               case ('WD_file') ! Встречается в deallocate_result_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось освободить память из-под&
+                                                                           & размещаемой переменной file объекта&
+                                                                           & типа result_type.'
+                    stop
+
                case ('NA_ls_ftype') ! Встречается в deallocate_result_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Память под переменную ls_ftype объекта&
@@ -32,6 +39,12 @@ implicit none
                case ('NA_coefs') ! Встречается в deallocate_result_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Память под матрицу coefs объекта&
+                                                                           & типа result_type не была выделена.'
+                    stop
+
+               case ('NA_file') ! Встречается в deallocate_result_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Память под переменную file объекта&
                                                                            & типа result_type не была выделена.'
                     stop
 

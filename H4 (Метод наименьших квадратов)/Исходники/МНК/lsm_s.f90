@@ -15,6 +15,8 @@ implicit none
           ls_ftype = input%get_ls_ftype() ! Получение типа функции
           file = input%get_file() ! Получение имени файла
 
+          call result%put_file(file) ! Сообщение результату имя файла
+
           select case (ls_ftype) ! Проверка типа функции для использования МНК
 
                case ('linear') ! Линейная функция
@@ -24,6 +26,10 @@ implicit none
                case ('hyperbolic') ! Гиперболическая функция
 
                     call lsm_hyperbolic(input, result) ! Вызов МНК для гиперболической функции
+
+               case ('logarithmic') ! Логарифмическая функция
+
+                    call lsm_logarithmic(input, result) ! Вызов МНК для гиперболической функции
 
                case default ! Неверно указано ключевое слово
 

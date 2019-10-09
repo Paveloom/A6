@@ -27,9 +27,9 @@ implicit none
                N_RP = real(N, kind = RP)
                
                ! Вычисление сумм
-               X = sum(matrix(:, 1))
+               X  = sum(matrix(:, 1))
                X2 = sum(matrix(:, 1) ** 2)
-               Y = sum(matrix(:, 2))
+               Y  = sum(matrix(:, 2))
                XY = sum(matrix(:, 1) * matrix(:, 2))
 
                ! Вычисление коэффициента a

@@ -29,6 +29,17 @@ implicit none
                call log_result_error('NA_coefs') ! Вывод ошибки о неразмещенном массиве
           
           endif
+
+          if ( allocated(result%file) ) then ! Проверка, размещена ли переменная file объекта
+
+               deallocate( result%file, stat = stat ) ! Освобождение памяти из-под имени файла
+               if ( stat .ne. 0_SP ) call log_result_error('WD_file') ! Проверка на ошибку освобождения памяти
+
+          else
+
+               call log_result_error('NA_file') ! Вывод ошибки о неразмещенной переменной
+          
+          endif
                
      end procedure deallocate_result
 

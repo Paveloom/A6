@@ -15,7 +15,7 @@ implicit none
      interface
      
           ! Процедура для общего вызова метода наименьших квадратов
-          module subroutine lsm(input, result)
+          module impure elemental subroutine lsm(input, result)
           implicit none
           
           type ( input_type ), intent(in) :: input
@@ -24,7 +24,7 @@ implicit none
           end subroutine lsm
 
           ! Процедура для вызова метода наименьших квадратов для линейной функции
-          module subroutine lsm_linear(input, result)
+          module impure elemental subroutine lsm_linear(input, result)
           implicit none
           
           type ( input_type ), intent(in) :: input
@@ -33,13 +33,22 @@ implicit none
           end subroutine lsm_linear
 
           ! Процедура для вызова метода наименьших квадратов для гиперболической функции
-          module subroutine lsm_hyperbolic(input, result)
+          module impure elemental subroutine lsm_hyperbolic(input, result)
           implicit none
           
           type ( input_type ), intent(in) :: input
           type ( result_type ), intent(inout) :: result
           
           end subroutine lsm_hyperbolic
+
+          ! Процедура для вызова метода наименьших квадратов для логарифмической функции
+          module impure elemental subroutine lsm_logarithmic(input, result)
+          implicit none
+          
+          type ( input_type ), intent(in) :: input
+          type ( result_type ), intent(inout) :: result
+          
+          end subroutine lsm_logarithmic
      
      end interface  
 

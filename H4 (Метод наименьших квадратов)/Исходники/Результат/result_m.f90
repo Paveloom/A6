@@ -19,12 +19,14 @@ implicit none
           character(:), allocatable :: ls_ftype ! Тип функции для использования МНК
           real(RP), allocatable, dimension(:) :: coefs ! Массив коэффициентов
           real(RP) :: err ! Погрешность аппроксимирующей функции
+          character(:), allocatable :: file ! Имя файла, откуда были считаны данные
 
           contains
 
           procedure :: put_ls_ftype ! Процедура для присвоения значения переменной ls_ftype
           procedure :: put_coefs ! Процедура для присваивания значения массиву coefs
           procedure :: put_err ! Процедура для присваивания значения переменной err
+          procedure :: put_file ! Процедура для присваивания значения переменной file
 
      end type result_type
 
@@ -56,6 +58,15 @@ implicit none
                real(RP), intent(in) :: err ! Погрешность метода
      
           end subroutine put_err
+
+          ! Процедура для присваивания значения переменной file
+          module subroutine put_file(result, file)
+          implicit none
+          
+               class ( result_type ), intent(inout) :: result ! Результат
+               character(*), intent(in) :: file ! Имя файла, откуда были считаны данные
+          
+          end subroutine put_file
 
           ! Процедура для вывода результата
           module impure elemental subroutine write(result)
