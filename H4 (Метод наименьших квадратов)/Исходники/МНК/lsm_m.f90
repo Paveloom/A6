@@ -23,6 +23,15 @@ implicit none
           
           end subroutine lsm
 
+          ! Процедура для вызова метода наименьших квадратов для перебора функций
+          module impure elemental subroutine lsm_all(input, result)
+               implicit none
+                    
+                    type ( input_type ), intent(in) :: input
+                    type ( result_type ), intent(inout) :: result
+                    
+               end subroutine lsm_all
+
           ! Процедура для вызова метода наименьших квадратов для линейной функции
           module impure elemental subroutine lsm_linear(input, result)
           implicit none

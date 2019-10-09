@@ -19,7 +19,7 @@ implicit none
           real(RP) :: Y   ! Сумма y_i-ых
 
           ! Вспомогательные коэффициенты
-          real(RP) :: c1, c2, c3
+          real(RP) :: c1, c2, c3, a1
 
           integer(IP) :: N ! Длина матрицы входных данных
           real(RP) :: N_RP ! Овеществление N
@@ -36,11 +36,11 @@ implicit none
                ! Овеществление N
                N_RP = real(N, kind = RP)
 
-               ! Выделение памяти под ln_row2
+               ! Выделение памяти под sq_row
                allocate(sq_row(N), stat = stat)
                if ( stat .ne. 0_SP ) call log_lsm_error('WA_sq_row')
 
-               ! Вычисление ln_row2
+               ! Вычисление sq_row
                sq_row = matrix(:, 1) ** 2
 
                ! Вычисление сумм
@@ -53,7 +53,9 @@ implicit none
                Y   = sum(matrix(:, 2))
 
                ! Вычисление вспомогательных коэффициентов
-               c1 = X2 * N_RP - X * X
+               a1 = X * X
+
+               c1 = X2 * N_RP - a1
                c2 = X * X2 - N_RP * X3
                c3 = X * X3 - X2 * X2
 
@@ -61,7 +63,7 @@ implicit none
                a = ( X2Y * c1 + XY * c2 + Y * c3 ) / ( X4 * c1 + X3 * c2 + X2 * c3 ) 
 
                ! Вычисление коэффициента b
-               b = ( a * c2 + N_RP * XY - X * Y ) / ( X2 * N_RP - X * X )
+               b = ( a * c2 + N_RP * XY - X * Y ) / ( X2 * N_RP - a1 )
 
                ! Вычисление коэффициента c
                c = ( - a * X2 - b * X + Y ) / N_RP
@@ -74,7 +76,7 @@ implicit none
                call result%put_coefs([a, b, c])
                call result%put_err(err)
 
-               ! Освобождение памяти из-под ln_row2
+               ! Освобождение памяти из-под sq_row
                deallocate(sq_row, stat = stat)
                if ( stat .ne. 0_SP ) call log_lsm_error('WD_sq_row')
 

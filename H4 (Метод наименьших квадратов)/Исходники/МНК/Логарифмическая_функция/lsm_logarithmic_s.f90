@@ -10,7 +10,7 @@ implicit none
           real(RP) :: a, b ! Коэффициенты
           real(RP) :: err  ! Погрешность метода
 
-          real(RP) :: lnX2 ! Сумма ln(x^2_i)-ых
+          real(RP) :: ln2X ! Сумма ln^2(x_i)-ых
           real(RP) :: lnX  ! Сумма ln(x_i)-ых
           real(RP) :: YlnX ! Сумма (y_i * ln(x_i))-ых
           real(RP) :: Y    ! Сумма y_i-ых
@@ -38,13 +38,13 @@ implicit none
                ln_row = log(matrix(:, 1))
 
                ! Вычисление сумм
-               lnX2 = sum(ln_row ** 2)
+               ln2X = sum(ln_row ** 2)
                lnX  = sum(ln_row)
                YlnX = sum(matrix(:, 2) * ln_row)
                Y    = sum(matrix(:, 2))
 
                ! Вычисление коэффициента a
-               a = ( YlnX * N_RP - Y * lnX ) / ( lnX2 * N_RP - lnX * lnX )
+               a = ( YlnX * N_RP - Y * lnX ) / ( ln2X * N_RP - lnX * lnX )
 
                ! Вычисление коэффициента b
                b = ( Y - a * lnX ) / N_RP

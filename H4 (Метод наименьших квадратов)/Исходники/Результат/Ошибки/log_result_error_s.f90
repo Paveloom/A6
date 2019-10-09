@@ -23,6 +23,13 @@ implicit none
                                                                            & типа result_type.'
                     stop
 
+               case ('WD_err_array') ! Встречается в deallocate_result_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось освободить память из-под&
+                                                                           & размещаемого массива err_array объекта&
+                                                                           & типа result_type.'
+                    stop
+
                case ('WD_file') ! Встречается в deallocate_result_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось освободить память из-под&

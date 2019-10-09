@@ -65,7 +65,7 @@
      subs := Входные_данные/ Входные_данные/Ошибки/ \
 	        МНК/ МНК/Ошибки/ \
 		   МНК/Линейная_функция/ МНК/Гиперболическая_функция/ МНК/Логарифмическая_функция/ \
-		   МНК/Экспоненциальная_функция/ МНК/Квадратичная_функция/ \
+		   МНК/Экспоненциальная_функция/ МНК/Квадратичная_функция/ МНК/Перебор/ \
 		   Результат/ Результат/Ошибки/ Результат/Присваивание_значений/ Результат/Вывод/ \
 		   Освобождение_памяти/ 
 
@@ -85,6 +85,7 @@
 
      $(obj_path)lsm_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)lsm_warns_m.o
      $(obj_path)lsm_s.o : $(obj_path)lsm_m.o
+     $(obj_path)lsm_all_s.o : $(obj_path)lsm_m.o
      $(obj_path)lsm_linear_s.o : $(obj_path)lsm_m.o
      $(obj_path)lsm_hyperbolic_s.o : $(obj_path)lsm_m.o
      $(obj_path)lsm_logarithmic_s.o : $(obj_path)lsm_m.o
@@ -96,7 +97,8 @@
      $(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_warns_m.o
      $(obj_path)put_ls_ftype_s.o : $(obj_path)result_m.o
      $(obj_path)put_coefs_s.o : $(obj_path)result_m.o
-     $(obj_path)put_err_s.o : $(obj_path)result_m.o
+     $(obj_path)put_err_scalar_s.o : $(obj_path)result_m.o
+     $(obj_path)put_err_array_s.o : $(obj_path)result_m.o
      $(obj_path)put_file_s.o : $(obj_path)result_m.o
      $(obj_path)write_s.o : $(obj_path)result_m.o
      $(obj_path)deallocate_result_s.o : $(obj_path)result_m.o

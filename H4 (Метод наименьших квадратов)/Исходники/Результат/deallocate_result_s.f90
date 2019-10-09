@@ -30,6 +30,13 @@ implicit none
           
           endif
 
+          if ( allocated(result%err_array) ) then ! Проверка, размещена ли переменная err объекта
+
+               deallocate( result%err_array, stat = stat ) ! Освобождение памяти из-под погрешности метода
+               if ( stat .ne. 0_SP ) call log_result_error('WD_err_array') ! Проверка на ошибку освобождения памяти
+          
+          endif
+
           if ( allocated(result%file) ) then ! Проверка, размещена ли переменная file объекта
 
                deallocate( result%file, stat = stat ) ! Освобождение памяти из-под имени файла

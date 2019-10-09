@@ -5,10 +5,10 @@ implicit none
      contains
      
      ! Процедура для присваивания значения переменной err
-     module procedure put_err
+     module procedure put_err_scalar
           
           result%err = err
           
-     end procedure put_err
+     end procedure put_err_scalar
      
 end submodule put_err_s

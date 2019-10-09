@@ -19,13 +19,15 @@ implicit none
           character(:), allocatable :: ls_ftype ! Тип функции для использования МНК
           real(RP), allocatable, dimension(:) :: coefs ! Массив коэффициентов
           real(RP) :: err ! Погрешность аппроксимирующей функции
+          real(RP), allocatable, dimension(:) :: err_array ! Погрешности аппроксимирующих функций (массив)
           character(:), allocatable :: file ! Имя файла, откуда были считаны данные
 
           contains
 
-          procedure :: put_ls_ftype ! Процедура для присвоения значения переменной ls_ftype
+          procedure :: put_ls_ftype ! Процедура для присваивания значения переменной ls_ftype
           procedure :: put_coefs ! Процедура для присваивания значения массиву coefs
-          procedure :: put_err ! Процедура для присваивания значения переменной err
+          procedure :: put_err => put_err_scalar ! Процедура для присваивания значения переменной err
+          procedure :: put_err_array ! Процедура для присваивания значений массиву err
           procedure :: put_file ! Процедура для присваивания значения переменной file
 
      end type result_type
@@ -51,13 +53,22 @@ implicit none
           end subroutine put_coefs
 
           ! Процедура для присваивания значения переменной err
-          module subroutine put_err(result, err)
+          module subroutine put_err_scalar(result, err)
           implicit none
      
                class ( result_type ), intent(inout) :: result ! Результат
                real(RP), intent(in) :: err ! Погрешность метода
      
-          end subroutine put_err
+          end subroutine put_err_scalar
+
+          ! Процедура для присваивания значений массиву err
+          module subroutine put_err_array(result, err_array)
+               implicit none
+          
+                    class ( result_type ), intent(inout) :: result  ! Результат
+                    real(RP), dimension(:), intent(in) :: err_array ! Погрешность метода
+          
+               end subroutine put_err_array
 
           ! Процедура для присваивания значения переменной file
           module subroutine put_file(result, file)

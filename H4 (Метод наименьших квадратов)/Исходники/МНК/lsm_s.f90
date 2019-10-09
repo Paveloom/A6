@@ -19,6 +19,10 @@ implicit none
 
           select case (ls_ftype) ! Проверка типа функции для использования МНК
 
+               case ('all') ! Перебор функций
+
+                    call lsm_all(input, result) ! Вызов МНК для перебора функций
+
                case ('linear') ! Линейная функция
 
                     call lsm_linear(input, result) ! Вызов МНК для линейной функции
