@@ -18,8 +18,8 @@ implicit none
           module impure elemental subroutine lsm(input, result)
           implicit none
           
-          type ( input_type ), intent(in) :: input
-          type ( result_type ), intent(inout) :: result
+               type ( input_type ), intent(in) :: input
+               type ( result_type ), intent(inout) :: result
           
           end subroutine lsm
 
@@ -27,8 +27,8 @@ implicit none
           module impure elemental subroutine lsm_linear(input, result)
           implicit none
           
-          type ( input_type ), intent(in) :: input
-          type ( result_type ), intent(inout) :: result
+               type ( input_type ), intent(in) :: input
+               type ( result_type ), intent(inout) :: result
           
           end subroutine lsm_linear
 
@@ -36,8 +36,8 @@ implicit none
           module impure elemental subroutine lsm_hyperbolic(input, result)
           implicit none
           
-          type ( input_type ), intent(in) :: input
-          type ( result_type ), intent(inout) :: result
+               type ( input_type ), intent(in) :: input
+               type ( result_type ), intent(inout) :: result
           
           end subroutine lsm_hyperbolic
 
@@ -45,20 +45,29 @@ implicit none
           module impure elemental subroutine lsm_logarithmic(input, result)
           implicit none
           
-          type ( input_type ), intent(in) :: input
-          type ( result_type ), intent(inout) :: result
+               type ( input_type ), intent(in) :: input
+               type ( result_type ), intent(inout) :: result
           
           end subroutine lsm_logarithmic
 
           ! Процедура для вызова метода наименьших квадратов для экспоненциальной функции
           module impure elemental subroutine lsm_exponential(input, result)
           implicit none
-          
-          type ( input_type ), intent(in) :: input
-          type ( result_type ), intent(inout) :: result
+               
+               type ( input_type ), intent(in) :: input
+               type ( result_type ), intent(inout) :: result
           
           end subroutine lsm_exponential
      
+          ! Процедура для вызова метода наименьших квадратов для квадратичной функции
+          module impure elemental subroutine lsm_quadratic(input, result)
+          implicit none
+               
+               type ( input_type ), intent(in) :: input
+               type ( result_type ), intent(inout) :: result
+               
+          end subroutine lsm_quadratic
+
      end interface  
 
 end module lsm_m

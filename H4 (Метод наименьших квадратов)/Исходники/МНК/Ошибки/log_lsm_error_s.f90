@@ -79,6 +79,20 @@ implicit none
 
                     stop
 
+               case ('WA_sq_row') ! Встречается в lsm_qudratic
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_lsm_error: ', 'Не удалось выделить память для временной&
+                                                                         & размещаемой переменной sq_row.'
+
+                    stop
+
+               case ('WD_sq_row') ! Встречается в lsm_qudratic
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_lsm_error: ', 'Не удалось освободить память из-под временной&
+                                                                         & размещаемой переменной sq_row.'
+
+                    stop
+
                case default
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_lsm_error:', 'Неизвестный код ошибки.'

@@ -84,3 +84,21 @@
     y = 4.04298820405654 * exp(x * 0.0785341057422060)
     lines(x, y, col = 'blue')
     
+  # Квадратичная функция
+    
+    ## Оценка модели (здесь: y = b * exp(x) + a, поэтому расходится с программой)
+    model = lm(data=data, formula = y ~ x + I(x^2)) 
+    
+    ## Вывод результата
+    model
+    
+    ## Построение графика по полученному результату
+    
+    plot(data)
+    
+    x = seq(seq_min, seq_max, 0.01)  
+    y = coef(model)[3] * x ** 2 + coef(model)[2] * x + coef(model)[1]
+    
+    title('Квадратичная функция')
+    lines(x, y, col = 'red', lty = 'dashed')
+    

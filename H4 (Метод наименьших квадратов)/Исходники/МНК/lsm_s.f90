@@ -35,6 +35,10 @@ implicit none
 
                     call lsm_exponential(input, result) ! Вызов МНК для экспоненциальной функции
 
+               case ('quadratic') ! Квадратичная функция
+
+                    call lsm_quadratic(input, result) ! Вызов МНК для квадратичной функции
+
                case default ! Неверно указано ключевое слово
 
                     call log_lsm_error('WT', file) ! Вывод списка доступных ключевых слов
