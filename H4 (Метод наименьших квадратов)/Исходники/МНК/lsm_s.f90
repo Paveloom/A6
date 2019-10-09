@@ -29,7 +29,11 @@ implicit none
 
                case ('logarithmic') ! Логарифмическая функция
 
-                    call lsm_logarithmic(input, result) ! Вызов МНК для гиперболической функции
+                    call lsm_logarithmic(input, result) ! Вызов МНК для логарифмической функции
+
+               case ('exponential') ! Экспоненциальная функция
+
+                    call lsm_exponential(input, result) ! Вызов МНК для экспоненциальной функции
 
                case default ! Неверно указано ключевое слово
 

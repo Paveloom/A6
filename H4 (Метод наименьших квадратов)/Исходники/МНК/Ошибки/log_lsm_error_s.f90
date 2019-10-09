@@ -65,6 +65,20 @@ implicit none
 
                     stop
 
+               case ('WA_ln_row2') ! Встречается в lsm_exponential
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_lsm_error: ', 'Не удалось выделить память для временной&
+                                                                         & размещаемой переменной ln_row2.'
+
+                    stop
+
+               case ('WD_ln_row2') ! Встречается в lsm_exponential
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_lsm_error: ', 'Не удалось освободить память из-под временной&
+                                                                         & размещаемой переменной ln_row2.'
+
+                    stop
+
                case default
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_lsm_error:', 'Неизвестный код ошибки.'

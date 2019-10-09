@@ -58,7 +58,29 @@
     x = seq(seq_min, seq_max, 0.01)  
     y = coef(model)[2] * log(x) + coef(model)[1]
     
-    title('Гиперболическая функция')
+    title('Логарифмическая функция')
     lines(x, y, col = 'blue')
     
+  # Экспоненциальная функция
+    
+    ## Оценка модели (здесь: y = b * exp(x) + a, поэтому расходится с программой)
+    model = lm(data=data, formula = y ~ exp(x)) 
+    
+    ## Вывод результата
+    model
+    
+    ## Построение графика по полученному результату
+    
+    plot(data)
+    
+    x = seq(seq_min, seq_max, 0.01)  
+    y = coef(model)[2] * exp(x) + coef(model)[1]
+    
+    title('Экспоненциальная функция')
+    lines(x, y, col = 'red', lty = 'dashed')
+    
+    ## Сравнение с результатом, полученным программой
+    
+    y = 4.04298820405654 * exp(x * 0.0785341057422060)
+    lines(x, y, col = 'blue')
     
