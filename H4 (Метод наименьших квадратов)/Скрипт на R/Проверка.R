@@ -100,5 +100,5 @@
     y = coef(model)[3] * x ** 2 + coef(model)[2] * x + coef(model)[1]
     
     title('Квадратичная функция')
-    lines(x, y, col = 'red', lty = 'dashed')
-    
+    lines(x, y, col = 'blue')
+

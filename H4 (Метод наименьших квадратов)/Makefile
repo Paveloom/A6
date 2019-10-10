@@ -33,7 +33,7 @@
      pattern := f90
      
      ## Режим отладки (при значении true использует флаги opt_debug, при другом значении — opt_production)
-     debugging := true
+     debugging := false
      
      ## Флаги для отладки
      opt_debug := -Og -g -Wall -Wextra -Warray-temporaries -Wcharacter-truncation -Wconversion-extra \
@@ -44,7 +44,7 @@
 			   -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2008
      
      ## Флаги для финальной сборки
-     opt_production := -Ofast
+     opt_production := -ffree-line-length-0 -Ofast
      
      ## Имя главной программы
      main_name := main
@@ -370,3 +370,4 @@
      
      git-clean : 
 		       rm -rf .git
+

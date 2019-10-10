@@ -32,7 +32,7 @@ implicit none
      interface
 
           ! Процедура для выделения памяти / считывания начальных данных
-          module subroutine read(input, file)
+          module impure elemental subroutine read(input, file)
           implicit none
                
                type ( input_type ), intent(out) :: input ! Входные данные
@@ -41,7 +41,7 @@ implicit none
           end subroutine read
 
           ! Функция для получения типа функции для использования МНК
-          module function get_ls_ftype(input) result(ls_ftype)
+          module pure function get_ls_ftype(input) result(ls_ftype)
           implicit none
                
                class ( input_type ), intent(in) :: input ! Входные данные
@@ -50,7 +50,7 @@ implicit none
           end function get_ls_ftype
 
           ! Функция для получения имени файла для считывания
-          module function get_file(input) result(file)
+          module pure function get_file(input) result(file)
           implicit none
                     
                     class ( input_type ), intent(in) :: input ! Входные данные

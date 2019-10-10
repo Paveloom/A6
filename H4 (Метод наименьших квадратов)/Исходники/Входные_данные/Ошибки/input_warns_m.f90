@@ -9,7 +9,7 @@ implicit none
      interface 
           
           ! Процедура для вывода ошибок для модулей, связанных с входными данными
-          module subroutine log_input_error(error_code, file)
+          module impure subroutine log_input_error(error_code, file)
           implicit none
                
                character(*), intent(in) :: error_code

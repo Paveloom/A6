@@ -35,7 +35,7 @@ implicit none
      interface
 
           ! Процедура для присваивания значения переменной ls_ftype
-          module subroutine put_ls_ftype(result, ls_ftype)
+          module pure subroutine put_ls_ftype(result, ls_ftype)
           implicit none
 
                class ( result_type ), intent(inout) :: result ! Результат
@@ -44,7 +44,7 @@ implicit none
           end subroutine put_ls_ftype
 
           ! Процедура для присваивания значения массиву coefs
-          module subroutine put_coefs(result, coefs)
+          module pure subroutine put_coefs(result, coefs)
           implicit none
 
                class ( result_type ), intent(inout) :: result ! Результат
@@ -53,7 +53,7 @@ implicit none
           end subroutine put_coefs
 
           ! Процедура для присваивания значения переменной err
-          module subroutine put_err_scalar(result, err)
+          module pure subroutine put_err_scalar(result, err)
           implicit none
      
                class ( result_type ), intent(inout) :: result ! Результат
@@ -62,7 +62,7 @@ implicit none
           end subroutine put_err_scalar
 
           ! Процедура для присваивания значений массиву err
-          module subroutine put_err_array(result, err_array)
+          module pure subroutine put_err_array(result, err_array)
                implicit none
           
                     class ( result_type ), intent(inout) :: result  ! Результат
@@ -71,7 +71,7 @@ implicit none
                end subroutine put_err_array
 
           ! Процедура для присваивания значения переменной file
-          module subroutine put_file(result, file)
+          module pure subroutine put_file(result, file)
           implicit none
           
                class ( result_type ), intent(inout) :: result ! Результат

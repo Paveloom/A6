@@ -1,4 +1,5 @@
-submodule ( input_m ) get_ls_ftype_s
+submodule ( input_m ) get_ls_ftype_s ! Подмодуль, содержащий процедуру
+                                     ! для получения типа функции для использования МНК
 implicit none
      
      contains

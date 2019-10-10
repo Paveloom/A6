@@ -1,4 +1,5 @@
-submodule ( input_m ) get_file_s
+submodule ( input_m ) get_file_s ! Подмодуль, содержащий процедуру
+                                 ! для получения имени файла для считывания
 implicit none
      
      contains
