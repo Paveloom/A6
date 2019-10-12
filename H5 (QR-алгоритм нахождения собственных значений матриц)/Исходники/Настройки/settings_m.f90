@@ -28,7 +28,7 @@ implicit none
      interface
      
           ! Процедура для считывания настроек программы
-          module subroutine read_settings(settings, file)
+          module impure elemental subroutine read_settings(settings, file)
           implicit none
           
           type ( settings_type ), intent(out) :: settings ! Настройки программы

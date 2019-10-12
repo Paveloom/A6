@@ -63,7 +63,7 @@ implicit none
 
                     nullification : do i = k_p1 + 1, N 
                          
-                         if ( real((matrix(k, i))) .le. 1e-10 ) matrix(k, i) = cmplx( 0._RP, aimag(matrix(k, i)) )
+                         if ( abs(real((matrix(k, i)))) .le. 1e-10 .and. abs(aimag(matrix(k, i))) .le. 1e-10 ) matrix(k, i) = cmplx( 0._RP, 0._RP )
 
                     enddo nullification
 
