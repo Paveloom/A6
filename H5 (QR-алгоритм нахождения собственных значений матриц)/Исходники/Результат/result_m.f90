@@ -12,6 +12,8 @@ implicit none
      
      type result_type
 
+          private
+
           complex(CP), allocatable, dimension(:) :: evalues ! Массив собственных чисел матрицы
 
      end type result_type

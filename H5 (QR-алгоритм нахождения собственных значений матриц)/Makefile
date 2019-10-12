@@ -64,7 +64,7 @@
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := Входные_данные/ Входные_данные/Ошибки/ \
 		   Результат/ Результат/Ошибки/ \
-	        QR-алгоритм/ \
+	        QR-алгоритм/ QR-алгоритм/Метод_Хаусхолдера/ \
 		   Освобождение_памяти/ \
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
@@ -84,8 +84,14 @@
 
      $(obj_path)log_result_error_s.o : $(obj_path)result_warns_m.o
 
-     $(obj_path)qr_alg_m.o : $(obj_path)input_m.o
+     $(obj_path)qr_alg_m.o : $(obj_path)input_m.o $(obj_path)result_m.o \
+	                        $(obj_path)householder_reduction_m.o
      $(obj_path)get_eigenvalues_s.o : $(obj_path)qr_alg_m.o
+
+     $(obj_path)householder_reduction_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o
+     $(obj_path)get_hessenberg_form_s.o : $(obj_path)householder_reduction_m.o
+     $(obj_path)get_hessenberg_form_loud_s.o : $(obj_path)householder_reduction_m.o
+     $(obj_path)get_hessenberg_form_silent_s.o : $(obj_path)householder_reduction_m.o
 
      $(obj_path)deallocate_m.o : $(obj_path)input_m.o $(obj_path)result_m.o
      $(obj_path)deallocate_both_s.o : $(obj_path)deallocate_m.o

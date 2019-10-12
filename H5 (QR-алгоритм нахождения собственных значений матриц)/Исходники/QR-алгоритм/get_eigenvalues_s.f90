@@ -9,7 +9,7 @@ implicit none
      ! для нахождения значений собственных чисел квадратных матриц
      module procedure get_eigenvalues
           
-          
+          call get_hessenberg_form(input)
           
      end procedure get_eigenvalues
      

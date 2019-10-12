@@ -18,8 +18,8 @@ implicit none
           
           private
 
-          integer(IP) :: N
-          complex(CP), allocatable, dimension(:,:), public :: matrix
+          integer(IP), public :: N ! Число строк матрицы
+          complex(CP), allocatable, dimension(:,:), public :: matrix ! Матрица объекта
           
      end type input_type
 
@@ -29,8 +29,8 @@ implicit none
           module impure elemental subroutine read(input, file)
           implicit none
           
-          type ( input_type ), intent(out) :: input
-          character(*), intent(in) :: file
+          type ( input_type ), intent(out) :: input ! Входные данные
+          character(*), intent(in) :: file ! Имя файла для считывания
           
           end subroutine read
 
@@ -38,7 +38,7 @@ implicit none
           module impure elemental subroutine deallocate_input(input)
           implicit none
           
-          type ( input_type ), intent(inout) :: input
+          type ( input_type ), intent(inout) :: input ! Входные данные
           
           end subroutine deallocate_input
      
