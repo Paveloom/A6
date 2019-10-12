@@ -10,8 +10,24 @@ implicit none
      ! матрице Хессенберга (почти треугольной матрице)
      module procedure get_hessenberg_form
           
-          call get_hessenberg_form_loud(input)
+          logical(LP) :: Q_answer ! Держатель для ответов на вопросы в
+                                  ! настройках программы
+
+          ! Показывать реализацию метода Хаусхолдера?
+          Q_answer = settings%get_Q1_answer()
+
+          if (Q_answer) then 
+               
+               ! Показывать реализацию метода Хаусхолдера
+               call get_hessenberg_form_loud(input)
           
+          else
+
+               ! Не показывать реализацию метода Хаусхолдера
+               call get_hessenberg_form_silent(input)
+
+          endif
+
      end procedure get_hessenberg_form
      
 end submodule get_hessenberg_form_s

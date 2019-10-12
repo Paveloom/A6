@@ -10,7 +10,7 @@ implicit none
      
      private
      public :: input_type, & ! Тип, определяющий входные данные
-             & read, & ! Процедура для выделения памяти / считывания входных данных
+             & read_input, & ! Процедура для выделения памяти / считывания входных данных
              & deallocate_input ! Процедура для освобождения памяти из-под входных данных
      
      ! Тип, определяющий входные данные
@@ -26,13 +26,13 @@ implicit none
      interface
      
           ! Процедура для выделения памяти / считывания входных данных
-          module impure elemental subroutine read(input, file)
+          module impure elemental subroutine read_input(input, file)
           implicit none
           
           type ( input_type ), intent(out) :: input ! Входные данные
           character(*), intent(in) :: file ! Имя файла для считывания
           
-          end subroutine read
+          end subroutine read_input
 
           ! Процедура для освобождения памяти из-под входных данных
           module impure elemental subroutine deallocate_input(input)

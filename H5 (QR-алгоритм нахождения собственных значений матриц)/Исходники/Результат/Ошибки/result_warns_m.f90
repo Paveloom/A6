@@ -12,7 +12,7 @@ implicit none
           module impure subroutine log_result_error(error_code)
           implicit none
 
-               character(*), intent(in) :: error_code
+               character(*), intent(in) :: error_code ! Код ошибки
 
           end subroutine log_result_error
      

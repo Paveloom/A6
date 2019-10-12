@@ -64,17 +64,19 @@
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := Входные_данные/ Входные_данные/Ошибки/ \
 		   Результат/ Результат/Ошибки/ \
+		   Настройки/ Настройки/Ошибки/ Настройки/Получение_данных/ \
 	        QR-алгоритм/ QR-алгоритм/Метод_Хаусхолдера/ \
-		   Освобождение_памяти/ \
+		   Освобождение_памяти/ Считывание/ \
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
      obj_path := Объектники/
      
      ## Правила-зависимости (при необходимости)
-     $(obj_path)$(main_name).o : $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)qr_alg_m.o $(obj_path)deallocate_m.o
+     $(obj_path)$(main_name).o : $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
+	                            $(obj_path)qr_alg_m.o $(obj_path)deallocate_m.o $(obj_path)read_m.o
 
      $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)input_warns_m.o
-     $(obj_path)read_s.o : $(obj_path)input_m.o
+     $(obj_path)read_input_s.o : $(obj_path)input_m.o
      $(obj_path)deallocate_input_s.o : $(obj_path)input_m.o
 
      $(obj_path)log_input_error_s.o : $(obj_path)input_warns_m.o
@@ -84,17 +86,25 @@
 
      $(obj_path)log_result_error_s.o : $(obj_path)result_warns_m.o
 
-     $(obj_path)qr_alg_m.o : $(obj_path)input_m.o $(obj_path)result_m.o \
+     $(obj_path)settings_m.o : $(obj_path)prec_m.o $(obj_path)settings_warns_m.o
+     $(obj_path)read_settings_s.o : $(obj_path)settings_m.o
+     $(obj_path)get_do_show_householder_reduction_s.o : $(obj_path)settings_m.o
+
+     $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
+
+     $(obj_path)qr_alg_m.o : $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
 	                        $(obj_path)householder_reduction_m.o
      $(obj_path)get_eigenvalues_s.o : $(obj_path)qr_alg_m.o
 
-     $(obj_path)householder_reduction_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o
+     $(obj_path)householder_reduction_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)settings_m.o
      $(obj_path)get_hessenberg_form_s.o : $(obj_path)householder_reduction_m.o
      $(obj_path)get_hessenberg_form_loud_s.o : $(obj_path)householder_reduction_m.o
      $(obj_path)get_hessenberg_form_silent_s.o : $(obj_path)householder_reduction_m.o
 
      $(obj_path)deallocate_m.o : $(obj_path)input_m.o $(obj_path)result_m.o
      $(obj_path)deallocate_both_s.o : $(obj_path)deallocate_m.o
+
+     $(obj_path)read_m.o : $(obj_path)input_m.o $(obj_path)settings_m.o
      
      # Определение флагов компилятора
      

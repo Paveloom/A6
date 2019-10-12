@@ -12,8 +12,8 @@ implicit none
           module impure subroutine log_input_error(error_code, file)
           implicit none
                
-               character(*), intent(in) :: error_code
-               character(*), intent(in), optional :: file
+               character(*), intent(in) :: error_code     ! Код ошибки
+               character(*), intent(in), optional :: file ! Имя файла для считывания
 
           end subroutine log_input_error
      
