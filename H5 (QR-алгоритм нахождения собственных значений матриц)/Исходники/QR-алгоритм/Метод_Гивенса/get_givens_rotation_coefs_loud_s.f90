@@ -1,63 +1,57 @@
 submodule ( givens_rotations_m ) get_givens_rotation_coefs_loud_s ! Подмодуль, содержащий процедуру для
                                                                   ! получения коэффициентов c и s, 
                                                                   ! необходимых для осуществления поворота Гивенса
+                                                                  ! (с дополнительным выводом)
 implicit none
      
      contains
      
      ! Процедура для получения коэффициентов c и s, 
      ! необходимых для осуществления поворота Гивенса
+     ! (с дополнительным выводом)
      module procedure get_givens_rotation_coefs_loud
 
           ! Вспомогательные переменные
-          real(RP) :: f1, g1, u, f2, g2
-          complex(CP) :: gs, fs
+          complex(CP) :: CP0, CP1 ! Вещественные ноль и единица,
+                                  ! записанные в комплексную переменную
+          complex(CP) :: cg ! Значение conjg(g)
+
+          complex(CP) :: norm ! Значение sqrt( [abs(f)]^2 + [abs(g)]^2 ),
+                              ! записанное в комплексную переменную
+
+          complex(CP) :: CP_abs_f ! Значение abs(f), записанное
+                                  ! в комплексную переменную
+
+          real(RP) :: abs_f, abs_g ! Значения abs(f) и abs(g)
+
+          ! Вычисление вспомогательных переменных
+
+          CP0 = cmplx(0._RP, 0._RP, kind = CP)
+          CP1 = cmplx(1._RP, 0._RP, kind = CP)
+
+          cg = conjg(g)
+
+          abs_f = abs(f)
+          abs_g = abs(g)
+
+          norm = cmplx(sqrt( abs_f ** 2 + abs_g ** 2 ), 0._RP, kind = CP)
+
+          CP_abs_f = cmplx(abs_f, 0._RP, kind = CP)
           
-          if ( abs(g) .lt. 1e-10 ) then ! g = 0
+          if ( abs_g .lt. 1e-10_RP ) then ! g = 0
 
-               c = sign(1._RP, real(f))
-               s = 0._RP
+               c = CP1 ! c = 1
+               s = CP0 ! s = 0
 
-          elseif ( abs(f) .lt. 1e-10 ) then ! f = 0
+          elseif ( abs_f .lt. 1e-10_RP ) then ! f = 0
 
-               c = 0._RP
-               s = conjg(g) / abs(g)
+               c = CP0     ! c = 0
+               s = sgn(cg) ! s = sgn(conjg(g))
 
-          else
+          else ! f != 0 и g != 0
 
-               f1 = abs(real(f)) + abs(aimag(f))
-               g1 = abs(real(f)) + abs(aimag(f))
-
-               if ( f1 - g1 .ge. 0._RP ) then ! |f1| >= |g1|
-
-                    fs = f / f1
-                    f2 = real(fs * fs) + aimag(fs * fs)
-
-                    gs = g / f1
-                    g2 = real(gs * gs) + aimag(gs * gs)
-
-                    u = sign(1._RP, real(f)) * sqrt(1 + g2 / f2)
-
-                    c = 1 / u
-                    s = conjg(gs) * fs * c / f2
-
-               else ! |f1| < |g1|
-
-                    fs = f / g1
-                    f2 = real(fs * fs) + aimag(fs * fs)
-
-                    gs = g / g1
-                    g2 = real(gs * gs) + aimag(gs * gs)
-
-                    u = sign(1._RP, real(f)) * g1 * sqrt(f2 + g2)
-
-                    f1 = abs(f)
-                    fs = f / f1
-
-                    c = f1 / u
-                    s = fs * conjg(g) / u
-
-               endif
+               c = CP_abs_f / norm    ! c = |f| / sqrt( |f|^2 + |g|^2 )
+               s = sgn(f) * cg / norm ! s = sgn(f) * conjg(g) / sqrt( |f|^2 + |g|^2 )
 
           endif
 

@@ -44,7 +44,7 @@
 			   -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2008
      
      ## Флаги для финальной сборки
-     opt_production := -Ofast
+     opt_production := -ffree-line-length-0 -Ofast
      
      ## Имя главной программы
      main_name := main
@@ -101,9 +101,10 @@
      $(obj_path)get_hessenberg_form_loud_s.o : $(obj_path)householder_reduction_m.o
      $(obj_path)get_hessenberg_form_silent_s.o : $(obj_path)householder_reduction_m.o
 
-     $(obj_path)givens_rotations_m.o : $(obj_path)prec_m.o
+     $(obj_path)givens_rotations_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o
      $(obj_path)get_givens_rotation_coefs_loud_s.o : $(obj_path)givens_rotations_m.o
-     $(obj_path)get_real_givens_rotation_coefs_loud_s.o : $(obj_path)givens_rotations_m.o
+     $(obj_path)make_a_hessenberg_qr_step_loud_s.o : $(obj_path)givens_rotations_m.o
+     $(obj_path)sgn_s.o : $(obj_path)givens_rotations_m.o
 
      $(obj_path)deallocate_m.o : $(obj_path)input_m.o $(obj_path)result_m.o
      $(obj_path)deallocate_both_s.o : $(obj_path)deallocate_m.o
