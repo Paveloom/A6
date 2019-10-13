@@ -66,6 +66,7 @@
 		   Результат/ Результат/Ошибки/ \
 		   Настройки/ Настройки/Ошибки/ Настройки/Получение_данных/ \
 	        QR-алгоритм/ QR-алгоритм/Метод_Хаусхолдера/ QR-алгоритм/Метод_Гивенса/ \
+		   QR-алгоритм/QR-АХ_со_сдвигом_по_отношению_Релея/ \
 		   Освобождение_памяти/ Считывание/ \
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
@@ -95,6 +96,7 @@
      $(obj_path)qr_alg_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
 	                        $(obj_path)householder_reduction_m.o $(obj_path)givens_rotations_m.o
      $(obj_path)get_eigenvalues_s.o : $(obj_path)qr_alg_m.o
+     $(obj_path)hqr_alg_with_rayleigh_quotient_shift_s.o : $(obj_path)qr_alg_m.o
 
      $(obj_path)householder_reduction_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)settings_m.o
      $(obj_path)get_hessenberg_form_s.o : $(obj_path)householder_reduction_m.o

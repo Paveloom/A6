@@ -25,10 +25,20 @@ implicit none
           implicit none
           
           type ( input_type ), intent(inout) :: input ! Входные данные
-          type ( result_type ), intent(in) :: result ! Результат
+          type ( result_type ), intent(inout) :: result ! Результат
           type ( settings_type ), intent(in) :: settings ! Настройки программы
           
           end subroutine get_eigenvalues
+
+          ! Процедура главного вызова модифицированного QR-алгоритма
+          ! для нахождения значений собственных чисел квадратных матриц
+          module impure subroutine hqr_alg_with_rayleigh_quotient_shift(input, settings)
+          implicit none
+          
+          type ( input_type ), intent(inout) :: input ! Входные данные
+          type ( settings_type ), intent(in) :: settings ! Настройки программы
+          
+          end subroutine hqr_alg_with_rayleigh_quotient_shift
      
      end interface
      
