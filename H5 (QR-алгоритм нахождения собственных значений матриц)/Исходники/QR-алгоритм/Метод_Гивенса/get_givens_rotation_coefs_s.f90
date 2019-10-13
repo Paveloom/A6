@@ -1,15 +1,13 @@
-submodule ( givens_rotations_m ) get_givens_rotation_coefs_loud_s ! Подмодуль, содержащий процедуру для
-                                                                  ! получения коэффициентов c и s, 
-                                                                  ! необходимых для осуществления поворота Гивенса
-                                                                  ! (с дополнительным выводом)
+submodule ( givens_rotations_m ) get_givens_rotation_coefs_s ! Подмодуль, содержащий процедуру для
+                                                             ! получения коэффициентов c и s, 
+                                                             ! необходимых для осуществления поворота Гивенса
 implicit none
      
      contains
      
      ! Процедура для получения коэффициентов c и s, 
      ! необходимых для осуществления поворота Гивенса
-     ! (с дополнительным выводом)
-     module procedure get_givens_rotation_coefs_loud
+     module procedure get_givens_rotation_coefs
 
           ! Вспомогательные переменные
           complex(CP) :: CP0, CP1 ! Вещественные ноль и единица,
@@ -55,6 +53,6 @@ implicit none
 
           endif
 
-     end procedure get_givens_rotation_coefs_loud
+     end procedure get_givens_rotation_coefs
      
-end submodule get_givens_rotation_coefs_loud_s
+end submodule get_givens_rotation_coefs_s

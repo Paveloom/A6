@@ -15,7 +15,13 @@ implicit none
 
           ! [ Вызов QR-алгоритма Хаусхолдера со ]
           ! [ сдвигом по отношению Релея        ]
-          call hqr_alg_with_rayleigh_quotient_shift(input, settings)
+          !call hqr_alg_with_rayleigh_quotient_shift(input, settings)
+
+          ! [ Вызов QR-алгоритма Фрэнсиса с двойным сдвигом ]
+          call francis_double_step_qr_alg(input, settings)
+
+          ! write(*,'(3(4x, e22.15))') real(input%matrix)
+          ! write(*,*)
 
      end procedure get_eigenvalues
      

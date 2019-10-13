@@ -13,8 +13,10 @@ implicit none
 
           complex(CP), dimension(1, input%N - 1) :: u  ! Вектор Хаусхолдера
           complex(CP), dimension(input%N - 1, 1) :: us ! Эрмитово-сопряженный вектор Хаусхолдера
+
+          complex(CP) :: ro ! Коэффициент перед нормой
+          real(RP) :: arg ! Аргумент комплексного числа matrix(k, k_p1)
           real(RP) :: subcolumn_norm ! Норма k-го столбца ниже главной диагонали (включительно)
-          real(RP) :: ro ! Коэффициент перед нормой
 
           integer(JP) :: i, k ! Вспомогательные переменные
           integer(JP) :: k_p1 ! Держатель для k + 1
@@ -32,8 +34,11 @@ implicit none
                     ! [ Вычисление нормы k-го подвектора ]
                     subcolumn_norm = norm2( abs(matrix(k, k_p1:N)) )
 
+                    ! [ Вычисление аргумента комплексного числа matrix(k, k_p1) ]
+                    arg = atan2( aimag(matrix(k, k_p1)), real(matrix(k, k_p1)) )
+
                     ! [ Вычисление коэффициента перед нормой ]
-                    ro = matrix(k, k_p1) / abs(matrix(k, k_p1))
+                    ro = exp( cmplx(0._RP, arg, kind = CP) )
 
                     ! [ Обнуление вектора Хаусхолдера ]
                     u = (0._RP, 0._RP)
@@ -42,11 +47,11 @@ implicit none
 
                     u(1, 1) = ro * subcolumn_norm
 
-                    u(1, 1:Nmk) = matrix(k, k_p1:N) - u(1, 1:Nmk)
+                    u(1, 1:Nmk) = matrix(k, k_p1:N) + u(1, 1:Nmk)
 
                     subcolumn_norm = norm2(abs(u))
 
-                    u(1, 1:Nmk) = u(1, 1:Nmk) / subcolumn_norm
+                    u(1, 1:Nmk) = u(1, 1:Nmk) / cmplx(subcolumn_norm, 0._RP, kind = CP)
 
                     ! [ Умножение на матрицу отражения слева ]
 
@@ -54,7 +59,7 @@ implicit none
                     us = conjg(us)
 
                     matrix(k:N, k_p1:N) = matrix(k:N, k_p1:N) - 2._RP * matmul( matmul( matrix(k:N, k_p1:N), us(1:Nmk, 1:1) ), u(1:1, 1:Nmk) )
-
+                    
                     ! [ Умножение на матрицу отражения справа ]
 
                     matrix(k_p1:N, 1:N) = matrix(k_p1:N, 1:N) - 2._RP * matmul( us(1:Nmk, 1:1), matmul( u(1:1, 1:Nmk), matrix(k_p1:N, 1:N) ) )
@@ -63,7 +68,8 @@ implicit none
 
                     nullification : do i = k_p1 + 1, N 
                          
-                         if ( abs(real((matrix(k, i)))) .le. 1e-10 .and. abs(aimag(matrix(k, i))) .le. 1e-10 ) matrix(k, i) = cmplx( 0._RP, 0._RP )
+                         if ( abs(real(matrix(k, i))) .le. 1e-10_RP ) matrix(k, i) = cmplx( 0._RP, aimag(matrix(k, i)), kind = CP )
+                         if ( abs(aimag(matrix(k, i))) .le. 1e-10_RP ) matrix(k, i) = cmplx( real(matrix(k, i)), 0._RP, kind = CP )
 
                     enddo nullification
 

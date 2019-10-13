@@ -8,17 +8,16 @@ use input_m, only : input_type ! Тип, определяющий входные
 implicit none
      
      private
-     public :: get_givens_rotation_coefs_loud, & ! Функция для получения коэффициентов 
-                                                 ! c и s, необходимых для осуществления
-                                                 ! поворота Гивенса
-             & make_a_hessenberg_qr_step_loud, sgn
+     public :: get_givens_rotation_coefs, & ! Функция для получения коэффициентов 
+                                            ! c и s, необходимых для осуществления
+                                            ! поворота Гивенса
+             & make_a_hessenberg_qr_step_loud, sgn, get_givens_rotation_matrix
 
      interface
      
           ! Процедура для получения коэффициентов c и s, 
           ! необходимых для осуществления поворота Гивенса
-          ! (с дополнительным выводом)
-          module subroutine get_givens_rotation_coefs_loud(f, g, c, s) 
+          module subroutine get_givens_rotation_coefs(f, g, c, s) 
           implicit none
           
                ! Преобразуемые элементы
@@ -27,18 +26,31 @@ implicit none
                ! Коэффициенты поворота
                complex(CP), intent(out) :: c, s
           
-          end subroutine get_givens_rotation_coefs_loud
+          end subroutine get_givens_rotation_coefs
+
+          ! Функция для получения вещественной матрицы вращения, 
+          ! необходимой для QR-алгоритма Фрэнсиса
+          module function get_givens_rotation_matrix(f, g) result(PR)
+          implicit none
+               
+               ! Преобразуемые элементы
+               real(RP), intent(in) :: f, g
+                    
+               ! Матрица вращения
+               real(RP), dimension(2, 2) :: PR
+               
+          end function get_givens_rotation_matrix
 
           ! Процедура, выполняющая шаг QR-разложения
           ! и RQ-композиции для матрицы Хессенберга
           ! с дополнительным выводом
           module subroutine make_a_hessenberg_qr_step_loud(input, m) 
-               implicit none
+          implicit none
                
-                    type ( input_type ) input ! Входные данные
-                    integer(JP) m ! Активный размер матрицы
+               type ( input_type ) input ! Входные данные
+               integer(JP) m ! Активный размер матрицы
                     
-               end subroutine make_a_hessenberg_qr_step_loud
+          end subroutine make_a_hessenberg_qr_step_loud
 
           ! Вспомогательная функция, переопределяющая функцию
           ! sign для случая комплексных чисел

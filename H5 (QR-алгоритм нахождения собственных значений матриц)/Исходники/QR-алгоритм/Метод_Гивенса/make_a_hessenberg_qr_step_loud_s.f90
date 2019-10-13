@@ -38,7 +38,7 @@ implicit none
                     r_index = 2 + 2 * k_m1
 
                     ! [ Получение коэффициентов c и s, необходимых для осуществления поворота Гивенса ] 
-                    call get_givens_rotation_coefs_loud(matrix(k, k), matrix(k, k_p1), coefs(l_index), coefs(r_index))
+                    call get_givens_rotation_coefs(matrix(k, k), matrix(k, k_p1), coefs(l_index), coefs(r_index))
 
                     ! [ Формирование матрицы вращения ]
                     coefs_matrix = reshape( source = [coefs(l_index), coefs(r_index), - conjg(coefs(r_index)), coefs(l_index)], shape = [2, 2])

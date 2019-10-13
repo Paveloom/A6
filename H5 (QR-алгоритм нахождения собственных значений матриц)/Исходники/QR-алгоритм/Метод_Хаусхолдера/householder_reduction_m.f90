@@ -13,9 +13,11 @@ use settings_m, only : settings_type ! Тип, определяющий наст
 implicit none
      
      private
-     public :: get_hessenberg_form ! Процедура для общего вызова процедуры, реализующей
-                                   ! метод Хаусхолдера для приведения исходной матрицы к 
-                                   ! матрице Хессенберга (почти треугольной матрице)
+     public :: get_hessenberg_form, & ! Процедура для общего вызова процедуры, реализующей
+                                      ! метод Хаусхолдера для приведения исходной матрицы к 
+                                      ! матрице Хессенберга (почти треугольной матрице)
+             & determine_the_reflector ! Функция, возвращающая вектор Хаусхолдера для столбца
+                                       ! [x, y, z]^T в алгоритме Фрэнсиса с двойным сдвигом
      
      interface
      
@@ -49,6 +51,16 @@ implicit none
           type ( input_type ), intent(inout) :: input ! Входные данные
           
           end subroutine get_hessenberg_form_silent
+
+          ! Функция, возвращающая рефлектор для столбца
+          ! [x, y, z]^T в алгоритме Фрэнсиса с двойным сдвигом
+          module pure function determine_the_reflector(xyz_array) result(PH)
+          implicit none
+          
+          real(RP), dimension(1, 3), intent(in) :: xyz_array ! Вектор-столбец x, y, z
+          real(RP), dimension(3, 3) :: PH ! Рефлектор
+          
+          end function determine_the_reflector
      
      end interface
      
