@@ -1,13 +1,16 @@
 module qr_alg_m ! Модуль, содержащий процедуры для нахождения значений собственных
                 ! чисел квадратных матриц с помощью модифицированного
                 ! QR-алгоритма
+use prec_m, only : CP, & ! Точность комплексных чисел, используемых в программе
+                 & RP, & ! Точность вещественных чисел, используемых в программе
+                 & JP    ! Точность целого числа счетчика
 use input_m, only : input_type ! Тип, определяющий входные данные
 use result_m, only : result_type ! Тип, определяющий результат
 use settings_m, only : settings_type ! Тип, определяющий настройки программы
 use householder_reduction_m, only : get_hessenberg_form ! Процедура для общего вызова процедуры, реализующей
                                                         ! метод Хаусхолдера для приведения исходной матрицы к 
                                                         ! матрице Хессенберга (почти треугольной матрице)
-use givens_rotations_m, only : get_givens_rotation_coefs_loud, make_a_hessenberg_qr_step_loud
+use givens_rotations_m, only : get_givens_rotation_coefs_loud, make_a_hessenberg_qr_step_loud, sgn
 implicit none
      
      private

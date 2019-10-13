@@ -92,7 +92,7 @@
 
      $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
 
-     $(obj_path)qr_alg_m.o : $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
+     $(obj_path)qr_alg_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
 	                        $(obj_path)householder_reduction_m.o $(obj_path)givens_rotations_m.o
      $(obj_path)get_eigenvalues_s.o : $(obj_path)qr_alg_m.o
 

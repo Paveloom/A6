@@ -11,7 +11,7 @@ implicit none
      ! с дополнительным выводом
      module procedure make_a_hessenberg_qr_step_loud
 
-          complex(CP), dimension(1:2 * input%N - 2) :: coefs ! Массив коэффициентов поворота
+          complex(CP), dimension(1:2 * m - 2) :: coefs ! Массив коэффициентов поворота
           complex(CP), dimension(2, 2) :: coefs_matrix ! Матрица вращения
 
           integer(JP) :: k ! Вспомогательная переменная
@@ -21,14 +21,11 @@ implicit none
 
           integer(JP) :: i
           
-          associate ( matrix => input%matrix, & ! Матрица объекта 
-                    &      N => input%N       ) ! Число строк матрицы
-
-               do i = 1, 300
+          associate ( matrix => input%matrix ) ! Матрица объекта 
 
                ! [ Умножение на матрицы вращений слева ]
 
-               left : do k = 1, N - 1
+               left : do k = 1, m - 1
 
                     ! [ Вычисление вспомогательных индексов ]
 
@@ -47,13 +44,13 @@ implicit none
                     coefs_matrix = reshape( source = [coefs(l_index), coefs(r_index), - conjg(coefs(r_index)), coefs(l_index)], shape = [2, 2])
 
                     ! [ Воздействие матрицей вращения на элементы k-го столбца с k-ой по (k + 1)-ю строку ]
-                    matrix(k:N, k:k_p1) = matmul(matrix(k:N, k:k_p1), coefs_matrix(1:2, 1:2))
+                    matrix(k:m, k:k_p1) = matmul(matrix(k:m, k:k_p1), coefs_matrix(1:2, 1:2))
 
                enddo left
 
                ! [ Умножение на матрицы вращений справа ]
 
-               right : do k = 1, N - 1
+               right : do k = 1, m - 1
 
                     ! [ Вычисление вспомогательных индексов ]
 
@@ -73,9 +70,7 @@ implicit none
 
                enddo right
 
-               enddo
-
-               write(*,'(3(4x, e22.15, 4x, e22.15))') matrix
+               ! write(*,'(3(4x, e22.15, 4x, e22.15))') matrix
 
           end associate
           
