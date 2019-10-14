@@ -13,7 +13,7 @@ implicit none
                                   ! настройках программы
 
           ! Показывать реализацию QR-алгоритма Фрэнсиса?
-          Q_answer = settings%get_Q2_answer()
+          Q_answer = settings%get_Q3_answer()
 
           if (Q_answer) then
 

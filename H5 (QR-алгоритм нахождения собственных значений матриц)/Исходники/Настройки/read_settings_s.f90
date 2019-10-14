@@ -24,6 +24,11 @@ implicit none
           read( unit = unit, fmt = * , iostat = stat ) settings%do_show_hqr
           if ( stat .ne. 0_SP ) call log_settings_error('WR_Q2', file) ! Проверка на ошибку считывания
 
+          ! Считывание ответа на третий вопрос
+          read( unit = unit, fmt = '(/)' )
+          read( unit = unit, fmt = * , iostat = stat ) settings%do_show_fqr
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_Q3', file) ! Проверка на ошибку считывания
+
           ! Считывание первого ограничения
           read( unit = unit, fmt = '(///)' )
           read( unit = unit, fmt = * , iostat = stat ) settings%hqr_err

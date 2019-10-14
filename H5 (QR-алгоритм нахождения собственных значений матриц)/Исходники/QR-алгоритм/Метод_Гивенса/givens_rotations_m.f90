@@ -20,7 +20,7 @@ implicit none
      
           ! Процедура для получения коэффициентов c и s, 
           ! необходимых для осуществления поворота Гивенса
-          module subroutine get_givens_rotation_coefs(f, g, c, s) 
+          module pure subroutine get_givens_rotation_coefs(f, g, c, s) 
           implicit none
           
                ! Преобразуемые элементы
@@ -33,7 +33,7 @@ implicit none
 
           ! Функция для получения вещественной матрицы вращения, 
           ! необходимой для QR-алгоритма Фрэнсиса
-          module function get_givens_rotation_matrix(f, g) result(PR)
+          module pure function get_givens_rotation_matrix(f, g) result(PR)
           implicit none
                
                ! Преобразуемые элементы

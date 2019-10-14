@@ -20,8 +20,11 @@ implicit none
           ! Показывать реализацию метода Хаусхолдера?
           logical(LP) :: do_show_householder_reduction
 
-          ! Показывать реализацию QR-алгоритма Фрэнсиса?
+          ! Показывать реализацию QR-алгоритма Хаусхолдера?
           logical(LP) :: do_show_hqr
+
+          ! Показывать реализацию QR-алгоритма Фрэнсиса?
+          logical(LP) :: do_show_fqr
 
           ! Ограничение сверху на значение |matrix(m - 1, m)|
           ! для одной итерации QR-алгоритма Хаусхолдера 
@@ -37,6 +40,8 @@ implicit none
           procedure :: get_Q1_answer => get_do_show_householder_reduction ! Функция для получения ответа на вопрос:
                                                                           ! показывать реализацию метода Хаусхолдера?
           procedure :: get_Q2_answer => get_do_show_hqr ! Функция для получения ответа на вопрос:
+                                                        ! показывать реализацию QR-алгоритма Хаусхолдера?
+          procedure :: get_Q3_answer => get_do_show_fqr ! Функция для получения ответа на вопрос:
                                                         ! показывать реализацию QR-алгоритма Фрэнсиса?
           procedure :: get_hqr_err ! Функция для получения условия сходимости
                                    ! для QR-алгоритма Хаусхолдера
@@ -57,17 +62,17 @@ implicit none
           end subroutine read_settings
 
           ! Функция для получения ответа на вопрос:
-          ! показывать реализацию метода Хаусхолдера?
+          ! показывать реализацию преобразования Хаусхолдера?
           module pure function get_do_show_householder_reduction(settings) result(do_show_householder_reduction)
           implicit none
           
                class ( settings_type ), intent(in) :: settings ! Настройки программы
-               logical(LP) :: do_show_householder_reduction ! Показывать реализацию метода Хаусхолдера?
+               logical(LP) :: do_show_householder_reduction ! Показывать реализацию преобразования Хаусхолдера?
           
           end function get_do_show_householder_reduction
 
           ! Функция для получения ответа на вопрос:
-          ! показывать реализацию QR-алгоритма Фрэнсиса?
+          ! показывать реализацию QR-алгоритма Хаусхолдера?
           module pure function get_do_show_hqr(settings) result(do_show_hqr)
           implicit none
           
@@ -75,6 +80,16 @@ implicit none
                logical(LP) :: do_show_hqr ! Показывать реализацию QR-алгоритма Фрэнсиса?
           
           end function get_do_show_hqr
+
+          ! Функция для получения ответа на вопрос:
+          ! показывать реализацию QR-алгоритма Фрэнсиса?
+          module pure function get_do_show_fqr(settings) result(do_show_fqr)
+          implicit none
+          
+               class ( settings_type ), intent(in) :: settings ! Настройки программы
+               logical(LP) :: do_show_fqr ! Показывать реализацию QR-алгоритма Фрэнсиса?
+          
+          end function get_do_show_fqr
 
           ! Функция для получения условия сходимости
           ! для QR-алгоритма Хаусхолдера

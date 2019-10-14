@@ -29,6 +29,13 @@ implicit none
                                                                              & правильность введенных данных.'
                     stop
 
+               case ('WR_Q3') ! Встречается read_settings_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_settings_error:', 'Не удалось считать ответ на третий&
+                                                                             & вопрос из файла '//file//'. Проверьте&
+                                                                             & правильность введенных данных.'
+                    stop
+
                case ('WR_hqr_err') ! Встречается read_settings_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_settings_error:', 'Не удалось считать условие сходимости&

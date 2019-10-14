@@ -1,7 +1,7 @@
-submodule ( qr_alg_m ) make_a_hessenberg_qr_step_loud_s ! Подмодуль, содержащий процедуру, 
-                                                                  ! выполняющую шаг QR-разложения
-                                                                  ! и RQ-композиции для матрицы Хессенберга
-                                                                  ! с дополнительным выводом
+submodule ( hqr_m ) make_a_hessenberg_qr_step_s ! Подмодуль, содержащий процедуру, 
+                                                ! выполняющую шаг QR-разложения
+                                                ! и RQ-композиции для матрицы Хессенберга
+                                                ! с дополнительным выводом
 implicit none
      
      contains
@@ -9,7 +9,7 @@ implicit none
      ! Процедура, выполняющая шаг QR-разложения
      ! и RQ-композиции для матрицы Хессенберга
      ! с дополнительным выводом
-     module procedure make_a_hessenberg_qr_step_loud
+     module procedure make_a_hessenberg_qr_step
 
           complex(CP), dimension(1:2 * m - 2) :: coefs ! Массив коэффициентов поворота
           complex(CP), dimension(2, 2) :: coefs_matrix ! Матрица вращения
@@ -74,6 +74,6 @@ implicit none
 
           end associate
           
-     end procedure make_a_hessenberg_qr_step_loud
+     end procedure make_a_hessenberg_qr_step
      
-end submodule make_a_hessenberg_qr_step_loud_s
+end submodule make_a_hessenberg_qr_step_s

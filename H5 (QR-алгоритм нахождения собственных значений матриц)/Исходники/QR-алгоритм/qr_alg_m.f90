@@ -1,18 +1,17 @@
 module qr_alg_m ! Модуль, содержащий процедуры для нахождения значений собственных
                 ! чисел квадратных матриц с помощью модифицированного
                 ! QR-алгоритма
-use prec_m, only : CP, & ! Точность комплексных чисел, используемых в программе
-                 & RP, & ! Точность вещественных чисел, используемых в программе
-                 & JP    ! Точность целого числа счетчика
 use input_m, only : input_type ! Тип, определяющий входные данные
 use result_m, only : result_type ! Тип, определяющий результат
 use settings_m, only : settings_type ! Тип, определяющий настройки программы
-use fqr_m, only : francis_double_step_qr_alg ! Процедура общего вызова процедур, реализующих 
-                                             ! QR-алгоритм Фрэнсиса с двойным сдвигом
 use householder_reduction_m, only : get_hessenberg_form ! Процедура для общего вызова процедуры, реализующей
                                                         ! метод Хаусхолдера для приведения исходной матрицы к 
                                                         ! матрице Хессенберга (почти треугольной матрице)
-use givens_rotations_m, only : get_givens_rotation_coefs
+use hqr_m, only : hqr_alg_with_rayleigh_quotient_shift ! Процедура общего вызова процедур, 
+                                                       ! реализующих QR-алгоритм Хаусхолдера
+                                                       ! со сдвигом по отношению Релея
+use fqr_m, only : francis_double_step_qr_alg ! Процедура общего вызова процедур, реализующих 
+                                             ! QR-алгоритм Фрэнсиса с двойным сдвигом
 implicit none
      
      private
@@ -31,26 +30,6 @@ implicit none
                type ( settings_type ), intent(in) :: settings ! Настройки программы
           
           end subroutine get_eigenvalues
-
-          ! Процедура, выполняющая шаг QR-разложения
-          ! и RQ-композиции для матрицы Хессенберга
-          ! с дополнительным выводом
-          module subroutine make_a_hessenberg_qr_step_loud(input, m) 
-          implicit none
-                    
-               type ( input_type ) input ! Входные данные
-               integer(JP) m ! Активный размер матрицы
-                         
-          end subroutine make_a_hessenberg_qr_step_loud
-
-          ! Процедура, реализующая QR-алгоритм Хаусхолдера со сдвигом по отношению Релея
-          module impure subroutine hqr_alg_with_rayleigh_quotient_shift(input, settings)
-          implicit none
-          
-               type ( input_type ), intent(inout) :: input ! Входные данные
-               type ( settings_type ), intent(in) :: settings ! Настройки программы
-          
-          end subroutine hqr_alg_with_rayleigh_quotient_shift
 
      end interface
 

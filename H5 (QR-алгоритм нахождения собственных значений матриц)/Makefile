@@ -65,8 +65,8 @@
      subs := Входные_данные/ Входные_данные/Ошибки/ \
 		   Результат/ Результат/Ошибки/ \
 		   Настройки/ Настройки/Ошибки/ Настройки/Получение_данных/ \
-	        QR-алгоритм/ QR-алгоритм/Метод_Хаусхолдера/ QR-алгоритм/Метод_Гивенса/ \
-		   QR-алгоритм/Подходы/ QR-алгоритм/Подходы/QR-алгоритм_Фрэнсиса/  QR-алгоритм/Решение/ \
+	        QR-алгоритм/ QR-алгоритм/Метод_Хаусхолдера/ QR-алгоритм/Метод_Гивенса/ QR-алгоритм/Решение/ \
+		   QR-алгоритм/Подходы/ QR-алгоритм/Подходы/HQR/ QR-алгоритм/Подходы/FQR/ \
 		   Освобождение_памяти/ Считывание/ \
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
@@ -96,15 +96,21 @@
 
      $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
 
-     $(obj_path)qr_alg_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
-	                        $(obj_path)fqr_m.o \
-	                        $(obj_path)householder_reduction_m.o $(obj_path)givens_rotations_m.o
+     $(obj_path)qr_alg_m.o : $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
+	                        $(obj_path)hqr_m.o $(obj_path)fqr_m.o \
+	                        $(obj_path)householder_reduction_m.o
      $(obj_path)get_eigenvalues_s.o : $(obj_path)qr_alg_m.o
-     $(obj_path)make_a_hessenberg_qr_step_loud_s.o : $(obj_path)qr_alg_m.o
-     $(obj_path)hqr_alg_with_rayleigh_quotient_shift_s.o : $(obj_path)qr_alg_m.o
+     $(obj_path)make_a_hessenberg_qr_step_s.o : $(obj_path)qr_alg_m.o
+
+     $(obj_path)hqr_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
+	                     $(obj_path)givens_rotations_m.o
+     $(obj_path)hqr_alg_with_rayleigh_quotient_shift_s.o : $(obj_path)hqr_m.o
+     $(obj_path)hqr_alg_with_rayleigh_quotient_shift_loud_s.o : $(obj_path)hqr_m.o
+     $(obj_path)hqr_alg_with_rayleigh_quotient_shift_silent_s.o : $(obj_path)hqr_m.o
 
      $(obj_path)fqr_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
 	                     $(obj_path)householder_reduction_m.o $(obj_path)givens_rotations_m.o $(obj_path)blocks_solver_m.o
+     $(obj_path)francis_double_step_qr_alg_s.o : $(obj_path)fqr_m.o
      $(obj_path)francis_double_step_qr_alg_loud_s.o : $(obj_path)fqr_m.o
      $(obj_path)francis_double_step_qr_alg_silent_s.o : $(obj_path)fqr_m.o
 
