@@ -20,6 +20,9 @@ implicit none
           ! Показывать реализацию метода Хаусхолдера?
           logical(LP) :: do_show_householder_reduction
 
+          ! Показывать реализацию QR-алгоритма Фрэнсиса?
+          logical(LP) :: do_show_hqr
+
           ! Ограничение сверху на значение |matrix(m - 1, m)|
           ! для одной итерации QR-алгоритма Хаусхолдера 
           ! со сдвигом по отношению Релея (условие сходимости)
@@ -33,6 +36,8 @@ implicit none
 
           procedure :: get_Q1_answer => get_do_show_householder_reduction ! Функция для получения ответа на вопрос:
                                                                           ! показывать реализацию метода Хаусхолдера?
+          procedure :: get_Q2_answer => get_do_show_hqr ! Функция для получения ответа на вопрос:
+                                                        ! показывать реализацию QR-алгоритма Фрэнсиса?
           procedure :: get_hqr_err ! Функция для получения условия сходимости
                                    ! для QR-алгоритма Хаусхолдера
           procedure :: get_fqr_err ! Функция для получения условия сходимости
@@ -60,6 +65,16 @@ implicit none
                logical(LP) :: do_show_householder_reduction ! Показывать реализацию метода Хаусхолдера?
           
           end function get_do_show_householder_reduction
+
+          ! Функция для получения ответа на вопрос:
+          ! показывать реализацию QR-алгоритма Фрэнсиса?
+          module pure function get_do_show_hqr(settings) result(do_show_hqr)
+          implicit none
+          
+               class ( settings_type ), intent(in) :: settings ! Настройки программы
+               logical(LP) :: do_show_hqr ! Показывать реализацию QR-алгоритма Фрэнсиса?
+          
+          end function get_do_show_hqr
 
           ! Функция для получения условия сходимости
           ! для QR-алгоритма Хаусхолдера

@@ -1,14 +1,15 @@
-submodule ( blocks_solver_m ) solve_blocks_and_find_eigenvalues_s ! Подмодуль, содержащий процедуру, 
-                                                                  ! выполняющая поиск собственных чисел
-                                                                  ! и решение блоков в квазитреугольной
-                                                                  ! вещественной матрице
+submodule ( blocks_solver_m ) solve_blocks_and_find_eigenvalues_silent_s ! Подмодуль, содержащий процедуру, 
+                                                                         ! выполняющую поиск собственных чисел
+                                                                         ! и решение блоков в квазитреугольной вещественной матрице
+                                                                         ! (без дополнительного вывода)
 implicit none
      
      contains
      
      ! Процедура, выполняющая поиск собственных чисел
      ! и решение блоков в квазитреугольной вещественной матрице
-     module procedure solve_blocks_and_find_eigenvalues
+     ! (без дополнительного вывода)
+     module procedure solve_blocks_and_find_eigenvalues_silent
           
           ! Число строк матрицы
           integer(JP) :: N
@@ -125,8 +126,8 @@ implicit none
                                                                                        & временного размещаемого массива evalues.'
                stop
 
-          endif
-
-     end procedure solve_blocks_and_find_eigenvalues
+          endif          
+          
+     end procedure solve_blocks_and_find_eigenvalues_silent
      
-end submodule solve_blocks_and_find_eigenvalues_s
+end submodule solve_blocks_and_find_eigenvalues_silent_s

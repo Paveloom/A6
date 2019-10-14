@@ -1,15 +1,16 @@
-submodule ( qr_alg_m ) francis_double_step_qr_alg_s ! Подмодуль, содержащий процедуру,
-                                                    ! реализующую QR-алгоритм Фрэнсиса
-                                                    ! с двойным сдвигом
+submodule ( fqr_m ) francis_double_step_qr_alg_loud_s ! Подмодуль, содержащий процедуру,
+                                                      ! реализующую QR-алгоритм Фрэнсиса
+                                                      ! с двойным сдвигом
+                                                      ! (с дополнительным выводом)
 implicit none
      
      contains
      
      ! Процедура, реализующая QR-алгоритм Фрэнсиса с двойным сдвигом
-     module procedure francis_double_step_qr_alg
+     module procedure francis_double_step_qr_alg_loud
 
           real(RP), dimension(input%N, input%N) :: rmatrix ! Вещественная копия
-                                                           ! исходной матрицы
+                                                           ! матрицы Хессенберга
           
           real(RP), dimension(3_JP, 3_JP) :: PH ! Рефлектор
           real(RP), dimension(2_JP, 2_JP) :: PR ! Матрица вращения
@@ -17,20 +18,34 @@ implicit none
           ! Вещественные части некоторых элементов матрицы
           real(RP) :: mqq, mpp, mpq, mqp, m11, m21, m12, m22, m23
 
-          ! Вспомогательные переменные
+          ! Вспомогательные переменные алгоритма
           integer(JP) :: p, q, k, r 
           real(RP) :: s, t, x, y, z
 
           real(RP) :: fqr_err ! Значение эпсилон для QR-алгоритма Фрэнсиса
                               ! с двойным сдвигом (условие сходимости)
 
+          ! Вспомогательная строка для автоформатирования
+          character(FP) :: f1
+
+          write(*,'(/, 5x, a, /)') 'QR-алгоритм Фрэнсиса с двойным сдвигом'
+
           fqr_err = settings%get_fqr_err()
           
           associate ( matrix => input%matrix, & ! Матрица объекта
                     &      N => input%N       ) ! Число строк матрицы
 
-               ! Копирование вещественной части исходной матрицы
+               ! Запись числа N в строку
+               write(f1, '(i2)') IP
+               write(f1,'(i'//f1//')') N
+
+               ! Копирование вещественной части матрицы Хессенберга
                rmatrix = real(matrix, kind = RP)
+
+               ! Вывод матрицы на входе
+               write(*,'(5x, a, /)') 'Вещественная часть матрицы Хессенберга:' 
+               write(*,'('//f1//'(4x, '//RF//'))') rmatrix
+               write(*,'()')
 
                ! Алгоритм Фрэнсиса по версии из
                ! Peter Arbenz — Lecture Notes on Solving Large Scale Eigenvalue Problems,
@@ -104,15 +119,17 @@ implicit none
 
                enddo
 
+               ! Вывод результата
+               write(*,'(5x, a, /)') 'Результат выполнения QR-алгоритма Фрэнсиса:' 
+               write(*,'('//f1//'(4x, '//RF//'))') rmatrix
+               write(*,'()')
+
                ! Вызов процедуры, выполняющей поиск собственных чисел
                ! и решение блоков в квазитреугольной вещественной матрице
-               call solve_blocks_and_find_eigenvalues(rmatrix, result)
-
-               write(*,'(4(4x, e22.15))') rmatrix
-               write(*,*)
+               call solve_blocks_and_find_eigenvalues_loud(rmatrix, result)
 
           end associate
           
-     end procedure francis_double_step_qr_alg
+     end procedure francis_double_step_qr_alg_loud
      
-end submodule francis_double_step_qr_alg_s
+end submodule francis_double_step_qr_alg_loud_s

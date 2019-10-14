@@ -21,7 +21,7 @@ implicit none
 
      call get_eigenvalues(input, result, settings) ! Получение собственных чисел матрицы
 
-     call deallocate(input) ! Освобождение памяти из-под данных объектов
+     call deallocate(input, result) ! Освобождение памяти из-под данных объектов
      
 end program main
 
