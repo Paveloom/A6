@@ -25,7 +25,7 @@ implicit none
      
 end program main
 
-! Автор: Павел Соболев (paveloom.tk)
+! Автор: Павел Соболев (http://paveloom.tk)
 
 ! Использованная литература:
 ! Elias Jarlebring — Lecture notes in numerical linear algebra — QR Algorithm

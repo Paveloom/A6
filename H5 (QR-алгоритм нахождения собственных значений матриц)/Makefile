@@ -66,7 +66,7 @@
 		   Результат/ Результат/Ошибки/ \
 		   Настройки/ Настройки/Ошибки/ Настройки/Получение_данных/ \
 	        QR-алгоритм/ QR-алгоритм/Метод_Хаусхолдера/ QR-алгоритм/Метод_Гивенса/ \
-		   QR-алгоритм/Подходы/ \
+		   QR-алгоритм/Подходы/ QR-алгоритм/Решение/ \
 		   Освобождение_памяти/ Считывание/ \
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
@@ -83,6 +83,7 @@
      $(obj_path)log_input_error_s.o : $(obj_path)input_warns_m.o
 
      $(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_warns_m.o
+     $(obj_path)put_evalues_s.o : $(obj_path)result_m.o
      $(obj_path)deallocate_result_m.o : $(obj_path)result_m.o
 
      $(obj_path)log_result_error_s.o : $(obj_path)result_warns_m.o
@@ -96,7 +97,7 @@
      $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
 
      $(obj_path)qr_alg_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
-	                        $(obj_path)householder_reduction_m.o $(obj_path)givens_rotations_m.o
+	                        $(obj_path)householder_reduction_m.o $(obj_path)givens_rotations_m.o $(obj_path)blocks_solver_m.o
      $(obj_path)get_eigenvalues_s.o : $(obj_path)qr_alg_m.o
      $(obj_path)make_a_hessenberg_qr_step_loud_s.o : $(obj_path)qr_alg_m.o
      $(obj_path)hqr_alg_with_rayleigh_quotient_shift_s.o : $(obj_path)qr_alg_m.o
@@ -112,6 +113,9 @@
      $(obj_path)get_givens_rotation_coefs_s.o : $(obj_path)givens_rotations_m.o
      $(obj_path)get_givens_rotation_matrix_s.o : $(obj_path)givens_rotations_m.o
      $(obj_path)sgn_s.o : $(obj_path)givens_rotations_m.o
+
+     $(obj_path)blocks_solver_m.o : $(obj_path)prec_m.o $(obj_path)result_m.o
+     $(obj_path)solve_blocks_and_find_eigenvalues_s.o : $(obj_path)blocks_solver_m.o
 
      $(obj_path)deallocate_m.o : $(obj_path)input_m.o $(obj_path)result_m.o
      $(obj_path)deallocate_both_s.o : $(obj_path)deallocate_m.o

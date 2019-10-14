@@ -18,7 +18,7 @@ implicit none
           !call hqr_alg_with_rayleigh_quotient_shift(input, settings)
 
           ! [ Вызов QR-алгоритма Фрэнсиса с двойным сдвигом ]
-          call francis_double_step_qr_alg(input, settings)
+          call francis_double_step_qr_alg(input, result, settings)
 
           ! write(*,'(3(4x, e22.15))') real(input%matrix)
           ! write(*,*)

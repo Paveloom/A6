@@ -13,6 +13,8 @@ use householder_reduction_m, only : get_hessenberg_form, & ! Процедура 
                                   & determine_the_reflector ! Функция, возвращающая вектор Хаусхолдера для столбца
                                                             ! [x, y, z]^T в алгоритме Фрэнсиса с двойным сдвигом
 use givens_rotations_m, only : get_givens_rotation_coefs, get_givens_rotation_matrix, sgn
+use blocks_solver_m, only : solve_blocks_and_find_eigenvalues ! Процедура, выполняющая поиск собственных чисел
+                                                              ! и решение блоков в квазитреугольной вещественной матрице
 implicit none
      
      private
@@ -53,10 +55,11 @@ implicit none
           end subroutine hqr_alg_with_rayleigh_quotient_shift
 
           ! Процедура, реализующая QR-алгоритм Фрэнсиса с двойным сдвигом
-          module impure subroutine francis_double_step_qr_alg(input, settings)
+          module impure subroutine francis_double_step_qr_alg(input, result, settings)
           implicit none
           
                type ( input_type ), intent(inout) :: input ! Входные данные
+               type ( result_type ), intent(inout) :: result ! Результат
                type ( settings_type ), intent(in) :: settings ! Настройки программы
           
           end subroutine francis_double_step_qr_alg

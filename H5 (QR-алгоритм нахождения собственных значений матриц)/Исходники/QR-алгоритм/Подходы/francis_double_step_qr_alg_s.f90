@@ -104,6 +104,10 @@ implicit none
 
                enddo
 
+               ! Вызов процедуры, выполняющей поиск собственных чисел
+               ! и решение блоков в квазитреугольной вещественной матрице
+               call solve_blocks_and_find_eigenvalues(rmatrix, result)
+
                write(*,'(4(4x, e22.15))') rmatrix
                write(*,*)
 
