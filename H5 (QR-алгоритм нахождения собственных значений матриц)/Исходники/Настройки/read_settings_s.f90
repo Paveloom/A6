@@ -19,6 +19,16 @@ implicit none
           read( unit = unit, fmt = * , iostat = stat ) settings%do_show_householder_reduction
           if ( stat .ne. 0_SP ) call log_settings_error('WR_Q1', file) ! Проверка на ошибку считывания
 
+          ! Считывание первого ограничения
+          read( unit = unit, fmt = '(///)' )
+          read( unit = unit, fmt = * , iostat = stat ) settings%hqr_err
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_hqr_err', file) ! Проверка на ошибку считывания
+
+          ! Считывание второго ограничения
+          read( unit = unit, fmt = '(//)' )
+          read( unit = unit, fmt = * , iostat = stat ) settings%fqr_err
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_fqr_err', file) ! Проверка на ошибку считывания
+
           close( unit = unit, iostat = stat) ! Закрытие файла
           if ( stat .ne. 0_SP ) call log_settings_error('WC', file) ! Проверка на ошибку закрытия файла
           

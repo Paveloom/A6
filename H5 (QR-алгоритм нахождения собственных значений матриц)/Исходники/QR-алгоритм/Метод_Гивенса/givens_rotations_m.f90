@@ -11,7 +11,7 @@ implicit none
      public :: get_givens_rotation_coefs, & ! Функция для получения коэффициентов 
                                             ! c и s, необходимых для осуществления
                                             ! поворота Гивенса
-             & make_a_hessenberg_qr_step_loud, sgn, get_givens_rotation_matrix
+             & sgn, get_givens_rotation_matrix
 
      interface
      
@@ -40,17 +40,6 @@ implicit none
                real(RP), dimension(2, 2) :: PR
                
           end function get_givens_rotation_matrix
-
-          ! Процедура, выполняющая шаг QR-разложения
-          ! и RQ-композиции для матрицы Хессенберга
-          ! с дополнительным выводом
-          module subroutine make_a_hessenberg_qr_step_loud(input, m) 
-          implicit none
-               
-               type ( input_type ) input ! Входные данные
-               integer(JP) m ! Активный размер матрицы
-                    
-          end subroutine make_a_hessenberg_qr_step_loud
 
           ! Вспомогательная функция, переопределяющая функцию
           ! sign для случая комплексных чисел

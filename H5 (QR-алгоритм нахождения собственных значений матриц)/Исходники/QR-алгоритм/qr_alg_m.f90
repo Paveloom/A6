@@ -12,7 +12,7 @@ use householder_reduction_m, only : get_hessenberg_form, & ! Процедура 
                                                            ! матрице Хессенберга (почти треугольной матрице)
                                   & determine_the_reflector ! Функция, возвращающая вектор Хаусхолдера для столбца
                                                             ! [x, y, z]^T в алгоритме Фрэнсиса с двойным сдвигом
-use givens_rotations_m, only : get_givens_rotation_coefs, get_givens_rotation_matrix, make_a_hessenberg_qr_step_loud, sgn
+use givens_rotations_m, only : get_givens_rotation_coefs, get_givens_rotation_matrix, sgn
 implicit none
      
      private
@@ -31,6 +31,17 @@ implicit none
                type ( settings_type ), intent(in) :: settings ! Настройки программы
           
           end subroutine get_eigenvalues
+
+          ! Процедура, выполняющая шаг QR-разложения
+          ! и RQ-композиции для матрицы Хессенберга
+          ! с дополнительным выводом
+          module subroutine make_a_hessenberg_qr_step_loud(input, m) 
+          implicit none
+                    
+               type ( input_type ) input ! Входные данные
+               integer(JP) m ! Активный размер матрицы
+                         
+          end subroutine make_a_hessenberg_qr_step_loud
 
           ! Процедура, реализующая QR-алгоритм Хаусхолдера со сдвигом по отношению Релея
           module impure subroutine hqr_alg_with_rayleigh_quotient_shift(input, settings)

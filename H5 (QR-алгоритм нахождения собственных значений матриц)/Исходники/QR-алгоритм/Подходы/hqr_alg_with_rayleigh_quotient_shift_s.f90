@@ -10,6 +10,11 @@ implicit none
           integer(JP) :: m, i  ! Вспомогательные переменные
           complex(CP) :: sigma ! Сдвиг по отношению Релея
 
+          real(RP) :: hqr_err ! Ограничение сверху на значение |matrix(m - 1, m)|
+                              ! (условие сходимости)
+
+          hqr_err = settings%get_hqr_err()
+
           associate( matrix => input%matrix, & ! Матрица объекта
                    &      N => input%N       ) ! Число строк матрицы
 
@@ -41,7 +46,7 @@ implicit none
                          enddo
 
                     ! Проверка на значительную малость значения |matrix(m - 1, m)|
-                    if ( abs(matrix(m - 1, m)) .lt. 1e-10_RP ) then 
+                    if ( abs(matrix(m - 1, m)) .lt. hqr_err ) then 
                          
                          matrix(m - 1, m) = cmplx(0._RP, 0._RP, kind = CP)
                          exit repeat
