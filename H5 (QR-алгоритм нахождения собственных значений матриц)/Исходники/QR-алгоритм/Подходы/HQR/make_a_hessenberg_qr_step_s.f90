@@ -70,8 +70,6 @@ implicit none
 
                enddo right
 
-               ! write(*,'(3(4x, e22.15, 4x, e22.15))') matrix
-
           end associate
           
      end procedure make_a_hessenberg_qr_step

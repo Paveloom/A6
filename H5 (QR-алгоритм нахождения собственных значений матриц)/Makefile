@@ -85,6 +85,7 @@
      $(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_warns_m.o
      $(obj_path)put_evalues_s.o : $(obj_path)result_m.o
      $(obj_path)deallocate_result_m.o : $(obj_path)result_m.o
+     $(obj_path)write_s.o : $(obj_path)result_m.o
 
      $(obj_path)log_result_error_s.o : $(obj_path)result_warns_m.o
 
