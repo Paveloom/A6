@@ -13,12 +13,32 @@ implicit none
           ! [ исходной матрицы к матрице Хессенберга      ]
           call get_hessenberg_form(input, settings)
 
-          ! [ Вызов QR-алгоритма Хаусхолдера со ]
-          ! [ сдвигом по отношению Релея        ]
-          !call hqr_alg_with_rayleigh_quotient_shift(input, result, settings)
+          ! Проверка, является ли матрица вещественной
+          if (matrix_is_purely_real(input)) then
 
-          ! [ Вызов QR-алгоритма Фрэнсиса с двойным сдвигом ]
-          call francis_double_step_qr_alg(input, result, settings)
+               write(*,'(/, 5x, a)') 'Матрица Хессенберга вещественна, поэтому будет вызван&
+                                    & QR-алгоритм Фрэнсиса с двойным сдвигом.'
+
+               ! [ Вызов QR-алгоритма Фрэнсиса с двойным сдвигом ]
+               call francis_double_step_qr_alg(input, result, settings)
+
+          ! Проверка, является ли матрица эрмитовой
+          elseif (matrix_is_hermitian(input)) then
+
+               write(*,'(/, 5x, a)') 'Матрица Хессенберга эрмитова, поэтому будет вызван&
+                                    & QR-алгоритм Хаусхолдера со сдвигом по&
+                                    & отношению Релея.'
+
+               ! [ Вызов QR-алгоритма Хаусхолдера со ]
+               ! [ сдвигом по отношению Релея        ]
+               call hqr_alg_with_rayleigh_quotient_shift(input, result, settings)
+
+          else
+
+               write(*,'(/, 5x, a)') 'Матрица Хессенберга ни вещественна, ни эрмитова.&
+                                    & Нет подходящих алгоритмов.'
+
+          endif
 
      end procedure get_eigenvalues
      

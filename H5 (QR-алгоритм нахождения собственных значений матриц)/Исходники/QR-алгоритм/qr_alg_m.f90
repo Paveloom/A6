@@ -7,6 +7,8 @@ use settings_m, only : settings_type ! Тип, определяющий наст
 use householder_reduction_m, only : get_hessenberg_form ! Процедура для общего вызова процедуры, реализующей
                                                         ! метод Хаусхолдера для приведения исходной матрицы к 
                                                         ! матрице Хессенберга (почти треугольной матрице)
+use matrix_checks_m, only : matrix_is_purely_real, & ! Функция для проверки, является ли матрица вещественной
+                          & matrix_is_hermitian ! Функция для проверки, является ли матрица эрмитовой
 use hqr_m, only : hqr_alg_with_rayleigh_quotient_shift ! Процедура общего вызова процедур, 
                                                        ! реализующих QR-алгоритм Хаусхолдера
                                                        ! со сдвигом по отношению Релея

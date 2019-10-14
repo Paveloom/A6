@@ -130,6 +130,9 @@ implicit none
                     write(*,'(5x, a, /)') 'Решение блока:'
                     write(*,'(4x, '//RF//', 4x, '//RF//', /, 4x, '//RF//', 4x, '//RF//')') evalues(i), evalues(i - 1_JP)
 
+                    ! Проверка на вещественное совпадение
+                    if ( abs(evalues(i - 1_JP) - evalues(i)) .lt. 1e-8_RP) evalues(i - 1_JP) = matrix(i - 1_JP, i - 1_JP)
+
                endif
 
           enddo check
