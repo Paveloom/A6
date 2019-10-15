@@ -40,10 +40,10 @@ implicit none
 
           ! Заполнение рефлектора
 
-          PR(1, 1) = c
-          PR(2, 1) = -s
-          PR(1, 2) = s
-          PR(2, 2) = c
+          PR(1_JP, 1_JP) = c
+          PR(2_JP, 1_JP) = -s
+          PR(1_JP, 2_JP) = s
+          PR(2_JP, 2_JP) = c
           
      end procedure get_givens_rotation_matrix
      

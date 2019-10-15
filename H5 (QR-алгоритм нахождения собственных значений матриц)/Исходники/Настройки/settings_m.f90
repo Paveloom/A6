@@ -38,7 +38,7 @@ implicit none
           contains
 
           procedure :: get_Q1_answer => get_do_show_householder_reduction ! Функция для получения ответа на вопрос:
-                                                                          ! показывать реализацию метода Хаусхолдера?
+                                                                          ! показывать реализацию преобразования Хаусхолдера?
           procedure :: get_Q2_answer => get_do_show_hqr ! Функция для получения ответа на вопрос:
                                                         ! показывать реализацию QR-алгоритма Хаусхолдера?
           procedure :: get_Q3_answer => get_do_show_fqr ! Функция для получения ответа на вопрос:

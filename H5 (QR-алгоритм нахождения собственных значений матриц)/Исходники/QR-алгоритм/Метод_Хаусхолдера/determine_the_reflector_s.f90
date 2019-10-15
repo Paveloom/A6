@@ -10,19 +10,19 @@ implicit none
      module procedure determine_the_reflector
           
           ! Вектор Хаусхолдера
-          real(RP), dimension(1, 1:3) :: u
+          real(RP), dimension(1_JP, 1_JP:3_JP) :: u
 
           ! Вспомогательная переменная
           integer(JP) :: i
 
           u = 0._RP
-          u(1, 1) = sign(1._RP, xyz_array(1, 1)) * norm2(xyz_array)
+          u(1_JP, 1_JP) = sign(1._RP, xyz_array(1_JP, 1_JP)) * norm2(xyz_array)
           u = xyz_array + u
           u = u / norm2(u)
 
           PH = - 2._RP * matmul(transpose(u), u)
           
-          do i = 1, 3
+          do i = 1_JP, 3_JP
 
                PH(i, i) = PH(i, i) + 1._RP
 

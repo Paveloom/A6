@@ -13,7 +13,7 @@ implicit none
      module procedure solve_blocks_and_find_eigenvalues_loud
           
           ! Число строк матрицы
-          integer(JP) :: N
+          integer(JP) :: N_JP
 
           ! Дискриминант
           real(RP) :: D
@@ -49,10 +49,10 @@ implicit none
           write(f1, '(i2)') JP
 
           ! Вычисление числа строк матрицы
-          N = size(matrix(1_JP, :))
+          N_JP = size(matrix(1_JP, :), kind = JP)
 
           ! Выделение памяти под массив собственных чисел
-          allocate(evalues(N), stat = stat)
+          allocate(evalues(N_JP), stat = stat)
 
           ! Проверка на ошибку выделения памяти
           if ( stat .ne. 0_SP ) then 
@@ -70,7 +70,7 @@ implicit none
           k = 0_JP
 
           ! Проверка по главной диагонали и первой поддиагонали
-          check : do i = int(N, kind = JP), 2_JP, -1_JP
+          check : do i = N_JP, 2_JP, -1_JP
 
                if (k .eq. 1_JP) then
 

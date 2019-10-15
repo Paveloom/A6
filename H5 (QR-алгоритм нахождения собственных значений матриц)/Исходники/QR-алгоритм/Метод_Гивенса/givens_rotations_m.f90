@@ -40,7 +40,7 @@ implicit none
                real(RP), intent(in) :: f, g
                     
                ! Матрица вращения
-               real(RP), dimension(2, 2) :: PR
+               real(RP), dimension(2_JP, 2_JP) :: PR
                
           end function get_givens_rotation_matrix
 

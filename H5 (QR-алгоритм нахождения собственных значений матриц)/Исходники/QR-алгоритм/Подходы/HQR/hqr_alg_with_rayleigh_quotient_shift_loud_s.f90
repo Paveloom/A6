@@ -34,7 +34,7 @@ implicit none
                write(*,'()')
 
                ! Общий цикл
-               do m = N, 2, -1
+               do m = int(N, kind = JP), 2, -1
 
                     ! Цикл, улучшающий значение собственного числа matrix(m, m)
                     repeat : do 
@@ -43,7 +43,7 @@ implicit none
                          sigma = matrix(m, m)
 
                          ! Вычисление matrix = matrix - I * sigma
-                         do i = 1, m
+                         do i = 1_JP, m
 
                               matrix(i, i) = matrix(i, i) - sigma
 
@@ -54,16 +54,16 @@ implicit none
                          call make_a_hessenberg_qr_step(input, m)
 
                          ! Вычисление matrix = matrix + I * sigma
-                         do i = 1, m
+                         do i = 1_JP, m
 
                               matrix(i, i) = matrix(i, i) + sigma
 
                          enddo
 
                     ! Проверка на значительную малость значения |matrix(m - 1, m)|
-                    if ( abs(matrix(m - 1, m)) .lt. hqr_err ) then 
+                    if ( abs(matrix(m - 1_JP, m)) .lt. hqr_err ) then 
                          
-                         matrix(m - 1, m) = cmplx(0._RP, 0._RP, kind = CP)
+                         matrix(m - 1_JP, m) = cmplx(0._RP, 0._RP, kind = CP)
                          exit repeat
                     
                     endif

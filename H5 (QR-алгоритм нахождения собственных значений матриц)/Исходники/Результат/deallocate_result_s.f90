@@ -17,6 +17,7 @@ implicit none
                
           else
 
+               ! Вывод ошибки о неразмещенном массиве
                call log_result_error('NA_evalues')
 
           endif

@@ -11,8 +11,10 @@ implicit none
      ! без дополнительного вывода
      module procedure get_hessenberg_form_silent
 
-          complex(CP), dimension(1, input%N - 1) :: u  ! Вектор Хаусхолдера
-          complex(CP), dimension(input%N - 1, 1) :: us ! Эрмитово-сопряженный вектор Хаусхолдера
+          complex(CP), dimension(1_JP, int(input%N, kind = JP) - 1_JP) :: u  ! Вектор Хаусхолдера
+          complex(CP), dimension(int(input%N, kind = JP) - 1_JP, 1_JP) :: us ! Эрмитово-сопряженный вектор Хаусхолдера
+
+          integer(JP) :: N_JP ! Число строк матрицы, записанное в целочисленную переменную точности JP
 
           complex(CP) :: ro ! Коэффициент перед нормой
           real(RP) :: arg ! Аргумент комплексного числа matrix(k, k_p1)
@@ -25,14 +27,17 @@ implicit none
           associate ( matrix => input%matrix, & ! Матрица объекта 
                     &      N => input%N       ) ! Число строк матрицы
 
-               reduction : do k = 1, N - 2 ! Преобразование
+               ! Присваивание значения N_JP
+               N_JP = int(N, kind = JP)
+
+               reduction : do k = 1_JP, N_JP - 2_JP ! Преобразование
 
                     ! [ Вычисление вспомогательных переменных ]
-                    k_p1 = k + 1
-                    Nmk  = N - k
+                    k_p1 = k + 1_JP
+                    Nmk  = N_JP - k
 
                     ! [ Вычисление нормы k-го подвектора ]
-                    subcolumn_norm = norm2( abs(matrix(k, k_p1:N)) )
+                    subcolumn_norm = norm2( abs(matrix(k, k_p1:N_JP)) )
 
                     ! [ Вычисление аргумента комплексного числа matrix(k, k_p1) ]
                     arg = atan2( aimag(matrix(k, k_p1)), real(matrix(k, k_p1)) )
@@ -45,28 +50,28 @@ implicit none
 
                     ! [ Генерация вектора Хаусхолдера (по алгоритму из PDF) ]
 
-                    u(1, 1) = ro * subcolumn_norm
+                    u(1_JP, 1_JP) = ro * subcolumn_norm
 
-                    u(1, 1:Nmk) = matrix(k, k_p1:N) + u(1, 1:Nmk)
+                    u(1_JP, 1_JP:Nmk) = matrix(k, k_p1:N_JP) + u(1_JP, 1_JP:Nmk)
 
                     subcolumn_norm = norm2(abs(u))
 
-                    u(1, 1:Nmk) = u(1, 1:Nmk) / cmplx(subcolumn_norm, 0._RP, kind = CP)
+                    u(1_JP, 1_JP:Nmk) = u(1_JP, 1_JP:Nmk) / cmplx(subcolumn_norm, 0._RP, kind = CP)
 
                     ! [ Умножение на матрицу отражения слева ]
 
-                    us = reshape( source = u , shape = (/ input%N - 1, 1 /))
+                    us = reshape( source = u , shape = (/ N_JP - 1_JP, 1_JP /))
                     us = conjg(us)
 
-                    matrix(k:N, k_p1:N) = matrix(k:N, k_p1:N) - 2._RP * matmul( matmul( matrix(k:N, k_p1:N), us(1:Nmk, 1:1) ), u(1:1, 1:Nmk) )
+                    matrix(k:N_JP, k_p1:N_JP) = matrix(k:N_JP, k_p1:N_JP) - 2._RP * matmul( matmul( matrix(k:N_JP, k_p1:N_JP), us(1_JP:Nmk, 1_JP:1_JP) ), u(1_JP:1_JP, 1_JP:Nmk) )
                     
                     ! [ Умножение на матрицу отражения справа ]
 
-                    matrix(k_p1:N, 1:N) = matrix(k_p1:N, 1:N) - 2._RP * matmul( us(1:Nmk, 1:1), matmul( u(1:1, 1:Nmk), matrix(k_p1:N, 1:N) ) )
+                    matrix(k_p1:N_JP, 1_JP:N_JP) = matrix(k_p1:N_JP, 1_JP:N_JP) - 2._RP * matmul( us(1_JP:Nmk, 1_JP:1_JP), matmul( u(1_JP:1_JP, 1_JP:Nmk), matrix(k_p1:N_JP, 1_JP:N_JP) ) )
 
                     ! [ Обнуление малых чисел ]
 
-                    nullification : do i = k_p1 + 1, N 
+                    nullification : do i = k_p1 + 1_JP, N_JP 
                          
                          if ( abs(real(matrix(k, i))) .le. 1e-10_RP ) matrix(k, i) = cmplx( 0._RP, aimag(matrix(k, i)), kind = CP )
                          if ( abs(aimag(matrix(k, i))) .le. 1e-10_RP ) matrix(k, i) = cmplx( real(matrix(k, i)), 0._RP, kind = CP )

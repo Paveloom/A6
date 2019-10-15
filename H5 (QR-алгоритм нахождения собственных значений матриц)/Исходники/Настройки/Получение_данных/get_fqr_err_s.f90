@@ -1,4 +1,5 @@
-submodule ( settings_m ) get_fqr_err_s ! Функция для получения условия сходимости
+submodule ( settings_m ) get_fqr_err_s ! Подмодуль, содержащий функцию для 
+                                       ! получения условия сходимости
                                        ! для QR-алгоритма Фрэнсиса
 implicit none
      

@@ -48,7 +48,7 @@ implicit none
           endif
 
           ! Заполнение массива собственных чисел
-          get_evalues : do i = 1_JP, input%N
+          get_evalues : do i = 1_JP, int(input%N, kind = JP)
 
                evalues(i) = input%matrix(i, i)
 

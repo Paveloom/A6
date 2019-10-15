@@ -57,8 +57,8 @@ implicit none
           module pure function determine_the_reflector(xyz_array) result(PH)
           implicit none
           
-          real(RP), dimension(1, 3), intent(in) :: xyz_array ! Вектор-столбец x, y, z
-          real(RP), dimension(3, 3) :: PH ! Рефлектор
+          real(RP), dimension(1_JP, 3_JP), intent(in) :: xyz_array ! Вектор-столбец x, y, z
+          real(RP), dimension(3_JP, 3_JP) :: PH ! Рефлектор
           
           end function determine_the_reflector
      

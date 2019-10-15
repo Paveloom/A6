@@ -4,7 +4,7 @@ implicit none
      
      private
      public :: log_settings_error ! Процедура для вывода ошибок для других процедур,
-                                ! связанных с настройками
+                                  ! связанных с настройками
      
      interface 
           

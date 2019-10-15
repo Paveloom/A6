@@ -9,6 +9,9 @@ implicit none
      ! Процедура, реализующая QR-алгоритм Фрэнсиса с двойным сдвигом
      module procedure francis_double_step_qr_alg_loud
 
+          ! Число строк матрицы, записанное в целочисленную переменную точности JP
+          integer(JP) :: N_JP
+
           real(RP), dimension(input%N, input%N) :: rmatrix ! Вещественная копия
                                                            ! матрицы Хессенберга
           
@@ -35,6 +38,9 @@ implicit none
           associate ( matrix => input%matrix, & ! Матрица объекта
                     &      N => input%N       ) ! Число строк матрицы
 
+               ! Присваивание значения N_JP
+               N_JP = int(N, kind = JP)
+
                ! Запись числа N в строку
                write(f1, '(i2)') IP
                write(f1,'(i'//f1//')') N
@@ -51,7 +57,7 @@ implicit none
                ! Peter Arbenz — Lecture Notes on Solving Large Scale Eigenvalue Problems,
                ! стр. 82
 
-               p = int(N, kind = JP)
+               p = N_JP
 
                do while ( p .gt. 2_JP )
 
@@ -81,7 +87,7 @@ implicit none
 
                          r = max(1_JP, k)
 
-                         rmatrix(r:n, k + 1_JP:k + 3_JP) = matmul(rmatrix(r:n, k + 1_JP:k + 3_JP), transpose(PH))
+                         rmatrix(r:N_JP, k + 1_JP:k + 3_JP) = matmul(rmatrix(r:N_JP, k + 1_JP:k + 3_JP), transpose(PH))
 
                          r = min(k + 4_JP, p)
 
@@ -100,7 +106,7 @@ implicit none
 
                     PR = get_givens_rotation_matrix(x, y)
 
-                    rmatrix(p - 2_JP:N, q:p) = matmul( rmatrix(p - 2_JP:N, q:p), transpose(PR) )
+                    rmatrix(p - 2_JP:N_JP, q:p) = matmul( rmatrix(p - 2_JP:N_JP, q:p), transpose(PR) )
                     rmatrix(p - 1_JP:p, 1_JP:p) = matmul( PR, rmatrix(p - 1_JP:p, 1_JP:p) )
 
                     if ( abs(rmatrix(q, p)) .lt. ( fqr_err * ( abs(rmatrix(q, q)) + abs(rmatrix(p, p)) ) ) ) then
