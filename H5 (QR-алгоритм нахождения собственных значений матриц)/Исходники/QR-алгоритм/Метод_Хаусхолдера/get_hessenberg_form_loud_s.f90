@@ -52,7 +52,7 @@ implicit none
                     write(*,'(5x, a, a, /)') 'k = ', trim(adjustl(f3))
 
                     ! [ Вычисление вспомогательных переменных ]
-                    k_p1 = k + 1
+                    k_p1 = k + 1_JP
                     Nmk  = N_JP - k
 
                     ! [ Вычисление нормы k-го подвектора ]
@@ -76,7 +76,7 @@ implicit none
 
                     write(*,'(5x, "1) ", '//f3//'("(", '//RF//', ", ", '//RF//', " )", 5x))') u(1, 1:Nmk)
 
-                    u(1_JP, 1_JP) = ro * subcolumn_norm
+                    u(1_JP, 1_JP) = ro * cmplx(subcolumn_norm, 0._RP, kind = CP)
 
                     write(*,'(5x, "2) ", '//f3//'("(", '//RF//', ", ", '//RF//', " )", 5x))') u(1, 1:Nmk)
 
@@ -95,10 +95,10 @@ implicit none
 
                     write(*,'(5x, a, /)') 'Умножение на матрицу отражения слева: '
 
-                    us = reshape( source = u , shape = (/ N_JP - 1_JP, 1_JP /))
+                    us = reshape( source = u , shape = [ N_JP - 1_JP, 1_JP ])
                     us = conjg(us)
 
-                    matrix(k:N, k_p1:N) = matrix(k:N_JP, k_p1:N_JP) - 2._RP * matmul( matmul( matrix(k:N_JP, k_p1:N_JP), us(1_JP:Nmk, 1_JP:1_JP) ), u(1_JP:1_JP, 1_JP:Nmk) )
+                    matrix(k:N, k_p1:N) = matrix(k:N_JP, k_p1:N_JP) - cmplx(2._RP, 0._RP, kind = CP) * matmul( matmul( matrix(k:N_JP, k_p1:N_JP), us(1_JP:Nmk, 1_JP:1_JP) ), u(1_JP:1_JP, 1_JP:Nmk) )
                     
                     write(*,'('//f2//'(4x, '//RF//', 4x, '//RF//'))') matrix
                     write(*,'()')
@@ -107,7 +107,7 @@ implicit none
 
                     write(*,'(5x, a, /)') 'Умножение на матрицу отражения справа: '
 
-                    matrix(k_p1:N_JP, 1_JP:N_JP) = matrix(k_p1:N_JP, 1_JP:N_JP) - 2._RP * matmul( us(1_JP:Nmk, 1_JP:1_JP), matmul( u(1_JP:1_JP, 1_JP:Nmk), matrix(k_p1:N_JP, 1_JP:N_JP) ) )
+                    matrix(k_p1:N_JP, 1_JP:N_JP) = matrix(k_p1:N_JP, 1_JP:N_JP) - cmplx(2._RP, 0._RP, kind = CP) * matmul( us(1_JP:Nmk, 1_JP:1_JP), matmul( u(1_JP:1_JP, 1_JP:Nmk), matrix(k_p1:N_JP, 1_JP:N_JP) ) )
 
                     write(*,'('//f2//'(4x, '//RF//', 4x, '//RF//'))') matrix
                     write(*,'()')

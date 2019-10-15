@@ -19,8 +19,6 @@ implicit none
           integer(JP) :: k_m1 ! Держатель для k - 1
           integer(JP) :: l_index, r_index ! Держатели индексов для массива coefs
 
-          integer(JP) :: i
-          
           associate ( matrix => input%matrix ) ! Матрица объекта 
 
                ! [ Умножение на матрицы вращений слева ]

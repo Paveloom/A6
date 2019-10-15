@@ -22,7 +22,7 @@ implicit none
 
                columns_check : do j = i + 1_JP, N_JP
 
-               if ( input%matrix(j, i) .ne. conjg(input%matrix(i, j)) ) then
+               if ( .not. ( abs( input%matrix(j, i) - conjg(input%matrix(i, j)) ) .lt. 1e-8_RP ) ) then
                     
                     is_it = .false.
                     exit rows_check

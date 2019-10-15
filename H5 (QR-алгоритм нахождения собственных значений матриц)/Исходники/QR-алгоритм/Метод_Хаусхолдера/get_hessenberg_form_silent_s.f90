@@ -50,7 +50,7 @@ implicit none
 
                     ! [ Генерация вектора Хаусхолдера (по алгоритму из PDF) ]
 
-                    u(1_JP, 1_JP) = ro * subcolumn_norm
+                    u(1_JP, 1_JP) = ro * cmplx(subcolumn_norm, 0._RP, kind = CP)
 
                     u(1_JP, 1_JP:Nmk) = matrix(k, k_p1:N_JP) + u(1_JP, 1_JP:Nmk)
 
@@ -60,14 +60,14 @@ implicit none
 
                     ! [ Умножение на матрицу отражения слева ]
 
-                    us = reshape( source = u , shape = (/ N_JP - 1_JP, 1_JP /))
+                    us = reshape( source = u , shape = [ N_JP - 1_JP, 1_JP ])
                     us = conjg(us)
 
-                    matrix(k:N_JP, k_p1:N_JP) = matrix(k:N_JP, k_p1:N_JP) - 2._RP * matmul( matmul( matrix(k:N_JP, k_p1:N_JP), us(1_JP:Nmk, 1_JP:1_JP) ), u(1_JP:1_JP, 1_JP:Nmk) )
+                    matrix(k:N_JP, k_p1:N_JP) = matrix(k:N_JP, k_p1:N_JP) - cmplx(2._RP, 0._RP, kind = CP) * matmul( matmul( matrix(k:N_JP, k_p1:N_JP), us(1_JP:Nmk, 1_JP:1_JP) ), u(1_JP:1_JP, 1_JP:Nmk) )
                     
                     ! [ Умножение на матрицу отражения справа ]
 
-                    matrix(k_p1:N_JP, 1_JP:N_JP) = matrix(k_p1:N_JP, 1_JP:N_JP) - 2._RP * matmul( us(1_JP:Nmk, 1_JP:1_JP), matmul( u(1_JP:1_JP, 1_JP:Nmk), matrix(k_p1:N_JP, 1_JP:N_JP) ) )
+                    matrix(k_p1:N_JP, 1_JP:N_JP) = matrix(k_p1:N_JP, 1_JP:N_JP) - cmplx(2._RP, 0._RP, kind = CP) * matmul( us(1_JP:Nmk, 1_JP:1_JP), matmul( u(1_JP:1_JP, 1_JP:Nmk), matrix(k_p1:N_JP, 1_JP:N_JP) ) )
 
                     ! [ Обнуление малых чисел ]
 
