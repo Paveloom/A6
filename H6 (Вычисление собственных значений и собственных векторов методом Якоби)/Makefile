@@ -65,20 +65,25 @@
      source_path := Исходники/
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
-     subs := Входные_данные/ Входные_данные/Ошибки/ \
+     subs := Входные_данные/ Входные_данные/Ошибки/ Входные_данные/Получение_данных/ \
 	        Результат/ Результат/Ошибки/ Результат/Присваивание/ \
 		   Настройки/ Настройки/Ошибки/ Настройки/Ответы/ \
 		   Считывание/ \
+		   Метод_Якоби/ \
 		   Освобождение_памяти/
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
      obj_path := Объектники/
      
      ## Правила-зависимости (при необходимости)
-     $(obj_path)$(main_name).o : $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o $(obj_path)read_m.o $(obj_path)deallocate_m.o
+     $(obj_path)$(main_name).o : $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o \
+						   $(obj_path)read_m.o $(obj_path)deallocate_m.o \
+	                            $(obj_path)jacobi_m.o \
 
      $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)input_warns_m.o
      $(obj_path)read_input_s.o : $(obj_path)input_m.o
+     $(obj_path)get_N_s.o : $(obj_path)input_m.o
+     $(obj_path)get_matrix_s.o : $(obj_path)input_m.o
      $(obj_path)deallocate_input_s.o : $(obj_path)input_m.o
 
      $(obj_path)log_input_error_s.o : $(obj_path)input_warns_m.o
@@ -96,6 +101,10 @@
      $(obj_path)get_do_show_info_s.o : $(obj_path)settings_m.o
 
      $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
+
+     $(obj_path)jacobi_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o
+     $(obj_path)apply_jacobi_s.o : $(obj_path)jacobi_m.o
+     $(obj_path)test_if_the_matrix_is_symmetric_s.o : $(obj_path)jacobi_m.o
      
      # Определение флагов компилятора
      
