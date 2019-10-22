@@ -7,20 +7,9 @@ implicit none
      ! Процедура, проверяющая, является ли
      ! матрица на входе симметричной
      module procedure test_if_the_matrix_is_symmetric
-          
-          ! Указатель на матрицу объекта
-          real(RP), dimension(:,:), pointer :: matrix
-
-          ! Число строк матрицы
-          integer(JP) :: N_JP
 
           ! Вспомогательные переменные
           integer(JP) :: i, j
-
-          matrix => input%get_matrix()
-
-          ! Конвертация
-          N_JP = int(input%get_N(), kind = JP)
 
           ! Проверка, является ли матрица симметричной
           rows_cycle : do j = 1_JP, N_JP - 1_JP
