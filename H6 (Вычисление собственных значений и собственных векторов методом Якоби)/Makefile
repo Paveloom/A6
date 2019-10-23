@@ -102,11 +102,14 @@
 
      $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
 
-     $(obj_path)jacobi_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)jacobi_warns_m.o
+     $(obj_path)jacobi_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)settings_m.o $(obj_path)jacobi_warns_m.o
      $(obj_path)apply_jacobi_s.o : $(obj_path)jacobi_m.o
+     $(obj_path)apply_jacobi_loud_s.o : $(obj_path)jacobi_m.o
+     $(obj_path)apply_jacobi_silent_s.o : $(obj_path)jacobi_m.o
      $(obj_path)allocate_s.o : $(obj_path)jacobi_m.o
      $(obj_path)deallocate_s.o : $(obj_path)jacobi_m.o
      $(obj_path)test_if_the_matrix_is_symmetric_s.o : $(obj_path)jacobi_m.o
+     $(obj_path)the_matrix_is_not_diagonal_s.o : $(obj_path)jacobi_m.o
      $(obj_path)get_max_s.o : $(obj_path)jacobi_m.o
      $(obj_path)get_phi_s.o : $(obj_path)jacobi_m.o
      $(obj_path)get_rotation_matrix_s.o : $(obj_path)jacobi_m.o

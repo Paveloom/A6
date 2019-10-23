@@ -16,8 +16,8 @@ implicit none
      call read(input, "input") ! Считывание входных данных
      call read(settings, "settings") ! Считывание настроек программы
 
-     call apply_jacobi(input, result) ! Вызов метода Якоби для поиска
-                                      ! собственных значений и векторов симметричных матриц
+     call apply_jacobi(input, result, settings) ! Вызов метода Якоби для поиска
+                                                ! собственных значений и векторов симметричных матриц
 
      call deallocate(input, result) ! Освобождение памяти из-под данных объектов
 
