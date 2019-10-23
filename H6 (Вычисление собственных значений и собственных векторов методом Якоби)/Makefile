@@ -69,7 +69,7 @@
 	        Результат/ Результат/Ошибки/ Результат/Присваивание/ \
 		   Настройки/ Настройки/Ошибки/ Настройки/Ответы/ \
 		   Считывание/ \
-		   Метод_Якоби/ Метод_Якоби/Вспомогательное/ \
+		   Метод_Якоби/ Метод_Якоби/Вспомогательное/ Метод_Якоби/Ошибки/ \
 		   Освобождение_памяти/
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
@@ -102,10 +102,16 @@
 
      $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
 
-     $(obj_path)jacobi_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o
+     $(obj_path)jacobi_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_m.o $(obj_path)jacobi_warns_m.o
      $(obj_path)apply_jacobi_s.o : $(obj_path)jacobi_m.o
+     $(obj_path)allocate_s.o : $(obj_path)jacobi_m.o
+     $(obj_path)deallocate_s.o : $(obj_path)jacobi_m.o
      $(obj_path)test_if_the_matrix_is_symmetric_s.o : $(obj_path)jacobi_m.o
      $(obj_path)get_max_s.o : $(obj_path)jacobi_m.o
+     $(obj_path)get_phi_s.o : $(obj_path)jacobi_m.o
+     $(obj_path)get_rotation_matrix_s.o : $(obj_path)jacobi_m.o
+
+     $(obj_path)log_jacobi_error_s.o : $(obj_path)jacobi_warns_m.o
      
      # Определение флагов компилятора
      

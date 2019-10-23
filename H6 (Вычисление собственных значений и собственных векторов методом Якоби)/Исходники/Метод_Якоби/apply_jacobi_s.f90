@@ -10,7 +10,7 @@ implicit none
      module procedure apply_jacobi
 
           ! Внедиагональный максимум и его индексы
-          type ( max_type ) max
+          type ( max_type ) :: max
 
           ! Указатель на число строк матрицы
           integer(IP), pointer :: N
@@ -19,27 +19,84 @@ implicit none
           integer(JP) :: N_JP
 
           ! Указатель на матрицу объекта
-          real(RP), dimension(:,:), pointer :: matrix
+          real(RP), dimension(:, :), pointer :: A
 
+          ! Новая матрица объекта
+          real(RP), dimension(:, :), allocatable :: NA
+
+          ! Матрица вращения (глобальная)
+          real(RP), dimension(:, :), allocatable :: U
+
+          ! Матрица вращения (итерационная)
+          real(RP), dimension(:, :), allocatable :: U_k
+
+          ! Угол поворота матрицы вращения
+          real(RP) :: phi
+
+          ! Вспомогательные переменные
           integer(JP) :: k ! Счетчик итераций
+          real(RP) :: pi   ! Число pi
+          
+          ! Вычисление числа pi
+          pi = 4._RP * atan(1._RP)
 
           ! Распаковка объекта
           N => input%get_N()
-          matrix => input%get_matrix()
+          A => input%get_matrix()
 
           ! Конвертация
           N_JP = int(N, kind = JP)
-          
-          ! Проверка, является ли матрица симметричной
-          call test_if_the_matrix_is_symmetric(N_JP, matrix)
 
-          do k = 1_JP, 100_JP
+          write(*,'(/, 5x, a, /)') 'Исходная матрица:'
+          write(*,'(3(e26.15))') A
+
+          ! Проверка, является ли матрица симметричной
+          call test_if_the_matrix_is_symmetric(N_JP, A)
+
+          ! Выделение памяти под матрицы вращения
+          call allocate(N_JP, U, U_k, NA)
+
+          ! Получение внедигонального максимума
+          call get_max(N_JP, A, max)
+
+          ! Вычисление угла поворота матрицы вращения
+          phi = get_phi(A, max, pi)
+
+          ! Получение итерационной матрицы вращения
+          call get_rotation_matrix(phi, N_JP, max, U_k)
+
+          ! Обновление глобальной матрицы вращения
+          U = U_k
+
+          ! Применение глобальной матрицы вращения
+          NA = matmul(U, matmul(A, transpose(U)))
+
+          do k = 1_JP, 1_JP
 
                ! Получение внедигонального максимума
-               call get_max(N_JP, matrix, max)
+               call get_max(N_JP, NA, max)
+
+               ! Вычисление угла поворота матрицы вращения
+               phi = get_phi(NA, max, pi)
+     
+               ! Получение итерационной матрицы вращения
+               call get_rotation_matrix(phi, N_JP, max, U_k)
+     
+               ! Обновление глобальной матрицы вращения
+               U = matmul(U_k, U)
+     
+               ! Применение глобальной матрицы вращения
+               NA = matmul(U, matmul(A, transpose(U)))
 
           enddo
-          
+
+          write(*,'(/, 5x, a, /)') 'Итоговая матрица:'
+          write(*,'(3(e26.15))') NA
+          write(*,'()')
+
+          ! Освобождение памяти из-под матриц вращения
+          call deallocate(U, U_k, NA)
+
      end procedure apply_jacobi
      
 end submodule apply_jacobi_s

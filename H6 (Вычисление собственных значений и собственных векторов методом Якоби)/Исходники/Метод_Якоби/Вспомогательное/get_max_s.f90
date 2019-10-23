@@ -12,14 +12,16 @@ implicit none
           ! Вспомогательные переменные
           integer(JP) :: i, j
 
-          max%value = matrix(N_JP, N_JP - 1_JP)
+          max%value = abs(matrix(N_JP, N_JP - 1_JP))
+          max%i = N_JP
+          max%j = N_JP - 1_JP
 
           ! Поиск внедиагонального максимума
           rows_cycle : do j = 1_JP, N_JP - 2_JP
 
                cols_cycle : do i = j + 1_JP, N_JP
 
-                    if ( matrix(i, j) .gt. max%value ) then
+                    if ( abs(matrix(i, j)) .gt. max%value ) then
 
                          max%value = matrix(i, j)
                          max%i = i
@@ -30,6 +32,8 @@ implicit none
                enddo cols_cycle
 
           enddo rows_cycle
+
+          if ( ( max%i .eq. N_JP ) .and. ( max%j .eq. N_JP - 1_JP ) ) max%value = matrix(N_JP, N_JP - 1_JP)
 
      end procedure get_max
      
