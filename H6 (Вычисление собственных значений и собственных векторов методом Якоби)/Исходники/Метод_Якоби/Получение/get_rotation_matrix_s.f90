@@ -19,9 +19,6 @@ implicit none
           cos_phi = cos(phi)
           sin_phi = sin(phi)
 
-          if ( abs(cos_phi) .lt. 1e-8_RP ) cos_phi = 0._RP
-          if ( abs(sin_phi) .lt. 1e-8_RP ) sin_phi = 0._RP
-
           ! Построение матрицы вращения
 
           rows_cycle : do m = 1_JP, N_JP

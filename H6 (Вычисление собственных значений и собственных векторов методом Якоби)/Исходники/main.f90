@@ -1,7 +1,8 @@
 program main ! Программа, реализующая метод Якоби для поиска
              ! собственных значений и векторов симметричных матриц
 use input_m, only : input_type ! Тип, определяющий входные данные
-use result_m, only : result_type ! Тип, определяющий результат
+use result_m, only : result_type, & ! Тип, определяющий результат
+                   & write ! Процедура для вывода результата
 use settings_m, only : settings_type ! Тип, определяющий настройки
 use read_m, only : read ! Процедура для считывания данных объектов из файлов
 use jacobi_m, only : apply_jacobi ! Процедура, реализующая метод Якоби для поиска
@@ -18,6 +19,8 @@ implicit none
 
      call apply_jacobi(input, result, settings) ! Вызов метода Якоби для поиска
                                                 ! собственных значений и векторов симметричных матриц
+
+     call write(result) ! Вывод результата
 
      call deallocate(input, result) ! Освобождение памяти из-под данных объектов
 

@@ -90,6 +90,9 @@ implicit none
 
           enddo
 
+          ! Отправка результата
+          call send_result(N_JP, U, NA, result)
+
           ! Освобождение памяти из-под матриц вращения
           call deallocate(U, U_k, NA)
 

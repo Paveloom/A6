@@ -7,11 +7,14 @@ implicit none
      ! Процедура для вывода результата
      module procedure write
 
+          ! Число строк матрицы
+          integer(JP) :: N_JP
+
           ! Вспомогательная переменная
           integer(JP) :: i
 
           ! Вспомогательная строка для автоформатирования
-          character(FP) :: f1
+          character(FP) :: f1, f2, f3
           
           if ( .not. allocated(result%evalues) ) then
 
@@ -27,18 +30,40 @@ implicit none
 
           endif
 
+          ! Вычисление числа строк матрицы
+          N_JP = size(result%evalues, kind = JP)
+
+          ! Запись числа JP в строку
+          write(f1,'(i2)') JP
+
+          ! Запись числа N_JP в строку
+          write(f3,'(i'//f1//')') N_JP
+
           write(*,'(/, 5x, a, /)') 'Результат:'
 
           ! Цикл вывода собственных чисел
-          write_cycle : do i = 1_JP, size(result%evalues, kind = JP)
+          write_evalues : do i = 1_JP, N_JP
 
                ! Запись числа i в строку
-               write(f1,'(i2)') JP
-               write(f1,'(i'//f1//')') i
+               write(f2,'(i'//f1//')') i
 
-               write(*,'(5x, a, '//RF//')') 'λ'//trim(adjustl(f1))//' = ', result%evalues(i)
+               ! Вывод собственного числа
+               write(*,'(5x, a, '//RF//')') 'λ'//trim(adjustl(f2))//' = ', result%evalues(i)
 
-          enddo write_cycle
+          enddo write_evalues
+
+          write(*,'()')
+
+          ! Цикл вывода собственных векторов
+          write_evectors : do i = 1_JP, N_JP
+
+               ! Запись числа i в строку
+               write(f2,'(i'//f1//')') i
+
+               ! Вывод собственного вектора
+               write(*,'(5x, a, '//f3//'('//RF//', 4x))') 'v'//trim(adjustl(f2))//' = ', result%evectors(i, :)
+
+          enddo write_evectors
 
           write(*,'()')
 

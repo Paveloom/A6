@@ -27,6 +27,12 @@ implicit none
                                                                              & объекта.'
                     stop
 
+               case ('WA_evalues') ! Встречается в send_result_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_jacobi_error:', 'Не удалось выделить память под размещаемый массив&
+                                                                             & evalues при отправке результата.'
+                    stop
+
                case ('WD_U') ! Встречается в deallocate_rotation_matrices_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_jacobi_error:', 'Не удалось освободить память из-под глобальной матрицы&
@@ -43,6 +49,12 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_jacobi_error:', 'Не удалось освободить память из-под новой матрицы&
                                                                              & объекта.'
+                    stop
+
+               case ('WD_evalues') ! Встречается в send_result_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_jacobi_error:', 'Не удалось освободить память из-под размещаемого массива&
+                                                                             & evalues при отправке результата.'
                     stop
 
                case default

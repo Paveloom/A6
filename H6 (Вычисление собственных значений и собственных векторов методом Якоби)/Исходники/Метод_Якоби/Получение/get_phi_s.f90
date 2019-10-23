@@ -13,7 +13,7 @@ implicit none
 
           ! Вычисление угла поворота матрицы вращения
           
-          if ( abs(a_diff) .ge. 1e-8_RP ) then
+          if ( abs(a_diff) .ge. 1e-12_RP ) then
                
                phi = 1._RP / 2._RP * atan(2._RP * max%value / a_diff )
 

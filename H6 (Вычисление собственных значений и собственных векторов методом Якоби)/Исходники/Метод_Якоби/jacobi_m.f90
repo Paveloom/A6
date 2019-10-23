@@ -128,7 +128,7 @@ implicit none
 
           ! Процедура, возвращающая максимум среди внедиагональных
           ! элементов матрицы, а также его индексы
-          module impure subroutine get_max(N_JP, matrix, max)
+          module pure subroutine get_max(N_JP, matrix, max)
           implicit none
                
                ! Число строк в матрице
@@ -177,6 +177,24 @@ implicit none
                real(RP), dimension(:, :), contiguous, intent(inout) :: rotation_matrix
                
           end subroutine get_rotation_matrix
+
+          ! Процедура для получения матрицы вращения
+          module impure subroutine send_result(N_JP, U, NA, result)
+          implicit none
+               
+               ! Число строк в матрице
+               integer(JP), intent(in) :: N_JP
+
+               ! Матрица вращения (глобальная)
+               real(RP), dimension(:, :), contiguous, intent(in) :: U
+
+               ! Новая матрица объекта
+               real(RP), dimension(:, :), contiguous, intent(in) :: NA
+
+               ! Результат
+               type ( result_type ), intent(inout) :: result
+               
+          end subroutine send_result
      
      end interface
      

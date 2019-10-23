@@ -21,7 +21,7 @@ implicit none
 
                cols_cycle : do i = j + 1_JP, N_JP
 
-                    if ( abs(matrix(i, j)) .gt. max%value ) then
+                    if ( abs(matrix(i, j)) - abs(max%value) .gt. 0._RP ) then
 
                          max%value = matrix(i, j)
                          max%i = i
