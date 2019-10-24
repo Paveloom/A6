@@ -24,7 +24,7 @@ implicit none
 
           contains
 
-          procedure :: get_N ! Функция для получения цказателя на число строк матрицы
+          procedure :: get_N ! Функция для получения указателя на число строк матрицы
           procedure :: get_matrix ! Функция для получения указателя на матрицу объекта
           
      end type input_type

@@ -38,7 +38,7 @@ implicit none
           end subroutine read_settings
 
           ! Функция для получения ответа на вопрос:
-          ! показывать реализацию преобразования Хаусхолдера?
+          ! показывать дополнительную информацию?
           module pure function get_do_show_info(settings) result(do_show_info)
           implicit none
           
