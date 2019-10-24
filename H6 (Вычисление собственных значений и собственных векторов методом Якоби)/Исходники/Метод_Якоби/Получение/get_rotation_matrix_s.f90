@@ -21,9 +21,9 @@ implicit none
 
           ! Построение матрицы вращения
 
-          rows_cycle : do m = 1_JP, N_JP
+          rows_cycle : do m = 1_JP, N%m0
 
-               cols_cycle : do l = 1_JP, N_JP
+               cols_cycle : do l = 1_JP, N%m0
                
                     ! Аналитически: элемент с индексами (i, i)
                     if ( ( m .eq. max%j ) .and. ( l .eq. max%j ) ) then

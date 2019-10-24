@@ -12,28 +12,63 @@ implicit none
           ! Вспомогательные переменные
           integer(JP) :: i, j
 
-          max%value = abs(matrix(N_JP, N_JP - 1_JP))
-          max%i = N_JP
-          max%j = N_JP - 1_JP
+          ! Фактический аргумент — матрица
+          if ( present(matrix) ) then
 
-          ! Поиск внедиагонального максимума
-          rows_cycle : do j = 1_JP, N_JP - 2_JP
+               ! Начальное предположение
 
-               cols_cycle : do i = j + 1_JP, N_JP
+               max%value = abs(matrix(N%m0, N%m1))
+               max%i = N%m0
+               max%j = N%m1
 
-                    if ( abs(matrix(i, j)) - abs(max%value) .gt. 0._RP ) then
+               ! Поиск внедиагонального максимума
+               m_rows_cycle : do j = 1_JP, N%m2
 
-                         max%value = matrix(i, j)
-                         max%i = i
-                         max%j = j
+                    m_cols_cycle : do i = j + 1_JP, N%m0
 
-                    endif
+                         if ( abs(matrix(i, j)) - abs(max%value) .gt. 0._RP ) then
 
-               enddo cols_cycle
+                              max%value = matrix(i, j)
+                              max%i = i
+                              max%j = j
 
-          enddo rows_cycle
+                         endif
 
-          if ( ( max%i .eq. N_JP ) .and. ( max%j .eq. N_JP - 1_JP ) ) max%value = matrix(N_JP, N_JP - 1_JP)
+                    enddo m_cols_cycle
+
+               enddo m_rows_cycle
+
+               if ( ( max%i .eq. N%m0 ) .and. ( max%j .eq. N%m1 ) ) max%value = matrix(N%m0, N%m1)
+
+          ! Фактический аргумент — указатель на матрицу
+          elseif ( present(matrix_pointer) ) then
+
+               ! Начальное предположение
+
+               max%value = abs(matrix_pointer(N%m0, N%m1))
+               max%i = N%m0
+               max%j = N%m1
+
+               ! Поиск внедиагонального максимума
+               mp_rows_cycle : do j = 1_JP, N%m2
+
+                    mp_cols_cycle : do i = j + 1_JP, N%m0
+
+                         if ( abs(matrix_pointer(i, j)) - abs(max%value) .gt. 0._RP ) then
+
+                              max%value = matrix_pointer(i, j)
+                              max%i = i
+                              max%j = j
+
+                         endif
+
+                    enddo mp_cols_cycle
+
+               enddo mp_rows_cycle
+
+               if ( ( max%i .eq. N%m0 ) .and. ( max%j .eq. N%m1 ) ) max%value = matrix_pointer(N%m0, N%m1)
+
+          endif
 
      end procedure get_max
      

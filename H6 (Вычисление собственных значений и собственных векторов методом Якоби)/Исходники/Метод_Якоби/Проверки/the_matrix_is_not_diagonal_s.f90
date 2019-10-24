@@ -16,9 +16,9 @@ implicit none
           is_not = .true.
           s = 0._RP
 
-          rows_cycle : do m = 1_JP, N_JP - 1_JP
+          rows_cycle : do m = 1_JP, N%m1
 
-               cols_cycle : do l = m + 1_JP, N_JP
+               cols_cycle : do l = m + 1_JP, N%m0
 
                     s = s + matrix(l, m) ** 2 + matrix(m, l) ** 2
 

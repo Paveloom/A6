@@ -12,9 +12,9 @@ implicit none
           integer(JP) :: i, j
 
           ! Проверка, является ли матрица симметричной
-          rows_cycle : do j = 1_JP, N_JP - 1_JP
+          rows_cycle : do j = 1_JP, N%m0 - 1_JP
 
-               cols_cycle : do i = j + 1_JP, N_JP
+               cols_cycle : do i = j + 1_JP, N%m0
 
                     if ( abs(matrix(i, j) - matrix(j, i)) .gt. 1e-8_RP ) then
 

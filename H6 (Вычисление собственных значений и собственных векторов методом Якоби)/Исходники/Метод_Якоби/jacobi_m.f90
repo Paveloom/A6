@@ -25,12 +25,21 @@ implicit none
           integer(JP) :: i, j ! Индексы
 
      end type max_type
+
+     ! Тип, объединяющий число строк матрицы с использующими его разностями
+     type N_type
+
+          integer(JP) :: m0 ! Число строк матрицы
+          integer(JP) :: m1 ! Число строк матрицы - 1
+          integer(JP) :: m2 ! Число строк матрицы - 2
+
+     end type
      
      interface
 
           ! Процедура общего вызова процедуры, реализующей метод Якоби для поиска
           ! собственных значений и векторов симметричных матриц
-          module impure subroutine apply_jacobi(input, result, settings)
+          module impure elemental subroutine apply_jacobi(input, result, settings)
           implicit none
           
                type ( input_type ), intent(inout) :: input ! Входные данные
@@ -42,7 +51,7 @@ implicit none
           ! Процедура, реализующая метод Якоби для поиска
           ! собственных значений и векторов симметричных матриц
           ! (с дополнительным выводом)
-          module impure subroutine apply_jacobi_loud(input, result)
+          module impure elemental subroutine apply_jacobi_loud(input, result)
           implicit none
           
                type ( input_type ), intent(inout) :: input ! Входные данные
@@ -53,7 +62,7 @@ implicit none
           ! Процедура, реализующая метод Якоби для поиска
           ! собственных значений и векторов симметричных матриц
           ! (без дополнительного вывода)
-          module impure subroutine apply_jacobi_silent(input, result)
+          module impure elemental subroutine apply_jacobi_silent(input, result)
           implicit none
           
                type ( input_type ), intent(inout) :: input ! Входные данные
@@ -64,11 +73,11 @@ implicit none
           ! Процедура, выделяющая память под
           ! локальную и глобальную матрицы вращения,
           ! а также под новую матрицу объекта
-          module impure subroutine allocate(N_JP, U, U_k, NA)
+          module impure subroutine allocate(N, U, U_k, NA)
           implicit none
           
-               ! Число строк в матрице
-               integer(JP), intent(in) :: N_JP
+               ! Объект, объединяющий число строк матрицы с использующими его разностями
+               type ( N_type ), intent(in) :: N
 
                ! Матрица вращения (глобальная)
                real(RP), dimension(:, :), allocatable, intent(inout) :: U
@@ -100,11 +109,11 @@ implicit none
 
           ! Процедура, проверяющая, является ли
           ! матрица на входе симметричной
-          module impure subroutine test_if_the_matrix_is_symmetric(N_JP, matrix)
+          module impure subroutine test_if_the_matrix_is_symmetric(N, matrix)
           implicit none
                
-               ! Число строк в матрице
-               integer(JP), intent(in) :: N_JP
+               ! Объект, объединяющий число строк матрицы с использующими его разностями
+               type ( N_type ), intent(in) :: N
 
                ! Матрица объекта
                real(RP), dimension(:,:), pointer, intent(in) :: matrix
@@ -112,11 +121,11 @@ implicit none
           end subroutine test_if_the_matrix_is_symmetric
 
           ! Функция, проверяющая, диагональна ли матрица
-          module pure function the_matrix_is_not_diagonal(N_JP, matrix) result(is_not)
+          module pure function the_matrix_is_not_diagonal(N, matrix) result(is_not)
           implicit none
                
-               ! Число строк в матрице
-               integer(JP), intent(in) :: N_JP
+               ! Объект, объединяющий число строк матрицы с использующими его разностями
+               type ( N_type ), intent(in) :: N
 
                ! Матрица объекта
                real(RP), dimension(:,:), contiguous, intent(in) :: matrix
@@ -128,26 +137,26 @@ implicit none
 
           ! Процедура, возвращающая максимум среди внедиагональных
           ! элементов матрицы, а также его индексы
-          module pure subroutine get_max(N_JP, matrix, max)
+          module pure subroutine get_max(N, max, matrix, matrix_pointer)
           implicit none
                
-               ! Число строк в матрице
-               integer(JP), intent(in) :: N_JP
+               ! Объект, объединяющий число строк матрицы с использующими его разностями
+               type ( N_type ), intent(in) :: N
 
-               ! Матрица объекта
-               real(RP), dimension(:,:), contiguous, intent(in) :: matrix
-               
                ! Внедиагональный максимум и его индексы
                type ( max_type ), intent(out) :: max
+
+               ! Матрица объекта
+               real(RP), dimension(:,:), contiguous, optional, intent(in) :: matrix
+
+               ! Указатель на матрицу объекта
+               real(RP), dimension(:,:), pointer, optional, intent(in) :: matrix_pointer
                
           end subroutine get_max
 
           ! Функция, возвращающая угол поворота матрицы вращения
-          module pure function get_phi(matrix, max, pi) result(phi)
+          module pure subroutine get_phi(max, pi, phi, matrix, matrix_pointer)
           implicit none
-               
-               ! Матрица объекта
-               real(RP), dimension(:,:), contiguous, intent(in) :: matrix
                
                ! Внедиагональный максимум и его индексы
                type ( max_type ), intent(in) :: max
@@ -155,20 +164,26 @@ implicit none
                ! Число pi
                real(RP), intent(in) :: pi
 
+               ! Матрица объекта
+               real(RP), dimension(:,:), contiguous, optional, intent(in) :: matrix
+
+               ! Указатель на матрицу объекта
+               real(RP), dimension(:,:), pointer, optional, intent(in) :: matrix_pointer
+
                ! Угол поворота матрицы вращения
-               real(RP) :: phi
+               real(RP), intent(inout) :: phi
                
-          end function get_phi
+          end subroutine get_phi
 
           ! Процедура для получения матрицы вращения
-          module pure subroutine get_rotation_matrix(phi, N_JP, max, rotation_matrix)
+          module pure subroutine get_rotation_matrix(phi, N, max, rotation_matrix)
           implicit none
                
                ! Угол поворота матрицы вращения
                real(RP), intent(in) :: phi
 
-               ! Число строк в матрице
-               integer(JP), intent(in) :: N_JP
+               ! Объект, объединяющий число строк матрицы с использующими его разностями
+               type ( N_type ), intent(in) :: N
 
                ! Внедиагональный максимум и его индексы
                type ( max_type ), intent(in) :: max
@@ -179,11 +194,11 @@ implicit none
           end subroutine get_rotation_matrix
 
           ! Процедура для получения матрицы вращения
-          module impure subroutine send_result(N_JP, U, NA, result)
+          module impure subroutine send_result(N, U, NA, result)
           implicit none
                
-               ! Число строк в матрице
-               integer(JP), intent(in) :: N_JP
+               ! Объект, объединяющий число строк матрицы с использующими его разностями
+               type ( N_type ), intent(in) :: N
 
                ! Матрица вращения (глобальная)
                real(RP), dimension(:, :), contiguous, intent(in) :: U

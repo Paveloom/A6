@@ -25,3 +25,5 @@ implicit none
      call deallocate(input, result) ! Освобождение памяти из-под данных объектов
 
 end program main
+
+! Автор: Павел Соболев (http://paveloom.tk)

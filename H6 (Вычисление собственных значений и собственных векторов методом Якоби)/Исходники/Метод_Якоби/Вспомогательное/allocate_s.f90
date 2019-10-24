@@ -13,13 +13,13 @@ implicit none
           
           integer(SP) :: stat ! Статусная переменная
 
-          allocate(U(N_JP, N_JP), stat = stat ) ! Выделение памяти под глобальную матрицу вращения
+          allocate(U(N%m0, N%m0), stat = stat ) ! Выделение памяти под глобальную матрицу вращения
           if ( stat .ne. 0_SP ) call log_jacobi_error('WA_U') ! Проверка на ошибку выделения памяти
 
-          allocate(U_k(N_JP, N_JP), stat = stat ) ! Выделение памяти под итерационную матрицу вращения
+          allocate(U_k(N%m0, N%m0), stat = stat ) ! Выделение памяти под итерационную матрицу вращения
           if ( stat .ne. 0_SP ) call log_jacobi_error('WA_U_k') ! Проверка на ошибку выделения памяти
 
-          allocate(NA(N_JP, N_JP), stat = stat ) ! Выделение памяти под новую матрицу объекта
+          allocate(NA(N%m0, N%m0), stat = stat ) ! Выделение памяти под новую матрицу объекта
           if ( stat .ne. 0_SP ) call log_jacobi_error('WA_NA') ! Проверка на ошибку выделения памяти
           
      end procedure allocate

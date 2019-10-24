@@ -14,12 +14,12 @@ implicit none
           integer(SP) :: stat ! Статусная переменная
 
           ! Выделение памяти под массив собственных чисел
-          allocate(evalues(N_JP), stat = stat)
+          allocate(evalues(N%m0), stat = stat)
           if ( stat .ne. 0_SP ) call log_jacobi_error('WA_evalues') ! Проверка на ошибку выделения памяти
 
           ! Запись собственных чисел
 
-          do i = 1_JP, N_JP
+          do i = 1_JP, N%m0
 
                evalues(i) = NA(i, i)
 
