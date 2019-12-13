@@ -65,63 +65,71 @@
      source_path := Исходники/
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
-     subs := Входные_данные/ Входные_данные/Ошибки/ Входные_данные/Ошибки/Лог/ \
-		   Входные_данные/Считывание/ Входные_данные/Получение/ Входные_данные/Присваивание/ \
-		   Настройки/ Настройки/Ошибки/ Настройки/Ошибки/Лог/ \
-		   Настройки/Считывание/ Настройки/Получение/ Настройки/Присваивание/ \
-		   Считывание/
+     
+     bvp_subs := Входные_данные/ Входные_данные/Ошибки/ Входные_данные/Ошибки/Лог/ \
+		   	  Входные_данные/Считывание/ Входные_данные/Получение/ Входные_данные/Присваивание/ \
+		   	  Настройки/ Настройки/Ошибки/ Настройки/Ошибки/Лог/ \
+		   	  Настройки/Считывание/ Настройки/Получение/ Настройки/Присваивание/ \
+		   	  Считывание/
+
+     subs := Прослойка/ \
+             Модуль/ $(addprefix Модуль/, $(bvp_subs))
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
      obj_path := Объектники/
      
      ## Правила-зависимости (при необходимости)
 
-     $(obj_path)$(main_name).o : $(obj_path)input_m.o $(obj_path)settings_m.o $(obj_path)read_m.o
+     $(obj_path)$(main_name).o : $(obj_path)bvp.o
 
-     	$(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)settings_m.o $(obj_path)input_warns_m.o
+          # Зависимости для модуля bvp
 
-     		$(obj_path)read_input_s.o : $(obj_path)input_m.o
+     	$(obj_path)bvp.o : $(obj_path)input_m.o $(obj_path)settings_m.o $(obj_path)read_m.o
 
-     		$(obj_path)get_l_s.o : $(obj_path)input_m.o
-     		$(obj_path)get_r_s.o : $(obj_path)input_m.o
+               $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)settings_m.o $(obj_path)input_warns_m.o
 
-     		$(obj_path)get_alpha_1_s.o : $(obj_path)input_m.o
-     		$(obj_path)get_beta_1_s.o : $(obj_path)input_m.o
-     		$(obj_path)get_gamma_1_s.o : $(obj_path)input_m.o
+                    $(obj_path)read_input_s.o : $(obj_path)input_m.o
 
-     		$(obj_path)get_alpha_2_s.o : $(obj_path)input_m.o
-     		$(obj_path)get_beta_2_s.o : $(obj_path)input_m.o
-     		$(obj_path)get_gamma_2_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_l_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_r_s.o : $(obj_path)input_m.o
 
-     		$(obj_path)put_l_s.o : $(obj_path)input_m.o
-     		$(obj_path)put_r_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_alpha_1_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_beta_1_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_gamma_1_s.o : $(obj_path)input_m.o
 
-     		$(obj_path)put_alpha_1_s.o : $(obj_path)input_m.o
-     		$(obj_path)put_beta_1_s.o : $(obj_path)input_m.o
-     		$(obj_path)put_gamma_1_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_alpha_2_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_beta_2_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_gamma_2_s.o : $(obj_path)input_m.o
 
-     		$(obj_path)put_alpha_2_s.o : $(obj_path)input_m.o
-     		$(obj_path)put_beta_2_s.o : $(obj_path)input_m.o
-     		$(obj_path)put_gamma_2_s.o : $(obj_path)input_m.o
+                    $(obj_path)put_l_s.o : $(obj_path)input_m.o
+                    $(obj_path)put_r_s.o : $(obj_path)input_m.o
 
-     			$(obj_path)log_input_error_s.o : $(obj_path)input_warns_m.o
+                    $(obj_path)put_alpha_1_s.o : $(obj_path)input_m.o
+                    $(obj_path)put_beta_1_s.o : $(obj_path)input_m.o
+                    $(obj_path)put_gamma_1_s.o : $(obj_path)input_m.o
 
-     	$(obj_path)settings_m.o : $(obj_path)prec_m.o $(obj_path)settings_warns_m.o
+                    $(obj_path)put_alpha_2_s.o : $(obj_path)input_m.o
+                    $(obj_path)put_beta_2_s.o : $(obj_path)input_m.o
+                    $(obj_path)put_gamma_2_s.o : $(obj_path)input_m.o
 
-     		$(obj_path)read_settings_s.o : $(obj_path)settings_m.o
+                         $(obj_path)log_input_error_s.o : $(obj_path)input_warns_m.o
 
-     		$(obj_path)get_do_read_l_s.o : $(obj_path)settings_m.o
-     		$(obj_path)get_do_read_r_s.o : $(obj_path)settings_m.o
+               $(obj_path)settings_m.o : $(obj_path)prec_m.o $(obj_path)settings_warns_m.o
 
-     		$(obj_path)get_do_read_alpha_1_s.o : $(obj_path)settings_m.o
-     		$(obj_path)get_do_read_beta_1_s.o : $(obj_path)settings_m.o
-     		$(obj_path)get_do_read_gamma_1_s.o : $(obj_path)settings_m.o
+                    $(obj_path)read_settings_s.o : $(obj_path)settings_m.o
 
-     		$(obj_path)get_do_read_alpha_2_s.o : $(obj_path)settings_m.o
-     		$(obj_path)get_do_read_beta_2_s.o : $(obj_path)settings_m.o
-     		$(obj_path)get_do_read_gamma_2_s.o : $(obj_path)settings_m.o
+                    $(obj_path)get_do_read_l_s.o : $(obj_path)settings_m.o
+                    $(obj_path)get_do_read_r_s.o : $(obj_path)settings_m.o
 
-     			$(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
+                    $(obj_path)get_do_read_alpha_1_s.o : $(obj_path)settings_m.o
+                    $(obj_path)get_do_read_beta_1_s.o : $(obj_path)settings_m.o
+                    $(obj_path)get_do_read_gamma_1_s.o : $(obj_path)settings_m.o
+
+                    $(obj_path)get_do_read_alpha_2_s.o : $(obj_path)settings_m.o
+                    $(obj_path)get_do_read_beta_2_s.o : $(obj_path)settings_m.o
+                    $(obj_path)get_do_read_gamma_2_s.o : $(obj_path)settings_m.o
+
+                         $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
      
      # Определение флагов компилятора
      
