@@ -1,10 +1,11 @@
 module settings_m ! Модуль, содержащий тип настроек программы и процедуры,
                   ! связанные с объектами этого типа
-use prec_m, only : SP, & ! Точность целого числа статусной переменной
+use prec_m, only : RP, & ! Точность вещественных чисел, используемых в программе
+                 & SP, & ! Точность целого числа статусной переменной
                  & UP, & ! Точность целого числа номера дескриптора файла
                  & LP    ! Число байт для хранения логической переменной
-use settings_warns_m, only : log_settings_error ! Процедура для вывода ошибок для 
-                                                ! других процедур, связанных с настройками
+use settings_errors_m, only : log_settings_error ! Процедура для вывода ошибок для 
+                                                 ! других процедур, связанных с настройками
 implicit none
      
      private
@@ -40,6 +41,10 @@ implicit none
           ! Считывать значение параметра gamma_2?
           logical(LP) :: do_read_gamma_2
 
+          ! Величина малости для входных параметров 
+          ! alpha_1, alpha_2, beta_1 и beta_2
+          real(RP) :: input_params_err
+
           contains
 
           procedure :: get_do_read_l ! Функция для получения указателя на ответ на вопрос:
@@ -65,6 +70,9 @@ implicit none
 
           procedure :: get_do_read_gamma_2 ! Функция для получения указателя на ответ на вопрос:
                                            ! считывать значение параметра gamma_2?
+
+          procedure :: get_input_params_err ! Функция для получения указателя на величину малости
+                                            ! для входных параметров alpha_1, alpha_2, beta_1 и beta_2
 
      end type settings_type
 
@@ -158,6 +166,16 @@ implicit none
                logical(LP), pointer :: do_read_gamma_2_pt ! Считывать значение параметра gamma_2?
           
           end function get_do_read_gamma_2
+
+          ! Функция для получения указателя на величину малости
+          ! для входных параметров alpha_1, alpha_2, beta_1 и beta_2
+          module impure function get_input_params_err(settings) result(input_params_err_pt)
+          implicit none
+          
+               class ( settings_type ), target, intent(in) :: settings ! Настройки программы
+               real(RP), pointer :: input_params_err_pt ! Указатель на величину малости
+          
+          end function get_input_params_err
      
      end interface
      

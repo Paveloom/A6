@@ -1,5 +1,5 @@
-module settings_warns_m ! Модуль, содержащий процедуру для вывода ошибок для
-                        ! других процедур, связанных с настройками
+module settings_errors_m ! Модуль, содержащий процедуру для вывода ошибок для
+                         ! других процедур, связанных с настройками
 implicit none
      
      private
@@ -19,4 +19,4 @@ implicit none
      
      end interface
 
-end module settings_warns_m
+end module settings_errors_m

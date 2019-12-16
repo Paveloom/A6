@@ -1,4 +1,4 @@
-submodule ( result_warns_m ) log_result_error_s
+submodule ( result_errors_m ) log_result_error_s
 implicit none
 
      contains

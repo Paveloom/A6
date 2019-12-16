@@ -1,5 +1,5 @@
-module result_warns_m ! Модуль, содержащий процедуру для вывода ошибок для
-                      ! других процедур, связанных с результатом
+module result_errors_m ! Модуль, содержащий процедуру для вывода ошибок для
+                       ! других процедур, связанных с результатом
 implicit none
      
      private
@@ -18,4 +18,4 @@ implicit none
      
      end interface
 
-end module result_warns_m
+end module result_errors_m

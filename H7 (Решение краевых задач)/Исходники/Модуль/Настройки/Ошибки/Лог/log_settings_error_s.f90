@@ -1,4 +1,4 @@
-submodule ( settings_warns_m ) log_settings_error_s
+submodule ( settings_errors_m ) log_settings_error_s
 implicit none
 
      contains
@@ -82,6 +82,14 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_settings_error:', 'Не удалось считать ответ на&
                                                                              & вопрос о считывании значения&
                                                                              & параметра gamma_2&
+                                                                             & из файла '//file//'. Проверьте&
+                                                                             & правильность введенных данных.'
+                    stop
+
+               case ('WR_input_params_err') ! Встречается read_settings_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_settings_error:', 'Не удалось значение величины малости&
+                                                                             & для параметров alpha_1, alpha_2, beta_1 и beta_2&
                                                                              & из файла '//file//'. Проверьте&
                                                                              & правильность введенных данных.'
                     stop

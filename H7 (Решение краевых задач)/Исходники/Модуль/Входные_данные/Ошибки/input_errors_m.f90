@@ -1,5 +1,5 @@
-module input_warns_m ! Модуль, содержащий процедуру для вывода ошибок для
-                     ! других процедур, связанных с входными данными
+module input_errors_m ! Модуль, содержащий процедуру для вывода ошибок для
+                      ! других процедур, связанных с входными данными
 implicit none
      
      private
@@ -19,4 +19,4 @@ implicit none
      
      end interface
 
-end module input_warns_m
+end module input_errors_m

@@ -1,5 +1,5 @@
-submodule ( input_warns_m ) log_input_error_s ! Процедура для вывода ошибок для других процедур,
-                                              ! связанных с входными данными
+submodule ( input_errors_m ) log_input_error_s ! Процедура для вывода ошибок для других процедур,
+                                               ! связанных с входными данными
 implicit none
 
      contains

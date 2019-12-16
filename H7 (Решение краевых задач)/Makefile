@@ -71,7 +71,10 @@
 		   	  Настройки/ Настройки/Ошибки/ Настройки/Ошибки/Лог/ \
 		   	  Настройки/Считывание/ Настройки/Получение/ Настройки/Присваивание/ \
 		   	  Считывание/ \
-			  Результат/ Результат/Ошибки/ Результат/Ошибки/Лог/ Результат/Получение/
+			  Результат/ Результат/Ошибки/ Результат/Ошибки/Лог/ \
+                 Результат/Получение/ Результат/Освобождение/ Результат/Вывод/ \
+                 Решение/ Решение/Ошибки/ Решение/Ошибки/Лог/ \
+                 Решение/Общее/ 
 
      subs := Прослойка/ \
              Модуль/ $(addprefix Модуль/, $(bvp_subs))
@@ -85,9 +88,10 @@
 
           # Зависимости для модуля bvp
 
-     	$(obj_path)bvp.o : $(obj_path)input_m.o $(obj_path)settings_m.o $(obj_path)read_m.o $(obj_path)result_m.o
+     	$(obj_path)bvp.o : $(obj_path)input_m.o $(obj_path)settings_m.o $(obj_path)read_m.o $(obj_path)result_m.o \
+                             $(obj_path)bvp_solver_m.o
 
-               $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)settings_m.o $(obj_path)input_warns_m.o
+               $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)settings_m.o $(obj_path)input_errors_m.o
 
                     $(obj_path)read_input_s.o : $(obj_path)input_m.o
 
@@ -113,9 +117,9 @@
                     $(obj_path)put_beta_2_s.o : $(obj_path)input_m.o
                     $(obj_path)put_gamma_2_s.o : $(obj_path)input_m.o
 
-                         $(obj_path)log_input_error_s.o : $(obj_path)input_warns_m.o
+                         $(obj_path)log_input_error_s.o : $(obj_path)input_errors_m.o
 
-               $(obj_path)settings_m.o : $(obj_path)prec_m.o $(obj_path)settings_warns_m.o
+               $(obj_path)settings_m.o : $(obj_path)prec_m.o $(obj_path)settings_errors_m.o
 
                     $(obj_path)read_settings_s.o : $(obj_path)settings_m.o
 
@@ -130,9 +134,11 @@
                     $(obj_path)get_do_read_beta_2_s.o : $(obj_path)settings_m.o
                     $(obj_path)get_do_read_gamma_2_s.o : $(obj_path)settings_m.o
 
-                         $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
+                    $(obj_path)get_input_params_err_s.o : $(obj_path)settings_m.o
 
-     		$(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_warns_m.o
+                         $(obj_path)log_settings_error_s.o : $(obj_path)settings_errors_m.o
+
+     		$(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_errors_m.o
 
      			$(obj_path)get_x_pt_s.o : $(obj_path)result_m.o
      			$(obj_path)get_y_pt_s.o : $(obj_path)result_m.o
@@ -140,6 +146,15 @@
 
                     $(obj_path)write_s.o : $(obj_path)result_m.o
                     $(obj_path)deallocate_result_s.o : $(obj_path)result_m.o
+
+                         $(obj_path)log_result_error_s.o : $(obj_path)result_errors_m.o
+
+               $(obj_path)bvp_solver_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)settings_m.o \
+                                           $(obj_path)result_m.o $(obj_path)bvp_errors_m.o
+
+                    $(obj_path)solve_bvp_s.o : $(obj_path)bvp_solver_m.o
+
+                         $(obj_path)log_bvp_error_s.o : $(obj_path)bvp_errors_m.o
      
      # Определение флагов компилятора
      
