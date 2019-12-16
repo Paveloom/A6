@@ -17,7 +17,7 @@ implicit none
      interface
      
           ! Процедура общего вызова для получения решения
-          module subroutine solve_bvp(input, settings, result)
+          module impure subroutine solve_bvp(input, settings, result)
           implicit none
           
                type ( input_type ), intent(in) :: input ! Тип входных данных
@@ -25,6 +25,42 @@ implicit none
                type ( result_type ), intent(inout) :: result ! Тип результата
           
           end subroutine solve_bvp
+
+          ! Процедура общего вызова для получения решения
+          ! (с дополнительным выводом)
+          module impure subroutine solve_bvp_loud(input, settings, result)
+          implicit none
+          
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Тип настроек программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+          
+          end subroutine solve_bvp_loud
+
+          ! Процедура общего вызова для получения решения
+          ! (без дополнительного вывода)
+          module impure subroutine solve_bvp_quiet(input, settings, result)
+          implicit none
+          
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Тип настроек программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+          
+          end subroutine solve_bvp_quiet
+
+          ! Процедура для выбора и вызова необходимой варьирующей процедуры
+          module impure subroutine solve_bvp_choosing(input, settings, LT, RT, result)
+          implicit none
+          
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Тип настроек программы
+
+               integer(IP), intent(in) :: LT ! Род граничного условия на левой границе
+               integer(IP), intent(in) :: RT ! Род граничного условия на правой границе
+
+               type ( result_type ), intent(inout) :: result ! Тип результата
+          
+          end subroutine solve_bvp_choosing
      
      end interface
      

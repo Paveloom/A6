@@ -5,6 +5,7 @@ implicit none
      
      type ( input_type ) :: input ! Входные данные
      type ( settings_type ) :: settings ! Настройки программы
+     type ( result_type ) :: result ! Результат
 
      ! Считывание настроек программы
      call read(settings, file = "settings")
@@ -15,6 +16,9 @@ implicit none
      ! Ручное задание некоторых входных данных
      call input%put_r(4.d0 * datan(1.d0))
      call input%put_gamma_2(- 1.d0 / 5.d0 + dexp(input%get_r()) - 6.d0 / 5.d0 * dexp(2.d0 * input%get_r()))
+
+     ! Решение краевой задачи
+     call solve_bvp(input, settings, result)
 
 end program main
 

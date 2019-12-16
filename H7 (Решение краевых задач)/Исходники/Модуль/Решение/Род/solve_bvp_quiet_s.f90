@@ -1,10 +1,11 @@
-submodule ( bvp_solver_m ) solve_bvp_s
+submodule ( bvp_solver_m ) solve_bvp_quiet_s
 implicit none
      
      contains
      
      ! Процедура общего вызова для получения решения
-     module procedure solve_bvp
+     ! (без дополнительного вывода)
+     module procedure solve_bvp_quiet
           
           ! Величина малости для параметров alpha_1, beta_1, alpha_2, beta_2
           real(RP), pointer :: input_params_err_pt
@@ -70,14 +71,9 @@ implicit none
                
           endif
 
-          ! Выбор и вызов необходимой вариационной процедуры
-
-          if ( LT .eq. 1_IP .and. RT .eq. 1_IP ) then
-
-               !call solve_bvp_with_LB1_and_RB_1(input, settings, result)
-
-          endif
+          ! Выбор и вызов необходимой варьирующей процедуры
+          call solve_bvp_choosing(input, settings, LT, RT, result)
           
-     end procedure solve_bvp
+     end procedure solve_bvp_quiet
      
-end submodule solve_bvp_s
+end submodule solve_bvp_quiet_s

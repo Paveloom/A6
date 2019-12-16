@@ -89,7 +89,25 @@ implicit none
                case ('WR_input_params_err') ! Встречается read_settings_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_settings_error:', 'Не удалось значение величины малости&
-                                                                             & для параметров alpha_1, alpha_2, beta_1 и beta_2&
+                                                                             & для параметров alpha_1, beta_1, alpha_2 и beta_2&
+                                                                             & из файла '//file//'. Проверьте&
+                                                                             & правильность введенных данных.'
+                    stop
+
+               case ('WR_do_show_bvp_solver_output') ! Встречается read_settings_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_settings_error:', 'Не удалось считать ответ на&
+                                                                             & вопрос о показе вывода при&
+                                                                             & определении родов граничных условий&
+                                                                             & из файла '//file//'. Проверьте&
+                                                                             & правильность введенных данных.'
+                    stop
+
+               case ('WR_do_show_shooting_output') ! Встречается read_settings_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_settings_error:', 'Не удалось считать ответ на&
+                                                                             & вопрос о показе вывода на&
+                                                                             & итерациях метода стрельбы&
                                                                              & из файла '//file//'. Проверьте&
                                                                              & правильность введенных данных.'
                     stop

@@ -74,7 +74,7 @@
 			  Результат/ Результат/Ошибки/ Результат/Ошибки/Лог/ \
                  Результат/Получение/ Результат/Освобождение/ Результат/Вывод/ \
                  Решение/ Решение/Ошибки/ Решение/Ошибки/Лог/ \
-                 Решение/Общее/ 
+                 Решение/Род/ Решение/Выбор/
 
      subs := Прослойка/ \
              Модуль/ $(addprefix Модуль/, $(bvp_subs))
@@ -135,6 +135,7 @@
                     $(obj_path)get_do_read_gamma_2_s.o : $(obj_path)settings_m.o
 
                     $(obj_path)get_input_params_err_s.o : $(obj_path)settings_m.o
+     			$(obj_path)get_do_show_bvp_solver_output_s.o : $(obj_path)settings_m.o
 
                          $(obj_path)log_settings_error_s.o : $(obj_path)settings_errors_m.o
 
@@ -153,6 +154,10 @@
                                            $(obj_path)result_m.o $(obj_path)bvp_errors_m.o
 
                     $(obj_path)solve_bvp_s.o : $(obj_path)bvp_solver_m.o
+                    $(obj_path)solve_bvp_loud_s.o : $(obj_path)bvp_solver_m.o
+                    $(obj_path)solve_bvp_quiet_s.o : $(obj_path)bvp_solver_m.o
+
+                    $(obj_path)solve_bvp_choosing_s.o : $(obj_path)bvp_solver_m.o
 
                          $(obj_path)log_bvp_error_s.o : $(obj_path)bvp_errors_m.o
      

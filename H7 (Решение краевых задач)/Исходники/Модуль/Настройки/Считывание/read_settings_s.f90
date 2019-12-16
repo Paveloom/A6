@@ -53,10 +53,20 @@ implicit none
           read( unit = unit, fmt = *, iostat = stat ) settings%do_read_gamma_2
           if ( stat .ne. 0_SP ) call log_settings_error('WR_do_read_gamma_2', file) ! Проверка на ошибку считывания
 
-          ! Считывание величины малости для параметров alpha_1, alpha_2, beta_1 и beta_2
+          ! Считывание величины малости для параметров alpha_1, beta_1, alpha_2 и beta_2
           read( unit = unit, fmt = '(/)' )
           read( unit = unit, fmt = *, iostat = stat ) settings%input_params_err
           if ( stat .ne. 0_SP ) call log_settings_error('WR_input_params_err', file) ! Проверка на ошибку считывания
+
+          ! Считывание ответа на вопрос о показе вывода при определении родов граничных условий
+          read( unit = unit, fmt = '(/)' )
+          read( unit = unit, fmt = *, iostat = stat ) settings%do_show_bvp_solver_output
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_do_show_bvp_solver_output', file) ! Проверка на ошибку считывания
+
+          ! Считывание ответа на вопрос о показе вывода на итерациях метода стрельбы
+          read( unit = unit, fmt = '(/)' )
+          read( unit = unit, fmt = *, iostat = stat ) settings%do_show_shooting_output
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_do_show_shooting_output', file) ! Проверка на ошибку считывания
 
           ! Закрытие файла
           close( unit = unit, iostat = stat )

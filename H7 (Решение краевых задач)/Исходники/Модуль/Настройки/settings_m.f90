@@ -42,8 +42,14 @@ implicit none
           logical(LP) :: do_read_gamma_2
 
           ! Величина малости для входных параметров 
-          ! alpha_1, alpha_2, beta_1 и beta_2
+          ! alpha_1, beta_1, alpha_2 и beta_2
           real(RP) :: input_params_err
+
+          ! Показывать вывод при определении родов граничных условий?
+          logical(LP) :: do_show_bvp_solver_output
+
+          ! Показывать вывод на итерациях метода стрельбы?
+          logical(LP) :: do_show_shooting_output
 
           contains
 
@@ -72,7 +78,13 @@ implicit none
                                            ! считывать значение параметра gamma_2?
 
           procedure :: get_input_params_err ! Функция для получения указателя на величину малости
-                                            ! для входных параметров alpha_1, alpha_2, beta_1 и beta_2
+                                            ! для входных параметров alpha_1, beta_1, alpha_2 и beta_2
+
+          procedure :: get_do_show_bvp_solver_output ! Функция для получения указателя на ответ на вопрос:
+                                                     ! показывать вывод при определении родов граничных условий?
+
+          procedure :: get_do_show_shooting_output ! Функция для получения указателя на ответ на вопрос:
+                                                   ! показывать вывод на итерациях метода стрельбы?
 
      end type settings_type
 
@@ -168,7 +180,7 @@ implicit none
           end function get_do_read_gamma_2
 
           ! Функция для получения указателя на величину малости
-          ! для входных параметров alpha_1, alpha_2, beta_1 и beta_2
+          ! для входных параметров alpha_1, beta_1, alpha_2 и beta_2
           module impure function get_input_params_err(settings) result(input_params_err_pt)
           implicit none
           
@@ -176,6 +188,26 @@ implicit none
                real(RP), pointer :: input_params_err_pt ! Указатель на величину малости
           
           end function get_input_params_err
+
+          ! Функция для получения указателя на ответ на вопрос:
+          ! показывать вывод при определении родов граничных условий?
+          module impure function get_do_show_bvp_solver_output(settings) result(do_show_bvp_solver_output_pt)
+          implicit none
+          
+               class ( settings_type ), target, intent(in) :: settings ! Настройки программы
+               logical(LP), pointer :: do_show_bvp_solver_output_pt ! Показывать вывод при определении родов граничных условий?
+          
+          end function get_do_show_bvp_solver_output
+
+          ! Функция для получения указателя на ответ на вопрос:
+          ! показывать вывод на итерациях метода стрельбы?
+          module impure function get_do_show_shooting_output(settings) result(do_show_shooting_output_pt)
+          implicit none
+          
+               class ( settings_type ), target, intent(in) :: settings ! Настройки программы
+               logical(LP), pointer :: do_show_shooting_output_pt ! Показывать вывод на итерациях метода стрельбы?
+          
+          end function get_do_show_shooting_output
      
      end interface
      
