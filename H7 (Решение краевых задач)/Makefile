@@ -70,7 +70,8 @@
 		   	  Входные_данные/Считывание/ Входные_данные/Получение/ Входные_данные/Присваивание/ \
 		   	  Настройки/ Настройки/Ошибки/ Настройки/Ошибки/Лог/ \
 		   	  Настройки/Считывание/ Настройки/Получение/ Настройки/Присваивание/ \
-		   	  Считывание/
+		   	  Считывание/ \
+			  Результат/ Результат/Ошибки/ Результат/Ошибки/Лог/ Результат/Получение/
 
      subs := Прослойка/ \
              Модуль/ $(addprefix Модуль/, $(bvp_subs))
@@ -84,7 +85,7 @@
 
           # Зависимости для модуля bvp
 
-     	$(obj_path)bvp.o : $(obj_path)input_m.o $(obj_path)settings_m.o $(obj_path)read_m.o
+     	$(obj_path)bvp.o : $(obj_path)input_m.o $(obj_path)settings_m.o $(obj_path)read_m.o $(obj_path)result_m.o
 
                $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)settings_m.o $(obj_path)input_warns_m.o
 
@@ -130,6 +131,15 @@
                     $(obj_path)get_do_read_gamma_2_s.o : $(obj_path)settings_m.o
 
                          $(obj_path)log_settings_error_s.o : $(obj_path)settings_warns_m.o
+
+     		$(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_warns_m.o
+
+     			$(obj_path)get_x_pt_s.o : $(obj_path)result_m.o
+     			$(obj_path)get_y_pt_s.o : $(obj_path)result_m.o
+     			$(obj_path)get_z_pt_s.o : $(obj_path)result_m.o
+
+                    $(obj_path)write_s.o : $(obj_path)result_m.o
+                    $(obj_path)deallocate_result_s.o : $(obj_path)result_m.o
      
      # Определение флагов компилятора
      
