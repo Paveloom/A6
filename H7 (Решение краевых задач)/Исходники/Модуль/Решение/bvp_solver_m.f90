@@ -9,6 +9,9 @@ use settings_m, only : settings_type ! Тип настроек программ�
 use result_m, only : result_type ! Тип результата
 use bvp_errors_m, only : log_bvp_error ! Процедура для вывода ошибок для других процедур, 
                                        ! связанных с получением решения для краевой задачи
+use solve_bvp_shooting_m, only : solve_bvp_shooting_choosing ! Процедура для выбора и 
+                                                             ! вызова необходимой 
+                                                             ! варьирующей процедуры
 implicit none
      
      private
@@ -48,20 +51,6 @@ implicit none
           
           end subroutine solve_bvp_quiet
 
-          ! Процедура для выбора и вызова необходимой варьирующей процедуры
-          module impure subroutine solve_bvp_choosing(input, settings, LT, RT, result)
-          implicit none
-          
-               type ( input_type ), intent(in) :: input ! Тип входных данных
-               type ( settings_type ), intent(in) :: settings ! Тип настроек программы
-
-               integer(IP), intent(in) :: LT ! Род граничного условия на левой границе
-               integer(IP), intent(in) :: RT ! Род граничного условия на правой границе
-
-               type ( result_type ), intent(inout) :: result ! Тип результата
-          
-          end subroutine solve_bvp_choosing
-     
      end interface
      
 end module bvp_solver_m

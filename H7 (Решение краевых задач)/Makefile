@@ -66,7 +66,7 @@
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      
-     bvp_subs := Входные_данные/ Входные_данные/Ошибки/ Входные_данные/Ошибки/Лог/ \
+     bvp_subs := Входные_данные/ Входные_данные/Ошибки/ Входные_данные/Ошибки/Лог/ Входные_данные/Функции/ \
 		   	  Входные_данные/Считывание/ Входные_данные/Получение/ Входные_данные/Присваивание/ \
 		   	  Настройки/ Настройки/Ошибки/ Настройки/Ошибки/Лог/ \
 		   	  Настройки/Считывание/ Настройки/Получение/ Настройки/Присваивание/ \
@@ -74,10 +74,20 @@
 			  Результат/ Результат/Ошибки/ Результат/Ошибки/Лог/ \
                  Результат/Получение/ Результат/Освобождение/ Результат/Вывод/ \
                  Решение/ Решение/Ошибки/ Решение/Ошибки/Лог/ \
-                 Решение/Род/ Решение/Выбор/
+                 Решение/Род/ Решение/Стрельба/ Решение/Стрельба/Выбор/ \
+                 Решение/Стрельба/Варьирование/Громко/ Решение/Стрельба/Варьирование/Тихо/
 
      subs := Прослойка/ \
              Модуль/ $(addprefix Модуль/, $(bvp_subs))
+
+     ## Имя скрипта для функций p, q, f
+     add_sub := functions
+
+     ## Путь к модулю для функций p, q, f
+     add_sub_path := Исходники/Модуль/Входные_данные/Функции/
+
+     ## Путь к скрипту для функций p, q, f
+     add_sub_script_path := Исходники/Скрипт/
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
      obj_path := Объектники/
@@ -91,7 +101,8 @@
      	$(obj_path)bvp.o : $(obj_path)input_m.o $(obj_path)settings_m.o $(obj_path)read_m.o $(obj_path)result_m.o \
                              $(obj_path)bvp_solver_m.o
 
-               $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)settings_m.o $(obj_path)input_errors_m.o
+               $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)settings_m.o $(obj_path)input_errors_m.o \
+                                      $(obj_path)$(add_sub)_m.o
 
                     $(obj_path)read_input_s.o : $(obj_path)input_m.o
 
@@ -118,6 +129,8 @@
                     $(obj_path)put_gamma_2_s.o : $(obj_path)input_m.o
 
                          $(obj_path)log_input_error_s.o : $(obj_path)input_errors_m.o
+
+                    $(obj_path)$(add_sub)_m.o : $(obj_path)prec_m.o
 
                $(obj_path)settings_m.o : $(obj_path)prec_m.o $(obj_path)settings_errors_m.o
 
@@ -151,15 +164,21 @@
                          $(obj_path)log_result_error_s.o : $(obj_path)result_errors_m.o
 
                $(obj_path)bvp_solver_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)settings_m.o \
-                                           $(obj_path)result_m.o $(obj_path)bvp_errors_m.o
+                                           $(obj_path)result_m.o $(obj_path)bvp_errors_m.o \
+                                           $(obj_path)solve_bvp_shooting_m.o
 
                     $(obj_path)solve_bvp_s.o : $(obj_path)bvp_solver_m.o
                     $(obj_path)solve_bvp_loud_s.o : $(obj_path)bvp_solver_m.o
                     $(obj_path)solve_bvp_quiet_s.o : $(obj_path)bvp_solver_m.o
 
-                    $(obj_path)solve_bvp_choosing_s.o : $(obj_path)bvp_solver_m.o
-
                          $(obj_path)log_bvp_error_s.o : $(obj_path)bvp_errors_m.o
+
+                    $(obj_path)solve_bvp_shooting_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)settings_m.o \
+                                                        $(obj_path)result_m.o
+
+                         $(obj_path)solve_bvp_shooting_choosing_s.o : $(obj_path)solve_bvp_shooting_m.o
+
+                         $(obj_path)solve_bvp_shooting_with_LB1_and_RB1_loud_s.o : $(obj_path)solve_bvp_shooting_m.o
      
      # Определение флагов компилятора
      
@@ -204,25 +223,31 @@
 
      $(obj_main) : $(main_source)
 	              $(comp) -c $(opt) $(module_flag) $(obj_path) $< -o $(addprefix $(obj_path), $(notdir $@))
+
+	# Правило для обновления содержимого модуля с функциями p, q, f
+
+     $(add_sub_path)$(add_sub).$(pattern) : $(add_sub)
+	                                      sh $(add_sub_script_path)$(add_sub).sh
 	
      # Блок правил для сборки программы
       
      input :
 	        touch input
 
-     result : $(main_name)
+     result : $(add_sub_path)$(add_sub).$(pattern) $(main_name)
+
 	         if [ "true" = "$(use_input)" ]; then\
 	              $(make_name) input;\
 			    if [ "true" = "$(use_output)" ]; then\
-	                   time ./$< < input > output;\
+	                   time ./$(word 2, $^) < input > output;\
 			    else\
-			         time ./$< < input;\
+			         time ./$(word 2, $^) < input;\
 			    fi\
 	         else\
 		         if [ "true" = "$(use_output)" ]; then\
-	                   time ./$< > output;\
+	                   time ./$(word 2, $^) > output;\
 			    else\
-			         time ./$<;\
+			         time ./$(word 2, $^);\
 			    fi\
 	         fi
 	        

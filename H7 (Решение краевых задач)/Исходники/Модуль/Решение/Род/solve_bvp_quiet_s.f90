@@ -72,7 +72,7 @@ implicit none
           endif
 
           ! Выбор и вызов необходимой варьирующей процедуры
-          call solve_bvp_choosing(input, settings, LT, RT, result)
+          call solve_bvp_shooting_choosing(input, settings, LT, RT, result)
           
      end procedure solve_bvp_quiet
      
