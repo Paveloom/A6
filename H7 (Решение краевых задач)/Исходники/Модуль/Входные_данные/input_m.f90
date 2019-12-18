@@ -23,7 +23,7 @@ implicit none
           real(RP) :: l ! Левая граница промежутка
           real(RP) :: r ! Правая граница промежутка
 
-          integer(RP) :: n ! Число разбиений промежутка
+          integer(IP) :: n ! Число разбиений промежутка
           
           ! Параметры, определяющие краевые условия
           real(RP) :: alpha_1, beta_1, gamma_1, alpha_2, beta_2, gamma_2
@@ -33,21 +33,26 @@ implicit none
           procedure :: get_l ! Функция для получения указателя на значение левой границы промежутка
           procedure :: get_r ! Функция для получения указателя на значение правой границы промежутка
 
-          procedure :: get_alpha_1 ! Процедура для получения указателя на значения параметра alpha_1
-          procedure :: get_beta_1 ! Процедура для получения указателя на значения параметра beta_1
-          procedure :: get_gamma_1 ! Процедура для получения указателя на значения параметра gamma_1
-          procedure :: get_alpha_2 ! Процедура для получения указателя на значения параметра alpha_2
-          procedure :: get_beta_2 ! Процедура для получения указателя на значения параметра beta_2
-          procedure :: get_gamma_2 ! Процедура для получения указателя на значения параметра gamma_2
+          procedure :: get_n_pt ! Функция для получения указателя на значение числа разбиений промежутка
+
+          procedure :: get_alpha_1 ! Функция для получения указателя на значение параметра alpha_1
+          procedure :: get_beta_1  ! Функция для получения значения параметра beta_1
+          procedure :: get_gamma_1 ! Функция для получения значения параметра gamma_1
+          procedure :: get_alpha_2 ! Функция для получения указателя на значение параметра alpha_2
+          procedure :: get_beta_2  ! Функция для получения указателя на значение параметра beta_2
+          procedure :: get_gamma_2 ! Функция для получения указателя на значение параметра gamma_2
+
+          procedure :: get_beta_1_pt  ! Функция для получения указателя на значение параметра beta_1
+          procedure :: get_gamma_1_pt ! Функция для получения указателя на значение параметра gamma_1
 
           procedure :: put_l ! Процедура для указания значения левой границы промежутка
           procedure :: put_r ! Процедура для указания значения правой границы промежутка
           
           procedure :: put_alpha_1 ! Процедура для указания значения параметра alpha_1
-          procedure :: put_beta_1 ! Процедура для указания значения параметра beta_1
+          procedure :: put_beta_1  ! Процедура для указания значения параметра beta_1
           procedure :: put_gamma_1 ! Процедура для указания значения параметра gamma_1
           procedure :: put_alpha_2 ! Процедура для указания значения параметра alpha_2
-          procedure :: put_beta_2 ! Процедура для указания значения параметра beta_2
+          procedure :: put_beta_2  ! Процедура для указания значения параметра beta_2
           procedure :: put_gamma_2 ! Процедура для указания значения параметра gamma_2
           
      end type input_type
@@ -64,23 +69,32 @@ implicit none
           
           end subroutine read_input
 
-          ! Функция для получения указателя на значение левой границы промежутка
-          module impure function get_l(input) result(l_pt)
+          ! Функция для получения значения левой границы промежутка
+          module impure function get_l(input) result(l)
           implicit none
                
                class ( input_type ), target, intent(in) :: input ! Входные данные
-               real(RP), pointer :: l_pt ! Указатель на значение левой границы промежутка
+               real(RP) :: l ! Значение левой границы промежутка
                
           end function get_l
 
-          ! Функция для получения указателя на значение правой границы промежутка
-          module impure function get_r(input) result(r_pt)
+          ! Функция для получения значения правой границы промежутка
+          module impure function get_r(input) result(r)
           implicit none
                
                class ( input_type ), target, intent(in) :: input ! Входные данные
-               real(RP), pointer :: r_pt ! Указатель на значение правой границы промежутка
+               real(RP) :: r ! Значение правой границы промежутка
                
           end function get_r
+
+          ! Функция для получения указателя на значение числа разбиений промежутка
+          module impure function get_n_pt(input) result(n_pt)
+          implicit none
+               
+               class ( input_type ), target, intent(in) :: input ! Входные данные
+               integer(IP), pointer :: n_pt ! Указатель на значение числа разбиений промежутка
+               
+          end function get_n_pt
 
           ! Функция для получения указателя на значение alpha_1
           module impure function get_alpha_1(input) result(alpha_1_pt)
@@ -92,20 +106,38 @@ implicit none
           end function get_alpha_1
 
           ! Функция для получения указателя на значение beta_1
-          module impure function get_beta_1(input) result(beta_1_pt)
+          module impure function get_beta_1_pt(input) result(beta_1_pt)
           implicit none
                
                class ( input_type ), target, intent(in) :: input ! Входные данные
                real(RP), pointer :: beta_1_pt ! Указатель на значение параметра beta_1
                
+          end function get_beta_1_pt
+
+          ! Функция для получения значения beta_1
+          module impure function get_beta_1(input) result(beta_1)
+          implicit none
+               
+               class ( input_type ), target, intent(in) :: input ! Входные данные
+               real(RP) :: beta_1 ! Значение параметра beta_1
+               
           end function get_beta_1
 
           ! Функция для получения указателя на значение gamma_1
-          module impure function get_gamma_1(input) result(gamma_1_pt)
+          module impure function get_gamma_1_pt(input) result(gamma_1_pt)
           implicit none
                
                class ( input_type ), target, intent(in) :: input ! Входные данные
                real(RP), pointer :: gamma_1_pt ! Указатель на значение параметра gamma_1
+               
+          end function get_gamma_1_pt
+
+          ! Функция для получения значения gamma_1
+          module impure function get_gamma_1(input) result(gamma_1)
+          implicit none
+               
+               class ( input_type ), target, intent(in) :: input ! Входные данные
+               real(RP) :: gamma_1 ! Значение параметра gamma_1
                
           end function get_gamma_1
 

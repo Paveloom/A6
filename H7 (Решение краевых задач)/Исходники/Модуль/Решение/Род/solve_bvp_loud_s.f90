@@ -25,7 +25,7 @@ implicit none
 
           ! Вычисление значений для логических переменных
           alpha_1_is_near_zero = abs(input%get_alpha_1()) .lt. input_params_err_pt
-          beta_1_is_near_zero  = abs(input%get_beta_1()) .lt. input_params_err_pt
+          beta_1_is_near_zero  = abs(input%get_beta_1_pt()) .lt. input_params_err_pt
           alpha_2_is_near_zero = abs(input%get_alpha_2()) .lt. input_params_err_pt
           beta_2_is_near_zero  = abs(input%get_beta_2()) .lt. input_params_err_pt
 

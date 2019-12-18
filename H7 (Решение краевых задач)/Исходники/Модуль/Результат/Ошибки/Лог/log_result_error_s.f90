@@ -8,6 +8,24 @@ implicit none
           
           select case (error_code) ! Проверка кода ошибки
 
+               case ('WA_x') ! Встречается в allocate_result_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось выделить память под матрицу x&
+                                                                           & для объекта типа result_type.'
+                    stop
+
+               case ('WA_y') ! Встречается в allocate_result_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось выделить память под матрицу y&
+                                                                           & для объекта типа result_type.'
+                    stop
+
+               case ('WA_z') ! Встречается в allocate_result_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось выделить память под матрицу z&
+                                                                           & для объекта типа result_type.'
+                    stop
+
                case ('WD_x') ! Встречается в deallocate_result_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось освободить память из-под&

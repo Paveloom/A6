@@ -3,11 +3,11 @@ implicit none
      
      contains
      
-     ! Функция для получения указателя 
-     ! на значение параметра beta_1
+     ! Функция для получения значения
+     ! параметра beta_1
      module procedure get_beta_1
           
-          beta_1_pt => input%beta_1
+          beta_1 = input%beta_1
           
      end procedure get_beta_1
      

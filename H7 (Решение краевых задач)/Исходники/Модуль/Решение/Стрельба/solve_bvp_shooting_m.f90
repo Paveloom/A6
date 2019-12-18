@@ -27,6 +27,16 @@ implicit none
           
           end subroutine solve_bvp_shooting_choosing
 
+          ! Процедура для интегрирования задачи Коши 
+          ! методом Рунге-Кутты четвёртого порядка
+          module impure subroutine runge_kutta(input, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine runge_kutta
+
           ! Процедура для получение решения краевой задачи
           ! при граничном условии первого рода на левой границе
           ! и при граничном условии первого рода на правой границе
@@ -37,7 +47,7 @@ implicit none
                type ( input_type ), intent(in) :: input ! Тип входных данных
                type ( result_type ), intent(inout) :: result ! Тип результата
 
-          end subroutine
+          end subroutine solve_bvp_shooting_with_LB1_and_RB1_loud
 
      end interface
      

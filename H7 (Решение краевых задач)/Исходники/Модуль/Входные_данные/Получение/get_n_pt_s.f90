@@ -1,14 +1,14 @@
-submodule ( input_m ) get_r_s
+submodule ( input_m ) get_n_pt_s
 implicit none
      
      contains
      
      ! Функция для получения значения
      ! правой границы промежутка
-     module procedure get_r
+     module procedure get_n_pt
           
-          r = input%r
+          n_pt => input%n
           
-     end procedure get_r
+     end procedure get_n_pt
      
-end submodule get_r_s
+end submodule get_n_pt_s

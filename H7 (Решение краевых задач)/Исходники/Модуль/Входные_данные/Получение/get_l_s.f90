@@ -3,11 +3,11 @@ implicit none
      
      contains
      
-     ! Функция для получения указателя 
-     ! на значение левой границы промежутка
+     ! Функция для получения
+     ! значения левой границы промежутка
      module procedure get_l
           
-          l_pt => input%l
+          l = input%l
           
      end procedure get_l
      

@@ -72,9 +72,9 @@
 		   	  Настройки/Считывание/ Настройки/Получение/ Настройки/Присваивание/ \
 		   	  Считывание/ \
 			  Результат/ Результат/Ошибки/ Результат/Ошибки/Лог/ \
-                 Результат/Получение/ Результат/Освобождение/ Результат/Вывод/ \
+                 Результат/Получение/ Результат/Выделение/ Результат/Освобождение/ Результат/Вывод/ \
                  Решение/ Решение/Ошибки/ Решение/Ошибки/Лог/ \
-                 Решение/Род/ Решение/Стрельба/ Решение/Стрельба/Выбор/ \
+                 Решение/Род/ Решение/Стрельба/ Решение/Стрельба/Выбор/ Решение/Стрельба/Рунге-Кутта/ \
                  Решение/Стрельба/Варьирование/Громко/ Решение/Стрельба/Варьирование/Тихо/
 
      subs := Прослойка/ \
@@ -109,8 +109,12 @@
                     $(obj_path)get_l_s.o : $(obj_path)input_m.o
                     $(obj_path)get_r_s.o : $(obj_path)input_m.o
 
+                    $(obj_path)get_n_pt_s.o : $(obj_path)input_m.o
+
                     $(obj_path)get_alpha_1_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_alpha_1_pt_s.o : $(obj_path)input_m.o
                     $(obj_path)get_beta_1_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_beta_1_pt_s.o : $(obj_path)input_m.o
                     $(obj_path)get_gamma_1_s.o : $(obj_path)input_m.o
 
                     $(obj_path)get_alpha_2_s.o : $(obj_path)input_m.o
@@ -152,13 +156,16 @@
 
                          $(obj_path)log_settings_error_s.o : $(obj_path)settings_errors_m.o
 
-     		$(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)result_errors_m.o
+     		$(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_errors_m.o
+
+                    $(obj_path)allocate_result_s.o : $(obj_path)result_m.o
 
      			$(obj_path)get_x_pt_s.o : $(obj_path)result_m.o
      			$(obj_path)get_y_pt_s.o : $(obj_path)result_m.o
      			$(obj_path)get_z_pt_s.o : $(obj_path)result_m.o
 
                     $(obj_path)write_s.o : $(obj_path)result_m.o
+
                     $(obj_path)deallocate_result_s.o : $(obj_path)result_m.o
 
                          $(obj_path)log_result_error_s.o : $(obj_path)result_errors_m.o
@@ -177,6 +184,7 @@
                                                         $(obj_path)result_m.o
 
                          $(obj_path)solve_bvp_shooting_choosing_s.o : $(obj_path)solve_bvp_shooting_m.o
+     				$(obj_path)runge_kutta_s.o : $(obj_path)solve_bvp_shooting_m.o
 
                          $(obj_path)solve_bvp_shooting_with_LB1_and_RB1_loud_s.o : $(obj_path)solve_bvp_shooting_m.o
      
