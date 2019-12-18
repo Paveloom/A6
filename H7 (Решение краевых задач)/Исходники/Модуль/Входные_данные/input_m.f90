@@ -30,8 +30,10 @@ implicit none
 
           contains
 
-          procedure :: get_l ! Функция для получения указателя на значение левой границы промежутка
-          procedure :: get_r ! Функция для получения указателя на значение правой границы промежутка
+          procedure :: get_l ! Функция для получения значения левой границы промежутка
+
+          procedure :: get_r_pt ! Функция для получения указателя на значение правой границы промежутка
+          procedure :: get_l_pt ! Функция для получения указателя на значение левой границы промежутка
 
           procedure :: get_n_pt ! Функция для получения указателя на значение числа разбиений промежутка
 
@@ -69,6 +71,15 @@ implicit none
           
           end subroutine read_input
 
+          ! Функция для получения указателя на значение левой границы промежутка
+          module impure function get_l_pt(input) result(l_pt)
+          implicit none
+               
+               class ( input_type ), target, intent(in) :: input ! Входные данные
+               real(RP), pointer :: l_pt ! Указатель на значение левой границы промежутка
+               
+          end function get_l_pt
+
           ! Функция для получения значения левой границы промежутка
           module impure function get_l(input) result(l)
           implicit none
@@ -78,14 +89,14 @@ implicit none
                
           end function get_l
 
-          ! Функция для получения значения правой границы промежутка
-          module impure function get_r(input) result(r)
+          ! Функция для получения указателя на значение правой границы промежутка
+          module impure function get_r_pt(input) result(r_pt)
           implicit none
                
                class ( input_type ), target, intent(in) :: input ! Входные данные
-               real(RP) :: r ! Значение правой границы промежутка
+               real(RP), pointer :: r_pt ! Указатель на значение правой границы промежутка
                
-          end function get_r
+          end function get_r_pt
 
           ! Функция для получения указателя на значение числа разбиений промежутка
           module impure function get_n_pt(input) result(n_pt)

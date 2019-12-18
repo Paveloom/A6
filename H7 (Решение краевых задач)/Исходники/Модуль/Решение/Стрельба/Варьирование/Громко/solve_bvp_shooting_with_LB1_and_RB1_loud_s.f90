@@ -21,9 +21,13 @@ implicit none
 
           ! Заполнение начальных данных (временно без итераций)
 
-          x_pt(1) = input%get_l()
-          y_pt(1) = input%get_gamma_1() / input%get_beta_1()
-          z_pt(1) = 1.d0
+          x_pt(0) = input%get_l()
+          y_pt(0) = input%get_gamma_1() / input%get_beta_1()
+          z_pt(0) = 1.d0
+
+          ! Интегрирование задачи Коши методом Рунге-Кутта
+
+          call runge_kutta(input, result)
           
      end procedure solve_bvp_shooting_with_LB1_and_RB1_loud
      

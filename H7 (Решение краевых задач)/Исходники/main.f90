@@ -15,7 +15,7 @@ implicit none
 
      ! Ручное задание некоторых входных данных
      call input%put_r(4.d0 * datan(1.d0))
-     call input%put_gamma_2(- 1.d0 / 5.d0 + dexp(input%get_r()) - 6.d0 / 5.d0 * dexp(2.d0 * input%get_r()))
+     call input%put_gamma_2(- 1.d0 / 5.d0 + dexp(input%get_r_pt()) - 6.d0 / 5.d0 * dexp(2.d0 * input%get_r_pt()))
 
      ! Выделение памяти под результат
      call allocate_result(input, result)

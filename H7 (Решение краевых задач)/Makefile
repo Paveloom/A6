@@ -107,7 +107,9 @@
                     $(obj_path)read_input_s.o : $(obj_path)input_m.o
 
                     $(obj_path)get_l_s.o : $(obj_path)input_m.o
-                    $(obj_path)get_r_s.o : $(obj_path)input_m.o
+
+                    $(obj_path)get_r_pt_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_l_pt_s.o : $(obj_path)input_m.o
 
                     $(obj_path)get_n_pt_s.o : $(obj_path)input_m.o
 
