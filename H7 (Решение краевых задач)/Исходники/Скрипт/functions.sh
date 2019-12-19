@@ -89,6 +89,11 @@ done < $TEXT_FILE
 # Обновление, если необходимо, функций
 
 if [ ! "$P_MODULE_FUNCTION" = "${SPACES}p = $P_FUNCTION" ]; then
+
+     # Отмена специальных символов (*, -)
+
+     P_MODULE_FUNCTION=$(echo "$P_MODULE_FUNCTION" | sed "s:\*:\\\*:g")
+     P_MODULE_FUNCTION=$(echo "$P_MODULE_FUNCTION" | sed "s:\-:\\\-:g")
      
      # Функция p
      sed -i "15s/$P_MODULE_FUNCTION/${SPACES}p = $P_FUNCTION/" $MODULE_FULL_PATH
@@ -97,12 +102,22 @@ fi
 
 if [ ! "$Q_MODULE_FUNCTION" = "${SPACES}q = $Q_FUNCTION" ]; then
 
+     # Отмена специальных символов (*, -)
+
+     Q_MODULE_FUNCTION=$(echo "$Q_MODULE_FUNCTION" | sed "s:\*:\\\*:g")
+     Q_MODULE_FUNCTION=$(echo "$Q_MODULE_FUNCTION" | sed "s:\-:\\\-:g")
+
      # Функция q
      sed -i "22s/$Q_MODULE_FUNCTION/${SPACES}q = $Q_FUNCTION/" $MODULE_FULL_PATH
 
 fi
 
 if [ ! "$F_MODULE_FUNCTION" = "${SPACES}f = $F_FUNCTION" ]; then
+
+     # Отмена специальных символов (*, -)
+
+     F_MODULE_FUNCTION=$(echo "$F_MODULE_FUNCTION" | sed "s:\*:\\\*:g")
+     F_MODULE_FUNCTION=$(echo "$F_MODULE_FUNCTION" | sed "s:\-:\\\-:g")
 
      # Функция f
      sed -i "29s/$F_MODULE_FUNCTION/${SPACES}f = $F_FUNCTION/" $MODULE_FULL_PATH

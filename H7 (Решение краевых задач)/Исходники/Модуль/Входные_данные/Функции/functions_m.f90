@@ -12,21 +12,21 @@ implicit none
      real(RP) pure elemental function p(x)
      real(RP), intent(in) :: x ! Аргумент функции
 
-          p = -3.d0
+          p = -3._RP
           
      end function p
 
      real(RP) pure elemental function q(x)
      real(RP), intent(in) :: x ! Аргумент функции
 
-          q = 2.d0
+          q = 2._RP
           
      end function q
 
      real(RP) pure elemental function f(x)
      real(RP), intent(in) :: x ! Аргумент функции
 
-          f = -2.d0 * sin(x)
+          f = -2._RP * sin(x)
           
      end function f
      

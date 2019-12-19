@@ -28,10 +28,13 @@ implicit none
 
           ! Вспомогательные переменные
           integer(JP) :: i, im1
-          real(RP) :: hh, xph, xphh, &
-                    & ypkhh_1, zpkhh_1, &
-                    & ypkhh_2, zpkhh_2, &
-                    & ypkh, zpkh
+          real(RP) :: i_RP, hh, &
+                    & x_prev, y_prev, z_prev, &
+                    & xph, xphh, &
+                    & pxphh, qxphh, fxphh, &
+                    & ypk_1, zpk_1, &
+                    & ypk_2, zpk_2, &
+                    & ypk_3, zpk_3
 
           ! Получение числа разбиений промежутка
           n_pt => input%get_n_pt()
@@ -46,7 +49,7 @@ implicit none
           h = (input%get_r_pt() - input%get_l_pt()) / n_RP
 
           ! Вычисление половины шага
-          hh = h / 2.d0
+          hh = h / 2._RP
 
           ! Получение указателей на массивы
 
@@ -60,58 +63,65 @@ implicit none
 
                ! Вычисление вспомогательных переменных
 
+               i_RP = real(i, kind = RP)
                im1 = i - 1_JP
 
-               xph = x_pt(im1) + h
-               xphh = x_pt(im1) + hh
+               x_prev = x_pt(im1)
+               y_prev = y_pt(im1)
+               z_prev = z_pt(im1)
 
+               xph = x_prev + h
+               xphh = x_prev + hh
+
+               pxphh = p(xphh)
+               qxphh = q(xphh)
+               fxphh = f(xphh)
+ 
                ! Вычисление инкремента k1
 
-               k1(1) = y_pt(im1)
-               k1(2) = - p(x_pt(im1)) * z_pt(im1) - q(x_pt(im1)) * y_pt(im1) - f(x_pt(im1))
+               k1(1) = h * z_prev
+               k1(2) = h * ( - p(x_prev) * z_prev - q(x_prev) * y_prev - f(x_prev) )
 
                ! Вычисление вспомогательных переменных
 
-               ypkhh_1 = y_pt(im1) + hh * k1(1)
-               zpkhh_1 = z_pt(im1) + hh * k1(2)
+               ypk_1 = y_prev + k1(1) / 2._RP
+               zpk_1 = z_prev + k1(2) / 2._RP
 
                ! Вычисление инкремента k2
 
-               k2(1) = zpkhh_1
-               k2(2) = - p(xphh) * zpkhh_1 - q(xphh) * ypkhh_1 - f(xphh)
+               k2(1) = h * zpk_1
+               k2(2) = h * ( - pxphh * zpk_1 - qxphh * ypk_1 - fxphh )
 
                ! Вычисление вспомогательных переменных
 
-               ypkhh_2 = y_pt(im1) + hh * k2(1)
-               zpkhh_2 = z_pt(im1) + hh * k2(2)
+               ypk_2 = y_prev + k2(1) / 2._RP
+               zpk_2 = z_prev + k2(2) / 2._RP
 
                ! Вычисление инкремента k3
 
-               k3(1) = zpkhh_2
-               k3(2) = - p(xphh) * zpkhh_2 - q(xphh) * ypkhh_2 - f(xphh)
+               k3(1) = h * zpk_2
+               k3(2) = h * ( - pxphh * zpk_2 - qxphh * ypk_2 - fxphh )
 
                ! Вычисление вспомогательных переменных
 
-               ypkh = y_pt(im1) + h * k3(1)
-               zpkh = z_pt(im1) + h * k3(2)
+               ypk_3 = y_prev + k3(1)
+               zpk_3 = z_prev + k3(2)
 
                ! Вычисление инкремента k4
 
-               k4(1) = zpkh
-               k4(2) = - p(xph) * zpkh - q(xph) * ypkh - f(xph)
+               k4(1) = h * zpk_3
+               k4(2) = h * ( - p(xph) * zpk_3 - q(xph) * ypk_3 - f(xph) )
 
                ! Вычисление приближенных значений функций в текущей точке
 
-               y_pt(i) = y_pt(im1) + h / 6.d0 * ( k1(1) + 2.d0 * k2(1) + 2.d0 * k3(1) + k4(1) )
-               z_pt(i) = z_pt(im1) + h / 6.d0 * ( k1(2) + 2.d0 * k2(2) + 2.d0 * k3(2) + k4(2) )
+               y_pt(i) = y_prev + ( k1(1) + 2._RP * k2(1) + 2._RP * k3(1) + k4(1) ) / 6._RP
+               z_pt(i) = z_prev + ( k1(2) + 2._RP * k2(2) + 2._RP * k3(2) + k4(2) ) / 6._RP
 
                ! Вычисление значения текущего узла
-               x_pt(i) = input%get_l_pt() + h * i
+               x_pt(i) = input%get_l_pt() + h * i_RP
 
           enddo
 
-          write(*,'(i3, 4x, es25.16, 4x, es25.16, 4x, e25.16, 4x)') (i, x_pt(i), y_pt(i), z_pt(i), i = 0, n_JP)
-          
      end procedure runge_kutta
      
 end submodule runge_kutta_s

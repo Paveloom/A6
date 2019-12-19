@@ -98,8 +98,8 @@
 
           # Зависимости для модуля bvp
 
-     	$(obj_path)bvp.o : $(obj_path)input_m.o $(obj_path)settings_m.o $(obj_path)read_m.o $(obj_path)result_m.o \
-                             $(obj_path)bvp_solver_m.o
+     	$(obj_path)bvp.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)settings_m.o \
+                             $(obj_path)read_m.o $(obj_path)result_m.o $(obj_path)bvp_solver_m.o
 
                $(obj_path)input_m.o : $(obj_path)prec_m.o $(obj_path)settings_m.o $(obj_path)input_errors_m.o \
                                       $(obj_path)$(add_sub)_m.o

@@ -14,8 +14,8 @@ implicit none
      call read(input, settings, file = "input")
 
      ! Ручное задание некоторых входных данных
-     call input%put_r(4.d0 * datan(1.d0))
-     call input%put_gamma_2(- 1.d0 / 5.d0 + dexp(input%get_r_pt()) - 6.d0 / 5.d0 * dexp(2.d0 * input%get_r_pt()))
+     call input%put_r(4._RP * datan(1._RP))
+     call input%put_gamma_2(- 1._RP / 5._RP + dexp(input%get_r_pt()) - 6._RP / 5._RP * dexp(2._RP * input%get_r_pt()))
 
      ! Выделение памяти под результат
      call allocate_result(input, result)
