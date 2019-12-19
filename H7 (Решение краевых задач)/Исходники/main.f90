@@ -23,6 +23,9 @@ implicit none
      ! Решение краевой задачи
      call solve_bvp(input, settings, result)
 
+     ! Вывод результата
+     call write(result)
+
      ! Освобождение памяти из-под результата
      call deallocate(result)
 
