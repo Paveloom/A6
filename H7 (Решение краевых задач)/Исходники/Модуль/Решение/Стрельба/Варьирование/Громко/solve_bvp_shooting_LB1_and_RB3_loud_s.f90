@@ -1,13 +1,13 @@
-submodule ( solve_bvp_shooting_m ) solve_bvp_shooting_LB1_and_RB1_loud_s
+submodule ( solve_bvp_shooting_m ) solve_bvp_shooting_LB1_and_RB3_loud_s
 implicit none
      
      contains
      
      ! Процедура для получение решения краевой задачи
      ! при граничном условии первого рода на левой границе
-     ! и при граничном условии первого рода на правой границе
+     ! и при граничном условии третьего рода на правой границе
      ! (с дополнительным выводом)
-     module procedure solve_bvp_shooting_LB1_and_RB1_loud
+     module procedure solve_bvp_shooting_LB1_and_RB3_loud
           
           real(RP), pointer, dimension(:) :: x_pt ! Указатель на массив узловых точек
           real(RP), pointer, dimension(:) :: y_pt ! Указатель на массив значений искомой функции
@@ -19,10 +19,10 @@ implicit none
 
           real(RP) :: y_r_1 ! Значение y(r) при первом начальном значении z(l)
           real(RP) :: y_r_2 ! Значение y(r) при втором начальном значении z(l)
+          real(RP) :: z_r_1 ! Значение z(r) при первом начальном значении z(l)
+          real(RP) :: z_r_2 ! Значение z(r) при втором начальном значении z(l)
 
-          real(RP) :: y_r_target ! Ориентировочное значение y(r)
-
-          ! Погрешности первого и второго y(r) по сравнению с ориентировочным y(r)
+          ! Погрешности
           real(RP) :: eps_1, eps_2
 
           integer(IP), pointer :: n_pt ! Указатель на число разбиений промежутка
@@ -44,12 +44,6 @@ implicit none
           x_pt(0) = input%get_l()
           y_pt(0) = input%get_gamma_1_pt() / input%get_beta_1_pt()
 
-          ! Вычисление ориентировочного значения y(r)
-          y_r_target = input%get_gamma_2_pt() / input%get_beta_2_pt()
-
-          ! Вывод информации о текущем значении 
-          write(*,'(5x, a, 3x, '//RF//')') 'Ориентировочное значение y(r):', y_r_target
-
           ! Получение начальных значений для z(l)
 
           z_l_1 = settings%get_z_l_initial_1()
@@ -63,9 +57,10 @@ implicit none
 
           call runge_kutta(input, result)
 
-          ! Запись полученного y(r)
+          ! Запись полученных y(r) и z(r)
 
           y_r_1 = y_pt(n_pt)
+          z_r_1 = z_pt(n_pt)
 
           ! Присваивание второго начального значения z(l)
 
@@ -75,14 +70,15 @@ implicit none
 
           call runge_kutta(input, result)
 
-          ! Запись полученного y(r)
+          ! Запись полученных y(r) и z(r)
 
           y_r_2 = y_pt(n_pt)
+          z_r_2 = z_pt(n_pt)
 
           ! Вычисление погрешностей
           
-          eps_1 = y_r_1 - y_r_target
-          eps_2 = y_r_2 - y_r_target
+          eps_1 = input%get_alpha_2_pt() * z_r_1 + input%get_beta_2_pt() * y_r_1 - input%get_gamma_2_pt()
+          eps_2 = input%get_alpha_2_pt() * z_r_2 + input%get_beta_2_pt() * y_r_2 - input%get_gamma_2_pt()
 
           ! Использование метода секущих для
           ! определения более точного параметра
@@ -100,8 +96,9 @@ implicit none
           ! Вывод информации о результате
 
           write(*,'(5x, a, 8x, '//RF//')') 'Полученное значение y(r):', y_pt(n_pt)
+          write(*,'(5x, a, 8x, '//RF//')') 'Полученное значение z(r):', z_pt(n_pt)
           write(*,'(5x, a, 2x, '//RF//', /)') 'Подобранное значение параметра:', z_l_3
 
-     end procedure solve_bvp_shooting_LB1_and_RB1_loud
+     end procedure solve_bvp_shooting_LB1_and_RB3_loud
      
-end submodule solve_bvp_shooting_LB1_and_RB1_loud_s
+end submodule solve_bvp_shooting_LB1_and_RB3_loud_s

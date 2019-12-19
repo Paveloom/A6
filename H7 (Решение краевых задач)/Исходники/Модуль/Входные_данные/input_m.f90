@@ -37,13 +37,13 @@ implicit none
 
           procedure :: get_n_pt ! Функция для получения указателя на значение числа разбиений промежутка
 
-          procedure :: get_alpha_1 ! Функция для получения указателя на значение параметра alpha_1
           procedure :: get_beta_1  ! Функция для получения значения параметра beta_1
           procedure :: get_gamma_1 ! Функция для получения значения параметра gamma_1
-          procedure :: get_alpha_2 ! Функция для получения указателя на значение параметра alpha_2
 
+          procedure :: get_alpha_1_pt ! Функция для получения указателя на значение параметра alpha_1
           procedure :: get_beta_1_pt  ! Функция для получения указателя на значение параметра beta_1
           procedure :: get_gamma_1_pt ! Функция для получения указателя на значение параметра gamma_1
+          procedure :: get_alpha_2_pt ! Функция для получения указателя на значение параметра alpha_2
           procedure :: get_beta_2_pt  ! Функция для получения указателя на значение параметра beta_1
           procedure :: get_gamma_2_pt ! Функция для получения указателя на значение параметра gamma_1
 
@@ -108,13 +108,13 @@ implicit none
           end function get_n_pt
 
           ! Функция для получения указателя на значение alpha_1
-          module impure function get_alpha_1(input) result(alpha_1_pt)
+          module impure function get_alpha_1_pt(input) result(alpha_1_pt)
           implicit none
                
                class ( input_type ), target, intent(in) :: input ! Входные данные
                real(RP), pointer :: alpha_1_pt ! Указатель на значение параметра alpha_1
                
-          end function get_alpha_1
+          end function get_alpha_1_pt
 
           ! Функция для получения указателя на значение beta_1
           module impure function get_beta_1_pt(input) result(beta_1_pt)
@@ -153,13 +153,13 @@ implicit none
           end function get_gamma_1
 
           ! Функция для получения указателя на значение alpha_1
-          module impure function get_alpha_2(input) result(alpha_2_pt)
+          module impure function get_alpha_2_pt(input) result(alpha_2_pt)
           implicit none
                
                class ( input_type ), target, intent(in) :: input ! Входные данные
                real(RP), pointer :: alpha_2_pt ! Указатель на значение параметра alpha_2
                
-          end function get_alpha_2
+          end function get_alpha_2_pt
 
           ! Функция для получения указателя на значение beta_2
           module impure function get_beta_2_pt(input) result(beta_2_pt)

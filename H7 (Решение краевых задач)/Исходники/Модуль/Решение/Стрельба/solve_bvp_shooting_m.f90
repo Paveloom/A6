@@ -65,6 +65,214 @@ implicit none
 
           end subroutine solve_bvp_shooting_LB1_and_RB1_quiet
 
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии первого рода на левой границе
+          ! и при граничном условии второго рода на правой границе
+          ! (с дополнительным выводом)
+          module impure subroutine solve_bvp_shooting_LB1_and_RB2_loud(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB1_and_RB2_loud
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии первого рода на левой границе
+          ! и при граничном условии второго рода на правой границе
+          ! (без дополнительного вывода)
+          module impure subroutine solve_bvp_shooting_LB1_and_RB2_quiet(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB1_and_RB2_quiet
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии первого рода на левой границе
+          ! и при граничном условии третьего рода на правой границе
+          ! (с дополнительным выводом)
+          module impure subroutine solve_bvp_shooting_LB1_and_RB3_loud(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB1_and_RB3_loud
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии первого рода на левой границе
+          ! и при граничном условии третьего рода на правой границе
+          ! (без дополнительного вывода)
+          module impure subroutine solve_bvp_shooting_LB1_and_RB3_quiet(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB1_and_RB3_quiet
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии второго рода на левой границе
+          ! и при граничном условии первого рода на правой границе
+          ! (с дополнительным выводом)
+          module impure subroutine solve_bvp_shooting_LB2_and_RB1_loud(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB2_and_RB1_loud
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии второго рода на левой границе
+          ! и при граничном условии первого рода на правой границе
+          ! (без дополнительного вывода)
+          module impure subroutine solve_bvp_shooting_LB2_and_RB1_quiet(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB2_and_RB1_quiet
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии второго рода на левой границе
+          ! и при граничном условии второго рода на правой границе
+          ! (с дополнительным выводом)
+          module impure subroutine solve_bvp_shooting_LB2_and_RB2_loud(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB2_and_RB2_loud
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии второго рода на левой границе
+          ! и при граничном условии второго рода на правой границе
+          ! (без дополнительного вывода)
+          module impure subroutine solve_bvp_shooting_LB2_and_RB2_quiet(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB2_and_RB2_quiet
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии второго рода на левой границе
+          ! и при граничном условии третьего рода на правой границе
+          ! (с дополнительным выводом)
+          module impure subroutine solve_bvp_shooting_LB2_and_RB3_loud(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB2_and_RB3_loud
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии второго рода на левой границе
+          ! и при граничном условии третьего рода на правой границе
+          ! (без дополнительного вывода)
+          module impure subroutine solve_bvp_shooting_LB2_and_RB3_quiet(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB2_and_RB3_quiet
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии третьего рода на левой границе
+          ! и при граничном условии первого рода на правой границе
+          ! (с дополнительным выводом)
+          module impure subroutine solve_bvp_shooting_LB3_and_RB1_loud(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB3_and_RB1_loud
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии третьего рода на левой границе
+          ! и при граничном условии первого рода на правой границе
+          ! (без дополнительного вывода)
+          module impure subroutine solve_bvp_shooting_LB3_and_RB1_quiet(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB3_and_RB1_quiet
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии третьего рода на левой границе
+          ! и при граничном условии второго рода на правой границе
+          ! (с дополнительным выводом)
+          module impure subroutine solve_bvp_shooting_LB3_and_RB2_loud(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB3_and_RB2_loud
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии третьего рода на левой границе
+          ! и при граничном условии второго рода на правой границе
+          ! (без дополнительного вывода)
+          module impure subroutine solve_bvp_shooting_LB3_and_RB2_quiet(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB3_and_RB2_quiet
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии третьего рода на левой границе
+          ! и при граничном условии третьего рода на правой границе
+          ! (с дополнительным выводом)
+          module impure subroutine solve_bvp_shooting_LB3_and_RB3_loud(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB3_and_RB3_loud
+
+          ! Процедура для получение решения краевой задачи
+          ! при граничном условии третьего рода на левой границе
+          ! и при граничном условии третьего рода на правой границе
+          ! (без дополнительного вывода)
+          module impure subroutine solve_bvp_shooting_LB3_and_RB3_quiet(input, settings, result)
+          implicit none
+
+               type ( input_type ), intent(in) :: input ! Тип входных данных
+               type ( settings_type ), intent(in) :: settings ! Настройки программы
+               type ( result_type ), intent(inout) :: result ! Тип результата
+
+          end subroutine solve_bvp_shooting_LB3_and_RB3_quiet
+
      end interface
      
 end module solve_bvp_shooting_m

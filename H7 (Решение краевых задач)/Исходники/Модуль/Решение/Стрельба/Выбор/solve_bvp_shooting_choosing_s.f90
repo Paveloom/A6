@@ -24,12 +24,12 @@ implicit none
                     ! Правая граница: условие второго рода
                     case ( 2_IP )
 
-                         !call solve_bvp_shooting_with_LB1_and_RB2_loud(input, result)
+                         call solve_bvp_shooting_LB1_and_RB2_loud(input, settings, result)
 
                     ! Правая граница: условие третьего рода
                     case default
 
-                         !call solve_bvp_shooting_with_LB1_and_RB3_loud(input, result)
+                         call solve_bvp_shooting_LB1_and_RB3_loud(input, settings, result)
 
                     end select
 
@@ -41,17 +41,17 @@ implicit none
                     ! Правая граница: условие первого рода
                     case ( 1_IP )
 
-                         !call solve_bvp_shooting_with_LB2_and_RB1_loud(input, result)
+                         call solve_bvp_shooting_LB2_and_RB1_loud(input, settings, result)
 
                     ! Правая граница: условие второго рода
                     case ( 2_IP )
 
-                         !call solve_bvp_shooting_with_LB2_and_RB2_loud(input, result)
+                         call solve_bvp_shooting_LB2_and_RB2_loud(input, settings, result)
 
                     ! Правая граница: условие третьего рода
                     case default
 
-                         !call solve_bvp_shooting_with_LB2_and_RB3_loud(input, result)
+                         call solve_bvp_shooting_LB2_and_RB3_loud(input, settings, result)
 
                     end select
 
@@ -63,17 +63,17 @@ implicit none
                     ! Правая граница: условие первого рода
                     case ( 1_IP )
 
-                         !call solve_bvp_shooting_with_LB3_and_RB1_loud(input, result)
+                         call solve_bvp_shooting_LB3_and_RB1_loud(input, settings, result)
 
                     ! Правая граница: условие второго рода
                     case ( 2_IP )
 
-                         !call solve_bvp_shooting_with_LB3_and_RB2_loud(input, result)
+                         call solve_bvp_shooting_LB3_and_RB2_loud(input, settings, result)
 
                     ! Правая граница: условие третьего рода
                     case default
 
-                         !call solve_bvp_shooting_with_LB3_and_RB3_loud(input, result)
+                         call solve_bvp_shooting_LB3_and_RB3_loud(input, settings, result)
 
                     end select
 
@@ -96,12 +96,12 @@ implicit none
                     ! Правая граница: условие второго рода
                     case ( 2_IP )
 
-                         !call solve_bvp_shooting_with_LB1_and_RB2_quiet(input, result)
+                         call solve_bvp_shooting_LB1_and_RB2_quiet(input, settings, result)
 
                     ! Правая граница: условие третьего рода
                     case default
 
-                         !call solve_bvp_shooting_with_LB1_and_RB3_quiet(input, result)
+                         call solve_bvp_shooting_LB1_and_RB3_quiet(input, settings, result)
 
                     end select
 
@@ -113,17 +113,17 @@ implicit none
                     ! Правая граница: условие первого рода
                     case ( 1_IP )
 
-                         !call solve_bvp_shooting_with_LB2_and_RB1_quiet(input, result)
+                         call solve_bvp_shooting_LB2_and_RB1_quiet(input, settings, result)
 
                     ! Правая граница: условие второго рода
                     case ( 2_IP )
 
-                         !call solve_bvp_shooting_with_LB2_and_RB2_quiet(input, result)
+                         call solve_bvp_shooting_LB2_and_RB2_quiet(input, settings, result)
 
                     ! Правая граница: условие третьего рода
                     case default
 
-                         !call solve_bvp_shooting_with_LB2_and_RB3_quiet(input, result)
+                         call solve_bvp_shooting_LB2_and_RB3_quiet(input, settings, result)
 
                     end select
 
@@ -135,17 +135,17 @@ implicit none
                     ! Правая граница: условие первого рода
                     case ( 1_IP )
 
-                         !call solve_bvp_shooting_with_LB3_and_RB1_quiet(input, result)
+                         call solve_bvp_shooting_LB3_and_RB1_quiet(input, settings, result)
 
                     ! Правая граница: условие второго рода
                     case ( 2_IP )
 
-                         !call solve_bvp_shooting_with_LB3_and_RB2_quiet(input, result)
+                         call solve_bvp_shooting_LB3_and_RB2_quiet(input, settings, result)
 
                     ! Правая граница: условие третьего рода
                     case default
 
-                         !call solve_bvp_shooting_with_LB3_and_RB3_quiet(input, result)
+                         call solve_bvp_shooting_LB3_and_RB3_quiet(input, settings, result)
 
                     end select
 
