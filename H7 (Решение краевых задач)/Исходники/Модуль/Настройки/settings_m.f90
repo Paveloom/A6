@@ -51,6 +51,18 @@ implicit none
           ! Показывать вывод на итерациях метода стрельбы?
           logical(LP) :: do_show_shooting_output
 
+          ! Первое начальное значение при вариации y(l)
+          real(RP) :: y_l_initial_1
+
+          ! Второе начальное значение при вариации y(l)
+          real(RP) :: y_l_initial_2
+
+          ! Первое начальное значение при вариации z(l)
+          real(RP) :: z_l_initial_1
+
+          ! Второе начальное значение при вариации z(l)
+          real(RP) :: z_l_initial_2
+
           contains
 
           procedure :: get_do_read_l ! Функция для получения указателя на ответ на вопрос:
@@ -85,6 +97,18 @@ implicit none
 
           procedure :: get_do_show_shooting_output ! Функция для получения указателя на ответ на вопрос:
                                                    ! показывать вывод на итерациях метода стрельбы?
+
+          procedure :: get_y_l_initial_1 ! Функция для получения значения
+                                         ! первого начального значения при вариации y(l)
+
+          procedure :: get_y_l_initial_2 ! Функция для получения значения
+                                         ! второго начального значения при вариации y(l)
+
+          procedure :: get_z_l_initial_1 ! Функция для получения значения
+                                         ! первого начального значения при вариации z(l)
+
+          procedure :: get_z_l_initial_2 ! Функция для получения значения
+                                         ! второго начального значения при вариации z(l)
 
      end type settings_type
 
@@ -208,6 +232,46 @@ implicit none
                logical(LP), pointer :: do_show_shooting_output_pt ! Показывать вывод на итерациях метода стрельбы?
           
           end function get_do_show_shooting_output
+
+          ! Функция для получения значения
+          ! первого начального значения при вариации y(l)
+          module impure function get_y_l_initial_1(settings) result(y_l_initial_1)
+          implicit none
+          
+               class ( settings_type ), target, intent(in) :: settings ! Настройки программы
+               real(RP) :: y_l_initial_1 ! Значение первого начального значения при вариации y(l)
+          
+          end function get_y_l_initial_1
+
+          ! Функция для получения значения
+          ! второго начального значения при вариации y(l)
+          module impure function get_y_l_initial_2(settings) result(y_l_initial_2)
+          implicit none
+          
+               class ( settings_type ), target, intent(in) :: settings ! Настройки программы
+               real(RP) :: y_l_initial_2 ! Значение второго начального значения при вариации y(l)
+          
+          end function get_y_l_initial_2
+
+          ! Функция для получения значения
+          ! первого начального значения при вариации z(l)
+          module impure function get_z_l_initial_1(settings) result(z_l_initial_1)
+          implicit none
+          
+               class ( settings_type ), target, intent(in) :: settings ! Настройки программы
+               real(RP) :: z_l_initial_1 ! Значение первого начального значения при вариации z(l)
+          
+          end function get_z_l_initial_1
+
+          ! Функция для получения значения
+          ! второго начального значения при вариации z(l)
+          module impure function get_z_l_initial_2(settings) result(z_l_initial_2)
+          implicit none
+          
+               class ( settings_type ), target, intent(in) :: settings ! Настройки программы
+               real(RP) :: z_l_initial_2 ! Значение второго начального значения при вариации z(l)
+          
+          end function get_z_l_initial_2
      
      end interface
      

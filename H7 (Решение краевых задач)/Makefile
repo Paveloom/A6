@@ -114,14 +114,14 @@
                     $(obj_path)get_n_pt_s.o : $(obj_path)input_m.o
 
                     $(obj_path)get_alpha_1_s.o : $(obj_path)input_m.o
-                    $(obj_path)get_alpha_1_pt_s.o : $(obj_path)input_m.o
                     $(obj_path)get_beta_1_s.o : $(obj_path)input_m.o
                     $(obj_path)get_beta_1_pt_s.o : $(obj_path)input_m.o
                     $(obj_path)get_gamma_1_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_gamma_1_pt_s.o : $(obj_path)input_m.o
 
                     $(obj_path)get_alpha_2_s.o : $(obj_path)input_m.o
-                    $(obj_path)get_beta_2_s.o : $(obj_path)input_m.o
-                    $(obj_path)get_gamma_2_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_beta_2_pt_s.o : $(obj_path)input_m.o
+                    $(obj_path)get_gamma_2_pt_s.o : $(obj_path)input_m.o
 
                     $(obj_path)put_l_s.o : $(obj_path)input_m.o
                     $(obj_path)put_r_s.o : $(obj_path)input_m.o
@@ -156,6 +156,12 @@
                     $(obj_path)get_input_params_err_s.o : $(obj_path)settings_m.o
      			$(obj_path)get_do_show_bvp_solver_output_s.o : $(obj_path)settings_m.o
 
+                    $(obj_path)get_y_l_initial_1_s.o : $(obj_path)settings_m.o
+                    $(obj_path)get_y_l_initial_2_s.o : $(obj_path)settings_m.o
+
+                    $(obj_path)get_z_l_initial_1_s.o : $(obj_path)settings_m.o
+                    $(obj_path)get_z_l_initial_2_s.o : $(obj_path)settings_m.o
+
                          $(obj_path)log_settings_error_s.o : $(obj_path)settings_errors_m.o
 
      		$(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_errors_m.o
@@ -188,7 +194,9 @@
                          $(obj_path)solve_bvp_shooting_choosing_s.o : $(obj_path)solve_bvp_shooting_m.o
      				$(obj_path)runge_kutta_s.o : $(obj_path)solve_bvp_shooting_m.o
 
-                         $(obj_path)solve_bvp_shooting_with_LB1_and_RB1_loud_s.o : $(obj_path)solve_bvp_shooting_m.o
+                         $(obj_path)solve_bvp_shooting_LB1_and_RB1_loud_s.o : $(obj_path)solve_bvp_shooting_m.o
+
+                         $(obj_path)solve_bvp_shooting_LB1_and_RB1_quiet_s.o : $(obj_path)solve_bvp_shooting_m.o
      
      # Определение флагов компилятора
      

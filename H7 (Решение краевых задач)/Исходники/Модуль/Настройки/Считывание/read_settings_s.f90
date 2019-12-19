@@ -68,6 +68,26 @@ implicit none
           read( unit = unit, fmt = *, iostat = stat ) settings%do_show_shooting_output
           if ( stat .ne. 0_SP ) call log_settings_error('WR_do_show_shooting_output', file) ! Проверка на ошибку считывания
 
+          ! Считывание значения для первого начального значения при вариации y(l)
+          read( unit = unit, fmt = '(/)' )
+          read( unit = unit, fmt = *, iostat = stat ) settings%y_l_initial_1
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_y_l_initial_1', file) ! Проверка на ошибку считывания
+
+          ! Считывание значения для второго начального значения при вариации y(l)
+          read( unit = unit, fmt = '(/)' )
+          read( unit = unit, fmt = *, iostat = stat ) settings%y_l_initial_2
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_y_l_initial_2', file) ! Проверка на ошибку считывания
+
+          ! Считывание значения для первого начального значения при вариации z(l)
+          read( unit = unit, fmt = '(/)' )
+          read( unit = unit, fmt = *, iostat = stat ) settings%z_l_initial_1
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_z_l_initial_1', file) ! Проверка на ошибку считывания
+
+          ! Считывание значения для второго начального значения при вариации z(l)
+          read( unit = unit, fmt = '(/)' )
+          read( unit = unit, fmt = *, iostat = stat ) settings%z_l_initial_2
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_z_l_initial_2', file) ! Проверка на ошибку считывания
+
           ! Закрытие файла
           close( unit = unit, iostat = stat )
           if ( stat .ne. 0_SP ) call log_settings_error('WC', file) ! Проверка на ошибку закрытия файла

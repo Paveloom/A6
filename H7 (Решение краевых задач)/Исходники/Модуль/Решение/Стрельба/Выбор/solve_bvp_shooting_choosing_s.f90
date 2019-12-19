@@ -19,7 +19,7 @@ implicit none
                     ! Правая граница: условие первого рода
                     case ( 1_IP )
 
-                         call solve_bvp_shooting_with_LB1_and_RB1_loud(input, result)
+                         call solve_bvp_shooting_LB1_and_RB1_loud(input, settings, result)
 
                     ! Правая граница: условие второго рода
                     case ( 2_IP )
@@ -91,7 +91,7 @@ implicit none
                     ! Правая граница: условие первого рода
                     case ( 1_IP )
 
-                         !call solve_bvp_shooting_with_LB1_and_RB1_quiet(input, result)
+                         call solve_bvp_shooting_LB1_and_RB1_quiet(input, settings, result)
 
                     ! Правая граница: условие второго рода
                     case ( 2_IP )
