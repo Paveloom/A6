@@ -96,7 +96,7 @@ if [ ! "$P_MODULE_FUNCTION" = "${SPACES}p = $P_FUNCTION" ]; then
      P_MODULE_FUNCTION=$(echo "$P_MODULE_FUNCTION" | sed "s:\-:\\\-:g")
      
      # Функция p
-     sed -i "15s/$P_MODULE_FUNCTION/${SPACES}p = $P_FUNCTION/" $MODULE_FULL_PATH
+     sed -i'' -e "15s/$P_MODULE_FUNCTION/${SPACES}p = $P_FUNCTION/" $MODULE_FULL_PATH
 
 fi
 
@@ -108,7 +108,7 @@ if [ ! "$Q_MODULE_FUNCTION" = "${SPACES}q = $Q_FUNCTION" ]; then
      Q_MODULE_FUNCTION=$(echo "$Q_MODULE_FUNCTION" | sed "s:\-:\\\-:g")
 
      # Функция q
-     sed -i "22s/$Q_MODULE_FUNCTION/${SPACES}q = $Q_FUNCTION/" $MODULE_FULL_PATH
+     sed -i'' -e "22s/$Q_MODULE_FUNCTION/${SPACES}q = $Q_FUNCTION/" $MODULE_FULL_PATH
 
 fi
 
@@ -120,6 +120,6 @@ if [ ! "$F_MODULE_FUNCTION" = "${SPACES}f = $F_FUNCTION" ]; then
      F_MODULE_FUNCTION=$(echo "$F_MODULE_FUNCTION" | sed "s:\-:\\\-:g")
 
      # Функция f
-     sed -i "29s/$F_MODULE_FUNCTION/${SPACES}f = $F_FUNCTION/" $MODULE_FULL_PATH
+     sed -i'' -e "29s/$F_MODULE_FUNCTION/${SPACES}f = $F_FUNCTION/" $MODULE_FULL_PATH
 
 fi
