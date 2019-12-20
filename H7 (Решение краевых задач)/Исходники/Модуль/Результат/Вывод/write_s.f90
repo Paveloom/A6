@@ -27,7 +27,7 @@ implicit none
                                                             & Вывод результата невозможен.'
                stop
 
-          elseif ( .not. allocated(result%z) ) then
+          elseif ( (result%method_number .eq. 1_IP) .and. .not. allocated(result%z) ) then
 
                write(*,'(/, 5x, a, /, 5x, a, /)') 'write:', 'Массив значений производной искомой функции z не был размещен.&
                                                             & Вывод результата невозможен.'
@@ -46,11 +46,34 @@ implicit none
 
           ! Вывод заголовка
           write(*,'(/, 5x, a, /)') 'Результат:'
-          write(*,'('//f1//'x, 5x, a, 13x, a, 21x, a, 20x, a )') '#', 'x', 'y(x)', 'z(x)'
 
-          ! Вывод строчек результата
-          write(*,'('//f1//'x, 3x, i'//f1//', 2x, '//RF//', 2x, '//RF//', 2x, '//RF//')') (i, result%x(i), result%y(i), result%z(i), i = 0_JP, n_JP)
+          ! Проверка номера метода
+
+          if (result%method_number .eq. 1_IP) then
+
+               ! Вывод строки с обозначениями
+               write(*,'('//f1//'x, 5x, a, 13x, a, 21x, a, 20x, a )') '#', 'x', 'y(x)', 'z(x)'
+
+               ! Вывод строчек результата
+               write(*,'('//f1//'x, 3x, i'//f1//', 2x, '//RF//', 2x, '//RF//', 2x, '//RF//')') &
+               & (i, result%x(i), result%y(i), result%z(i), i = 0_JP, n_JP)
           
+          elseif (result%method_number .eq. 2_IP) then
+
+               ! Вывод строки с обозначениями
+               write(*,'('//f1//'x, 5x, a, 13x, a, 21x, a )') '#', 'x', 'y(x)'
+
+               ! Вывод строчек результата
+               write(*,'('//f1//'x, 3x, i'//f1//', 2x, '//RF//', 2x, '//RF//')') &
+               & (i, result%x(i), result%y(i), i = 0_JP, n_JP)
+
+          else
+
+               write(*,'(/, 5x, a)') 'write_s:'
+               write(*,'(5x, a, /)') 'Номер метода не был заложен в результат. Проверьте, была ли вызвана процедура решения краевой задачи.'
+
+          endif
+
           ! Добавление пустой строки
           write(*,'()')
 

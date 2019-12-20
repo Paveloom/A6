@@ -33,46 +33,63 @@ implicit none
           ! Проверка, близки ли параметры alpha_2 и beta_2 к нулю
           if ( alpha_2_is_near_zero .and. beta_2_is_near_zero ) call log_bvp_error("WBR")
 
-          ! Определение типа граничного условия на левой границе
+          ! Выбор метода для решения задачи
 
-          if ( .not. alpha_1_is_near_zero .and. .not. beta_1_is_near_zero ) then
-               
-               ! Граничное условие третьего рода
-               LT = 3_IP
+          if ( settings%get_method_number() .eq. 1 ) then ! Метод стрельбы
 
-          elseif ( beta_1_is_near_zero ) then
-               
-               ! Граничное условие второго рода
-               LT = 2_IP
+               ! Определение типа граничного условия на левой границе
+
+               if ( .not. alpha_1_is_near_zero .and. .not. beta_1_is_near_zero ) then
+                    
+                    ! Граничное условие третьего рода
+                    LT = 3_IP
+
+               elseif ( beta_1_is_near_zero ) then
+                    
+                    ! Граничное условие второго рода
+                    LT = 2_IP
+
+               else
+                    
+                    ! Граничное условие первого рода
+                    LT = 1_IP
+
+               endif
+
+               ! Определение типа граничного условия на правой границе
+
+               if ( .not. alpha_2_is_near_zero .and. .not. beta_2_is_near_zero ) then
+                    
+                    ! Граничное условие третьего рода
+                    RT = 3_IP
+
+               elseif ( beta_2_is_near_zero ) then
+                    
+                    ! Граничное условие второго рода
+                    RT = 2_IP
+
+               else
+                    
+                    ! Граничное условие первого рода
+                    RT = 1_IP
+
+               endif
+
+               ! Выбор и вызов необходимой варьирующей процедуры
+               call solve_bvp_shooting_choosing(input, settings, LT, RT, result)
+
+          elseif ( settings%get_method_number() .eq. 2 ) then ! Метод прогонки
+
+               ! Вызов процедуры метода прогонки
+               call solve_bvp_tma(input, settings, result)
 
           else
-               
-               ! Граничное условие первого рода
-               LT = 1_IP
-               
+
+               write(*,'(/, 5x, a, /)') 'Неизвестный номер метода. Проверьте правильность введенных данных в файле настроек.'
+
+               stop
+
           endif
-
-          ! Определение типа граничного условия на правой границе
-
-          if ( .not. alpha_2_is_near_zero .and. .not. beta_2_is_near_zero ) then
-               
-               ! Граничное условие третьего рода
-               RT = 3_IP
-
-          elseif ( beta_2_is_near_zero ) then
-               
-               ! Граничное условие второго рода
-               RT = 2_IP
-
-          else
-               
-               ! Граничное условие первого рода
-               RT = 1_IP
-               
-          endif
-
-          ! Выбор и вызов необходимой варьирующей процедуры
-          call solve_bvp_shooting_choosing(input, settings, LT, RT, result)
           
      end procedure solve_bvp_quiet
      

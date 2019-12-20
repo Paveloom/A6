@@ -148,6 +148,14 @@ implicit none
                                                                              & правильность введенных данных.'
                     stop
 
+               case ('WR_method_number') ! Встречается read_settings_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_settings_error:', 'Не удалось считать номер метода&
+                                                                             & для решения краевой задачи&
+                                                                             & из файла '//file//'. Проверьте&
+                                                                             & правильность введенных данных.'
+                    stop
+
                case ('WC') ! Встречается read_settings_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_settings_error:', 'Не удалось закрыть файл '//file//'&

@@ -21,6 +21,26 @@ implicit none
                                                                         & Краевое условие на правой границе задано неверно.'
                     stop
 
+               case ('WA_alpha') ! Встречается в solve_bvp_tma_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_bvp_error:', 'Не удалось выделить память под массив alpha.'
+                    stop
+
+               case ('WA_beta') ! Встречается в solve_bvp_tma_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_bvp_error:', 'Не удалось выделить память под массив beta.'
+                    stop
+
+               case ('WD_alpha') ! Встречается в solve_bvp_tma_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_bvp_error:', 'Не удалось освободить память из-под массива alpha.'
+                    stop
+
+               case ('WD_beta') ! Встречается в solve_bvp_tma_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_bvp_error:', 'Не удалось выделить память из-под массива beta.'
+                    stop
+
                case default
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_bvp_error:', 'Неизвестный код ошибки.'

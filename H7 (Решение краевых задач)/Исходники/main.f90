@@ -14,11 +14,11 @@ implicit none
      call read(input, settings, file = "input")
 
      ! Ручное задание некоторых входных данных
-     call input%put_r(4._RP * datan(1._RP))
-     call input%put_gamma_2(- 1._RP / 5._RP + dexp(input%get_r_pt()) - 6._RP / 5._RP * dexp(2._RP * input%get_r_pt()))
+     call input%put_r(4._RP * atan(1._RP))
+     call input%put_gamma_2(- 1._RP / 5._RP + exp(input%get_r_pt()) - 6._RP / 5._RP * exp(2._RP * input%get_r_pt()))
 
      ! Выделение памяти под результат
-     call allocate_result(input, result)
+     call allocate(input, settings, result)
 
      ! Решение краевой задачи
      call solve_bvp(input, settings, result)

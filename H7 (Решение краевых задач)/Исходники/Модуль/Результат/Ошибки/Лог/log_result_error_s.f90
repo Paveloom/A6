@@ -10,19 +10,19 @@ implicit none
 
                case ('WA_x') ! Встречается в allocate_result_s
 
-                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось выделить память под матрицу x&
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось выделить память под массив x&
                                                                            & для объекта типа result_type.'
                     stop
 
                case ('WA_y') ! Встречается в allocate_result_s
 
-                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось выделить память под матрицу y&
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось выделить память под массив y&
                                                                            & для объекта типа result_type.'
                     stop
 
                case ('WA_z') ! Встречается в allocate_result_s
 
-                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось выделить память под матрицу z&
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось выделить память под массив z&
                                                                            & для объекта типа result_type.'
                     stop
 

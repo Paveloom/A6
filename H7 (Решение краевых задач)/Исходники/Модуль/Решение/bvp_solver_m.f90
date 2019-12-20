@@ -12,6 +12,8 @@ use bvp_errors_m, only : log_bvp_error ! Процедура для вывода 
 use solve_bvp_shooting_m, only : solve_bvp_shooting_choosing ! Процедура для выбора и 
                                                              ! вызова необходимой 
                                                              ! варьирующей процедуры
+                                                             ! (метод стрельбы)
+use solve_bvp_tma_m, only : solve_bvp_tma ! Процедура метода прогонки
 implicit none
      
      private

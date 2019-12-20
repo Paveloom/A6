@@ -1,6 +1,7 @@
 module settings_m ! Модуль, содержащий тип настроек программы и процедуры,
                   ! связанные с объектами этого типа
 use prec_m, only : RP, & ! Точность вещественных чисел, используемых в программе
+                 & IP, & ! Точность целых чисел, используемых в программе
                  & SP, & ! Точность целого числа статусной переменной
                  & UP, & ! Точность целого числа номера дескриптора файла
                  & LP    ! Число байт для хранения логической переменной
@@ -63,6 +64,9 @@ implicit none
           ! Второе начальное значение при вариации z(l)
           real(RP) :: z_l_initial_2
 
+          ! Метод решения краевой задачи (1 — метод стрельбы; 2 — метод прогонки)
+          integer(IP) :: method_number
+
           contains
 
           procedure :: get_do_read_l ! Функция для получения указателя на ответ на вопрос:
@@ -109,6 +113,9 @@ implicit none
 
           procedure :: get_z_l_initial_2 ! Функция для получения значения
                                          ! второго начального значения при вариации z(l)
+
+          procedure :: get_method_number ! Функция для получения номера
+                                         ! метода для решения краевой задачи
 
      end type settings_type
 
@@ -272,6 +279,16 @@ implicit none
                real(RP) :: z_l_initial_2 ! Значение второго начального значения при вариации z(l)
           
           end function get_z_l_initial_2
+
+          ! Функция для получения номера
+          ! метода для решения краевой задачи
+          module impure function get_method_number(settings) result(method_number)
+          implicit none
+          
+               class ( settings_type ), target, intent(in) :: settings ! Настройки программы
+               integer(IP) :: method_number ! Номер метода для решения краевой задачи
+          
+          end function get_method_number
      
      end interface
      

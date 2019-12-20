@@ -75,7 +75,8 @@
                  Результат/Получение/ Результат/Выделение/ Результат/Освобождение/ Результат/Вывод/ \
                  Решение/ Решение/Ошибки/ Решение/Ошибки/Лог/ \
                  Решение/Род/ Решение/Стрельба/ Решение/Стрельба/Выбор/ Решение/Стрельба/Рунге-Кутта/ \
-                 Решение/Стрельба/Варьирование/Громко/ Решение/Стрельба/Варьирование/Тихо/
+                 Решение/Стрельба/Варьирование/Громко/ Решение/Стрельба/Варьирование/Тихо/ \
+                 Решение/Прогонка/ Решение/Прогонка/Процедура/
 
      subs := Прослойка/ \
              Модуль/ $(addprefix Модуль/, $(bvp_subs))
@@ -163,15 +164,21 @@
                     $(obj_path)get_z_l_initial_1_s.o : $(obj_path)settings_m.o
                     $(obj_path)get_z_l_initial_2_s.o : $(obj_path)settings_m.o
 
+                    $(obj_path)get_method_number_s.o : $(obj_path)settings_m.o
+
                          $(obj_path)log_settings_error_s.o : $(obj_path)settings_errors_m.o
 
-     		$(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)result_errors_m.o
+     		$(obj_path)result_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)settings_m.o \
+                                       $(obj_path)result_errors_m.o
 
                     $(obj_path)allocate_result_s.o : $(obj_path)result_m.o
 
      			$(obj_path)get_x_pt_s.o : $(obj_path)result_m.o
      			$(obj_path)get_y_pt_s.o : $(obj_path)result_m.o
      			$(obj_path)get_z_pt_s.o : $(obj_path)result_m.o
+
+                    $(obj_path)put_method_number_result_s : $(obj_path)result_m.o
+                    $(obj_path)get_method_number_result_s : $(obj_path)result_m.o
 
                     $(obj_path)write_s.o : $(obj_path)result_m.o
 
@@ -181,7 +188,7 @@
 
                $(obj_path)bvp_solver_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)settings_m.o \
                                            $(obj_path)result_m.o $(obj_path)bvp_errors_m.o \
-                                           $(obj_path)solve_bvp_shooting_m.o
+                                           $(obj_path)solve_bvp_shooting_m.o $(obj_path)solve_bvp_tma_m.o
 
                     $(obj_path)solve_bvp_s.o : $(obj_path)bvp_solver_m.o
                     $(obj_path)solve_bvp_loud_s.o : $(obj_path)bvp_solver_m.o
@@ -218,6 +225,11 @@
                          $(obj_path)solve_bvp_shooting_LB3_and_RB1_quiet_s.o : $(obj_path)solve_bvp_shooting_m.o
                          $(obj_path)solve_bvp_shooting_LB3_and_RB2_quiet_s.o : $(obj_path)solve_bvp_shooting_m.o
                          $(obj_path)solve_bvp_shooting_LB3_and_RB3_quiet_s.o : $(obj_path)solve_bvp_shooting_m.o
+
+                    $(obj_path)solve_bvp_tma_m.o : $(obj_path)prec_m.o $(obj_path)input_m.o $(obj_path)settings_m.o \
+                                                   $(obj_path)result_m.o
+
+                         $(obj_path)solve_bvp_tma_s.o : $(obj_path)solve_bvp_tma_m.o
      
      # Определение флагов компилятора
      

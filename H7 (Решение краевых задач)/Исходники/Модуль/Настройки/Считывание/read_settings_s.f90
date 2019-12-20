@@ -88,6 +88,11 @@ implicit none
           read( unit = unit, fmt = *, iostat = stat ) settings%z_l_initial_2
           if ( stat .ne. 0_SP ) call log_settings_error('WR_z_l_initial_2', file) ! Проверка на ошибку считывания
 
+          ! Считывание номера метода для решения краевой задачи
+          read( unit = unit, fmt = '(/)' )
+          read( unit = unit, fmt = *, iostat = stat ) settings%method_number
+          if ( stat .ne. 0_SP ) call log_settings_error('WR_method_number', file) ! Проверка на ошибку считывания
+
           ! Закрытие файла
           close( unit = unit, iostat = stat )
           if ( stat .ne. 0_SP ) call log_settings_error('WC', file) ! Проверка на ошибку закрытия файла

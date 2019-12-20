@@ -12,14 +12,18 @@ implicit none
           ! Получение указателя на число разбиений промежутка
           n_pt => input%get_n_pt()
 
-          allocate( result%x(0:n_pt), stat = stat ) ! Выделение памяти под матрицу x объекта
+          allocate( result%x(0:n_pt), stat = stat ) ! Выделение памяти под массив x объекта
           if ( stat .ne. 0_SP ) call log_result_error('WA_x') ! Проверка на ошибку выделения памяти
 
-          allocate( result%y(0:n_pt), stat = stat ) ! Выделение памяти под матрицу y объекта
+          allocate( result%y(0:n_pt), stat = stat ) ! Выделение памяти под массив y объекта
           if ( stat .ne. 0_SP ) call log_result_error('WA_y') ! Проверка на ошибку выделения памяти
 
-          allocate( result%z(0:n_pt), stat = stat ) ! Выделение памяти под матрицу z объекта
-          if ( stat .ne. 0_SP ) call log_result_error('WA_z') ! Проверка на ошибку выделения памяти
+          if ( settings%get_method_number() .eq. 1_IP ) then
+
+               allocate( result%z(0:n_pt), stat = stat ) ! Выделение памяти под массив z объекта
+               if ( stat .ne. 0_SP ) call log_result_error('WA_z') ! Проверка на ошибку выделения памяти
+
+          endif
           
      end procedure allocate_result
      
